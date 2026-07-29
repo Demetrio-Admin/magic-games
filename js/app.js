@@ -1,4 +1,22 @@
 const EXTERNAL_ASSETS={"c4hero": "assets/backgrounds/c4hero.svg", "warehouse": "assets/backgrounds/warehouse.svg", "lab": "assets/backgrounds/lab.svg", "greenhouse": "assets/backgrounds/greenhouse.svg", "hunger": "assets/backgrounds/hunger.svg", "root": "assets/backgrounds/root.svg", "ritualist": "assets/backgrounds/ritualist.svg", "apartment": "assets/backgrounds/apartment.svg", "shop": "assets/backgrounds/shop.svg", "yard": "assets/backgrounds/yard.svg", "roof": "assets/backgrounds/roof.svg", "home": "assets/backgrounds/home.svg", "c2home": "assets/backgrounds/c2home.svg", "morven": "assets/characters/morven.svg", "liora": "assets/characters/liora.svg", "celeste": "assets/characters/celeste.svg", "eren": "assets/characters/eren.svg", "nika": "assets/characters/nika.svg", "selesta": "assets/characters/celeste.svg"};
+const ART_V3_SCENES={
+  c2home:"assets/art-v3/parents-home.webp",
+  apartment:"assets/art-v3/parents-home.webp",
+  shop:"assets/art-v3/alchemy-lab.webp",
+  yard:"assets/art-v3/neighbor-yard.webp",
+  c2alchemy:"assets/art-v3/alchemy-lab.webp",
+  c4hero:"assets/art-v3/alchemy-lab.webp",
+  warehouse:"assets/art-v3/neighbor-yard.webp",
+  lab:"assets/art-v3/alchemy-lab.webp",
+  greenhouse:"assets/art-v3/neighbor-yard.webp"
+};
+const ART_V3_PORTRAITS={
+  morven:"assets/art-v3/morven.webp",
+  liora:"assets/art-v3/liora.webp",
+  celeste:"assets/art-v3/celeste.webp",
+  selesta:"assets/art-v3/celeste.webp",
+  nika:"assets/art-v3/nika.webp"
+};
 
 (function () {
   'use strict';
@@ -2514,6 +2532,8 @@ const EXTERNAL_ASSETS={"c4hero": "assets/backgrounds/c4hero.svg", "warehouse": "
   const artV2Data=(svg)=>`url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
   function artV2Insert(node,key){
     if(!node||node.querySelector(':scope > .vp-art-v2'))return;
+    const artV3=ART_V3_SCENES[key];
+    if(artV3){node.insertAdjacentHTML('afterbegin',`<div class="vp-art-v2 art-v3"><img src="${artV3}" alt="" loading="eager"></div>`);return;}
     const src=EXTERNAL_ASSETS[key];
     if(src){node.insertAdjacentHTML('afterbegin',`<div class="vp-art-v2"><img src="${src}" alt="" loading="lazy"></div>`);return;}
     if(ART_V2[key])node.insertAdjacentHTML('afterbegin',`<div class="vp-art-v2">${ART_V2[key]}</div>`);
@@ -2533,8 +2553,8 @@ const EXTERNAL_ASSETS={"c4hero": "assets/backgrounds/c4hero.svg", "warehouse": "
     document.querySelectorAll('.c4-invest-scene.warehouse').forEach(n=>artV2Insert(n,'warehouse'));
     document.querySelectorAll('.c4-invest-scene.lab').forEach(n=>artV2Insert(n,'lab'));
     document.querySelectorAll('.c4-invest-scene.greenhouse').forEach(n=>artV2Insert(n,'greenhouse'));
-    document.querySelectorAll('.companion-card').forEach(card=>{const p=card.querySelector('.companion-portrait');if(!p||p.dataset.artv2)return;const t=(card.textContent||'').toLowerCase();const key=t.includes('морвен')?'morven':t.includes('лиора')?'liora':t.includes('селест')?'celeste':t.includes('эрен')?'eren':t.includes('ника')?'nika':null;if(key&&ART_V2_PORTRAITS[key]){p.innerHTML=`<div class="artv2-portrait">${ART_V2_PORTRAITS[key]}</div>`;p.dataset.artv2='1';}});
-    document.querySelectorAll('.party-slot').forEach(slot=>{const p=slot.querySelector('.party-avatar');if(!p||p.dataset.artv2)return;const t=(slot.textContent||'').toLowerCase();const key=t.includes('морвен')?'morven':t.includes('лиора')?'liora':t.includes('селест')?'celeste':t.includes('эрен')?'eren':t.includes('ника')?'nika':null;if(key&&ART_V2_PORTRAITS[key]){p.innerHTML=`<div class="artv2-portrait">${ART_V2_PORTRAITS[key]}</div>`;p.dataset.artv2='1';}});
+    document.querySelectorAll('.companion-card').forEach(card=>{const p=card.querySelector('.companion-portrait');if(!p||p.dataset.artv2)return;const t=(card.textContent||'').toLowerCase();const key=card.dataset.companion||(t.includes('морвен')?'morven':t.includes('лиора')?'liora':t.includes('селест')?'celeste':t.includes('эрен')?'eren':t.includes('ника')?'nika':null);if(key&&ART_V3_PORTRAITS[key]){p.innerHTML=`<img class="art-v3-portrait" src="${ART_V3_PORTRAITS[key]}" alt="">`;p.dataset.artv2='1';}else if(key&&ART_V2_PORTRAITS[key]){p.innerHTML=`<div class="artv2-portrait">${ART_V2_PORTRAITS[key]}</div>`;p.dataset.artv2='1';}});
+    document.querySelectorAll('.party-slot').forEach(slot=>{const p=slot.querySelector('.party-avatar');if(!p||p.dataset.artv2)return;const t=(slot.textContent||'').toLowerCase();const key=t.includes('морвен')?'morven':t.includes('лиора')?'liora':t.includes('селест')?'celeste':t.includes('эрен')?'eren':t.includes('ника')?'nika':null;if(key&&ART_V3_PORTRAITS[key]){p.innerHTML=`<img class="art-v3-portrait" src="${ART_V3_PORTRAITS[key]}" alt="">`;p.dataset.artv2='1';}else if(key&&ART_V2_PORTRAITS[key]){p.innerHTML=`<div class="artv2-portrait">${ART_V2_PORTRAITS[key]}</div>`;p.dataset.artv2='1';}});
   }
   const artV2RenderGame=renderGame;
   renderGame=function(){artV2RenderGame();requestAnimationFrame(()=>requestAnimationFrame(artV2Decorate));};
@@ -2632,4 +2652,3 @@ const EXTERNAL_ASSETS={"c4hero": "assets/backgrounds/c4hero.svg", "warehouse": "
   requestAnimationFrame(v112EnhanceBattleUI);
 
 })();
-
