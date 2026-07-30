@@ -1,0 +1,585 @@
+/* =========================================================
+   ALCHEMY UI v1 — mobile-first preparation flow
+   Adds one readable scroll area, large touch targets and
+   explicit preparation state without changing game logic.
+   ========================================================= */
+
+:root{
+  --aui-violet:#c99aeb;
+  --aui-blue:#8db6e3;
+  --aui-green:#91cfad;
+  --aui-amber:#e6be7f;
+  --aui-red:#df8e9e;
+  --aui-surface:rgba(25,20,34,.96);
+  --aui-surface-strong:#17121f;
+  --aui-line:rgba(222,203,238,.17);
+  --aui-line-strong:rgba(208,169,234,.38);
+  --aui-radius:15px;
+}
+
+/* One scroll owner. The chapter shell/footer remain fixed by the existing layout. */
+.alchemy-screen-active .c2-main,
+.alchemy-screen-active .c4-main{
+  min-height:0!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+  scroll-padding-bottom:28px;
+  padding-bottom:22px!important;
+}
+.alchemy-screen-active .c2-alchemy,
+.alchemy-screen-active .c4-alchemy{
+  height:auto!important;
+  min-height:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:9px!important;
+}
+.alchemy-screen-active .c2-alchemy-body,
+.alchemy-screen-active .c4-alchemy-body{
+  min-height:0!important;
+  overflow:visible!important;
+}
+.alchemy-screen-active .c4-scroll{
+  height:auto!important;
+  min-height:100%!important;
+  overflow:visible!important;
+}
+.alchemy-screen-active .c2-footer,
+.alchemy-screen-active .c4-footer{
+  position:relative!important;
+  z-index:40!important;
+  box-shadow:0 -12px 30px rgba(0,0,0,.42);
+}
+.alchemy-screen-active .c2-footer button,
+.alchemy-screen-active .c4-footer button{
+  min-height:50px!important;
+}
+
+/* Decorative layers never steal taps from controls. */
+.alchemy-screen-active .direct-art-bg,
+.alchemy-screen-active .c2-alchemy-hero::before,
+.alchemy-screen-active .c2-alchemy-hero::after,
+.alchemy-screen-active .c4-alchemy::before,
+.alchemy-screen-active .c4-alchemy::after{
+  pointer-events:none!important;
+}
+
+/* Stage strip */
+.aui-stage-strip{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:6px;
+  padding:7px;
+  border:1px solid var(--aui-line);
+  border-radius:16px;
+  background:linear-gradient(145deg,rgba(31,24,41,.97),rgba(14,12,20,.98));
+  box-shadow:0 12px 30px rgba(0,0,0,.22);
+}
+.aui-stage{
+  min-width:0;
+  min-height:59px;
+  padding:8px 7px;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:11px;
+  background:rgba(255,255,255,.025);
+  color:var(--muted);
+}
+.aui-stage-head{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.aui-stage-index{
+  width:22px;
+  height:22px;
+  flex:0 0 22px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.08);
+  color:var(--faint);
+  font-size:9px;
+  font-weight:900;
+}
+.aui-stage b{
+  min-width:0;
+  display:block;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  color:#d6ccdE;
+  font-size:9px;
+  line-height:1.2;
+}
+.aui-stage small{
+  display:block;
+  margin-top:5px;
+  color:var(--faint);
+  font-size:7px;
+  line-height:1.25;
+}
+.aui-stage.current{
+  border-color:rgba(201,154,235,.48);
+  background:rgba(201,154,235,.08);
+  box-shadow:inset 0 0 18px rgba(201,154,235,.05);
+}
+.aui-stage.current .aui-stage-index{
+  color:#f2e7fb;
+  border-color:rgba(201,154,235,.48);
+  background:rgba(201,154,235,.18);
+}
+.aui-stage.done{
+  border-color:rgba(145,207,173,.29);
+  background:rgba(145,207,173,.06);
+}
+.aui-stage.done .aui-stage-index{
+  color:var(--aui-green);
+  border-color:rgba(145,207,173,.38);
+  background:rgba(145,207,173,.11);
+}
+.aui-stage.done b{color:#c5e7d4}
+
+/* Hero art: atmospheric, but never taller than the useful controls. */
+.alchemy-screen-active .c2-alchemy-hero{
+  min-height:190px!important;
+  max-height:245px;
+  border-radius:18px!important;
+}
+.alchemy-screen-active .c2-alchemy-hero-copy{
+  max-width:min(76%,340px)!important;
+  padding:12px!important;
+}
+.alchemy-screen-active .c2-alchemy-hero-copy h2{
+  font-size:clamp(21px,6vw,29px)!important;
+  line-height:1.04!important;
+}
+.alchemy-screen-active .c2-alchemy-hero-copy p{
+  font-size:9px!important;
+  line-height:1.42!important;
+}
+.alchemy-screen-active .c2-alchemy-meter-note{
+  margin-top:8px!important;
+  padding:7px 8px!important;
+  border-radius:9px!important;
+  font-size:7px!important;
+}
+
+/* Recipe and workbench */
+.alchemy-screen-active .c2-recipe,
+.alchemy-screen-active .c2-alchemy-body,
+.alchemy-screen-active .c4-alchemy-body,
+.alchemy-screen-active .c4-panel{
+  border-color:var(--aui-line)!important;
+}
+.alchemy-screen-active .c2-alchemy-body,
+.alchemy-screen-active .c4-alchemy-body{
+  padding:12px!important;
+  background:
+    radial-gradient(circle at 92% 0%,rgba(201,154,235,.08),transparent 32%),
+    linear-gradient(145deg,rgba(29,23,38,.98),rgba(13,11,18,.99))!important;
+}
+.alchemy-screen-active .c2-alchemy-body h3,
+.alchemy-screen-active .c4-alchemy-body h3{
+  margin:15px 0 8px!important;
+  color:#eee5f3!important;
+  font-size:11px!important;
+  line-height:1.25!important;
+}
+.alchemy-screen-active .c2-alchemy-body h3:first-child,
+.alchemy-screen-active .c4-alchemy-body h3:first-child{
+  margin-top:2px!important;
+}
+
+/* Ingredient cards */
+.alchemy-screen-active .c2-ingredient-grid,
+.alchemy-screen-active .c4-ingredient-grid{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:7px!important;
+}
+.alchemy-screen-active .c2-ingredient,
+.alchemy-screen-active .c4-ingredient{
+  position:relative;
+  min-height:76px!important;
+  padding:11px 10px!important;
+  border:1px solid var(--aui-line)!important;
+  border-radius:13px!important;
+  background:linear-gradient(155deg,#251d30,#15111d)!important;
+  color:var(--text)!important;
+  text-align:left!important;
+  touch-action:manipulation;
+  opacity:1!important;
+  transition:transform .14s ease,border-color .14s ease,background .14s ease;
+}
+.alchemy-screen-active .c2-ingredient:active:not(:disabled),
+.alchemy-screen-active .c4-ingredient:active:not(:disabled){
+  transform:scale(.985);
+}
+.alchemy-screen-active .c2-ingredient strong,
+.alchemy-screen-active .c4-ingredient b{
+  display:block!important;
+  padding-right:26px;
+  color:#f0e8f4!important;
+  font-size:10px!important;
+  line-height:1.25!important;
+}
+.alchemy-screen-active .c2-ingredient span:not(.aui-choice-index),
+.alchemy-screen-active .c4-ingredient span:not(.aui-choice-index){
+  display:block!important;
+  margin-top:5px!important;
+  color:var(--muted)!important;
+  font-size:8px!important;
+  line-height:1.35!important;
+}
+.alchemy-screen-active .c2-ingredient.used,
+.alchemy-screen-active .c4-ingredient.used{
+  border-color:rgba(145,207,173,.5)!important;
+  background:linear-gradient(155deg,rgba(39,75,58,.9),rgba(20,37,30,.98))!important;
+  color:#d8f1e3!important;
+}
+.aui-choice-index{
+  position:absolute;
+  top:8px;
+  right:8px;
+  width:23px;
+  height:23px;
+  display:grid!important;
+  place-items:center;
+  margin:0!important;
+  border-radius:50%;
+  border:1px solid rgba(145,207,173,.46);
+  background:rgba(145,207,173,.13);
+  color:var(--aui-green)!important;
+  font-size:9px!important;
+  font-weight:900;
+}
+
+/* Selected order */
+.alchemy-screen-active .c2-order,
+.alchemy-screen-active .c4-order{
+  min-height:48px!important;
+  margin-top:8px!important;
+  padding:7px!important;
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:5px!important;
+  overflow:visible!important;
+  border:1px dashed rgba(222,203,238,.25)!important;
+  border-radius:12px!important;
+  background:rgba(4,4,8,.17);
+}
+.alchemy-screen-active .c2-order span,
+.alchemy-screen-active .c4-order span{
+  min-width:0!important;
+  padding:7px 8px!important;
+  border:1px solid rgba(201,154,235,.18);
+  border-radius:9px!important;
+  background:rgba(201,154,235,.08)!important;
+  color:#e1d5e8;
+  font-size:8px!important;
+  line-height:1.25;
+  white-space:normal!important;
+}
+.alchemy-screen-active .c2-order em,
+.alchemy-screen-active .c4-order em{
+  width:100%;
+  align-self:center;
+  color:var(--faint);
+  font-size:8px!important;
+}
+.alchemy-screen-active .c2-text-button{
+  min-height:38px;
+  margin-top:4px!important;
+  padding:0 8px;
+  border-radius:9px;
+  text-decoration:none!important;
+}
+.alchemy-screen-active .c2-text-button:focus-visible{
+  outline:2px solid var(--aui-violet);
+  outline-offset:2px;
+}
+
+/* Temperature */
+.alchemy-screen-active .c2-temp,
+.alchemy-screen-active .c4-temp{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:6px!important;
+  margin-bottom:0!important;
+}
+.alchemy-screen-active .c2-temp button,
+.alchemy-screen-active .c4-temp button{
+  min-height:48px!important;
+  padding:6px!important;
+  border:1px solid var(--aui-line)!important;
+  border-radius:11px!important;
+  background:#15111d!important;
+  color:var(--muted)!important;
+  font-size:9px!important;
+  font-weight:850!important;
+  touch-action:manipulation;
+}
+.alchemy-screen-active .c2-temp button.active,
+.alchemy-screen-active .c4-temp button.active{
+  border-color:rgba(230,190,127,.62)!important;
+  background:linear-gradient(180deg,#4c3924,#2a2118)!important;
+  color:#f5dba8!important;
+  box-shadow:0 0 0 2px rgba(230,190,127,.07);
+}
+
+/* Charge / timing gauge */
+.alchemy-screen-active .c2-charge,
+.alchemy-screen-active .c4-charge{
+  position:relative!important;
+  height:76px!important;
+  margin:0 0 8px!important;
+  overflow:hidden!important;
+  border:1px solid rgba(141,182,227,.25)!important;
+  border-radius:14px!important;
+  background:
+    repeating-linear-gradient(90deg,transparent 0 9.7%,rgba(255,255,255,.025) 10% 10.3%),
+    linear-gradient(180deg,#0e1018,#090a0f)!important;
+  cursor:pointer;
+  touch-action:manipulation;
+  -webkit-user-select:none;
+  user-select:none;
+}
+.alchemy-screen-active .c2-charge:focus-visible,
+.alchemy-screen-active .c4-charge:focus-visible{
+  outline:2px solid var(--aui-blue);
+  outline-offset:2px;
+}
+.alchemy-screen-active .c2-charge .sweet,
+.alchemy-screen-active .c4-charge .sweet{
+  top:0!important;
+  bottom:0!important;
+  left:55%!important;
+  width:20%!important;
+  background:linear-gradient(180deg,rgba(145,207,173,.2),rgba(145,207,173,.08))!important;
+  border-inline:1px solid rgba(145,207,173,.52)!important;
+  box-shadow:inset 0 0 17px rgba(145,207,173,.08);
+}
+.alchemy-screen-active .c2-charge-marker,
+.alchemy-screen-active .c4-charge-marker{
+  top:9px!important;
+  bottom:9px!important;
+  width:7px!important;
+  z-index:3;
+  border-radius:999px!important;
+  background:linear-gradient(180deg,#ffffff,#8db6e3)!important;
+  box-shadow:0 0 18px rgba(141,182,227,.85)!important;
+}
+.aui-track-label,
+.aui-track-hint{
+  position:absolute;
+  z-index:2;
+  pointer-events:none;
+}
+.aui-track-label{
+  left:65%;
+  top:7px;
+  transform:translateX(-50%);
+  padding:3px 5px;
+  border-radius:6px;
+  background:rgba(9,12,12,.58);
+  color:#bce1cc;
+  font-size:6px;
+  font-weight:900;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.aui-track-hint{
+  left:8px;
+  right:8px;
+  bottom:6px;
+  color:#8d8497;
+  font-size:7px;
+  line-height:1.2;
+  text-align:center;
+}
+.alchemy-screen-active [data-action="chapter2-stop-charge"],
+.alchemy-screen-active [data-action="c4-charge"]{
+  width:100%;
+  min-height:48px!important;
+}
+
+/* Readiness summary */
+.aui-readiness{
+  margin-top:11px;
+  padding:10px;
+  border:1px solid var(--aui-line);
+  border-radius:13px;
+  background:rgba(255,255,255,.025);
+}
+.aui-readiness-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:10px;
+}
+.aui-readiness-head b{
+  color:#eee4f3;
+  font-size:10px;
+}
+.aui-readiness-head span{
+  flex:0 0 auto;
+  padding:4px 7px;
+  border:1px solid rgba(230,190,127,.25);
+  border-radius:999px;
+  background:rgba(230,190,127,.07);
+  color:var(--aui-amber);
+  font-size:7px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+}
+.aui-readiness.ready{
+  border-color:rgba(145,207,173,.34);
+  background:rgba(145,207,173,.045);
+}
+.aui-readiness.ready .aui-readiness-head span{
+  border-color:rgba(145,207,173,.33);
+  background:rgba(145,207,173,.09);
+  color:var(--aui-green);
+}
+.aui-checks{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:5px;
+  margin-top:8px;
+}
+.aui-check{
+  min-width:0;
+  padding:7px 6px;
+  border:1px solid rgba(255,255,255,.065);
+  border-radius:9px;
+  color:var(--faint);
+  font-size:7px;
+  line-height:1.3;
+}
+.aui-check.done{
+  border-color:rgba(145,207,173,.22);
+  color:#b9dcc8;
+  background:rgba(145,207,173,.045);
+}
+.aui-readiness p{
+  margin:8px 0 0;
+  color:var(--muted);
+  font-size:8px;
+  line-height:1.4;
+}
+
+/* Chapter 4 formula cards are part of the same preparation journey. */
+.alchemy-ui-v1 .c4-recipe-grid{
+  gap:8px!important;
+}
+.alchemy-ui-v1 .c4-recipe{
+  min-height:128px!important;
+  padding:12px!important;
+  border-radius:14px!important;
+  touch-action:manipulation;
+}
+.alchemy-ui-v1 .c4-recipe.active{
+  box-shadow:0 0 0 2px rgba(230,190,127,.08),0 12px 28px rgba(0,0,0,.22)!important;
+}
+.alchemy-ui-v1 .c4-recipe b{
+  font-size:10px!important;
+  line-height:1.25!important;
+}
+.alchemy-ui-v1 .c4-recipe span{
+  font-size:8px!important;
+  line-height:1.4!important;
+}
+
+/* Results */
+.alchemy-result-active .c2-potion-result,
+.alchemy-result-active .c4-quality{
+  position:relative;
+  overflow:hidden;
+  padding:22px 15px!important;
+  border-radius:18px!important;
+  box-shadow:0 18px 45px rgba(0,0,0,.25);
+}
+.alchemy-result-active .c2-potion-result::after,
+.alchemy-result-active .c4-quality::after{
+  content:"";
+  position:absolute;
+  width:170px;
+  height:170px;
+  right:-72px;
+  top:-78px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:50%;
+  pointer-events:none;
+}
+.aui-result-badge{
+  display:inline-flex;
+  align-items:center;
+  min-height:27px;
+  margin-bottom:8px;
+  padding:0 9px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:999px;
+  background:rgba(5,6,8,.22);
+  color:#ded5e4;
+  font-size:7px;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.aui-result-badge.excellent{color:#bde5ce;border-color:rgba(145,207,173,.34)}
+.aui-result-badge.stable,
+.aui-result-badge.basic{color:#f0d09c;border-color:rgba(230,190,127,.34)}
+.aui-result-badge.unstable{color:#efb3bf;border-color:rgba(223,142,158,.35)}
+
+/* Small devices and short browser viewports */
+@media(max-width:370px){
+  .aui-stage-strip{gap:4px;padding:5px}
+  .aui-stage{min-height:56px;padding:7px 5px}
+  .aui-stage-head{gap:4px}
+  .aui-stage-index{width:20px;height:20px;flex-basis:20px}
+  .aui-stage b{font-size:8px}
+  .aui-stage small{font-size:6px}
+  .alchemy-screen-active .c2-ingredient-grid,
+  .alchemy-screen-active .c4-ingredient-grid{
+    grid-template-columns:1fr!important;
+  }
+  .alchemy-screen-active .c2-ingredient,
+  .alchemy-screen-active .c4-ingredient{
+    min-height:67px!important;
+  }
+  .aui-checks{grid-template-columns:1fr}
+}
+@media(max-height:700px){
+  .alchemy-screen-active .c2-alchemy-hero{
+    min-height:145px!important;
+    max-height:170px!important;
+  }
+  .alchemy-screen-active .c2-alchemy-hero-copy p,
+  .alchemy-screen-active .c2-alchemy-meter-note{
+    display:none!important;
+  }
+  .alchemy-screen-active .c2-alchemy-hero-copy h2{
+    margin-bottom:0!important;
+    font-size:21px!important;
+  }
+  .aui-stage{min-height:52px}
+  .alchemy-screen-active .c2-charge,
+  .alchemy-screen-active .c4-charge{
+    height:68px!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .alchemy-screen-active .c2-charge-marker,
+  .alchemy-screen-active .c4-charge-marker{
+    animation-duration:4.5s!important;
+  }
+  .alchemy-screen-active .c2-ingredient,
+  .alchemy-screen-active .c4-ingredient{
+    transition:none!important;
+  }
+}
