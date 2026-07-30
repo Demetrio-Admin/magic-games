@@ -1,0 +1,444 @@
+/* Magic RPG — Core Screens v1
+   Hub, cases, inventory, companions, journal, codex and laboratory.
+   Loaded after Design System v1 and Mobile Layout v1.1. */
+
+:root {
+  --core-content-max: 492px;
+  --core-page-pad: clamp(12px, 3.8vw, 18px);
+  --core-section-gap: 22px;
+  --core-card-pad: clamp(14px, 4vw, 18px);
+  --core-feature-radius: 22px;
+  --core-tap: 48px;
+}
+
+body.core-screens-v1 {
+  background:
+    radial-gradient(circle at 50% -12%, rgba(138, 88, 180, .14), transparent 32%),
+    #040307;
+}
+
+/* Shared page rhythm */
+body.core-screens-v1 .game-shell > #screen-content > .screen,
+body.core-screens-v1 .game-shell > .screen {
+  padding-inline: var(--core-page-pad);
+  padding-top: 12px;
+  padding-bottom: max(34px, calc(24px + env(safe-area-inset-bottom)));
+}
+
+body.core-screens-v1 .screen-header {
+  align-items: flex-start;
+  margin: 4px 2px 18px;
+}
+body.core-screens-v1 .screen-header h1 {
+  font-size: clamp(28px, 8vw, 36px);
+  line-height: 1.02;
+  letter-spacing: -.025em;
+}
+body.core-screens-v1 .screen-header p {
+  max-width: 36ch;
+  margin-top: 7px;
+  font-size: 12px;
+  line-height: 1.45;
+}
+body.core-screens-v1 .section-title {
+  margin-top: var(--core-section-gap);
+  margin-bottom: 10px;
+}
+body.core-screens-v1 .section-title h2 {
+  font-size: 15px;
+  line-height: 1.2;
+}
+body.core-screens-v1 .section-title span {
+  max-width: 48%;
+  line-height: 1.25;
+  text-align: right;
+}
+
+/* Top chrome */
+body.core-screens-v1 .topbar {
+  min-height: calc(66px + env(safe-area-inset-top));
+  padding-inline: var(--core-page-pad);
+  background:
+    linear-gradient(180deg, rgba(10, 8, 15, .98), rgba(10, 8, 15, .90));
+  border-bottom-color: rgba(219, 196, 235, .12);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, .24);
+}
+body.core-screens-v1 .hero-sigil {
+  width: 42px;
+  height: 42px;
+}
+body.core-screens-v1 .hero-meta strong { font-size: 14px; }
+body.core-screens-v1 .hero-meta small { font-size: 10px; }
+body.core-screens-v1 .currency-pill,
+body.core-screens-v1 .icon-button {
+  min-height: 40px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .045);
+}
+body.core-screens-v1 .icon-button { width: 40px; }
+
+/* Bottom navigation */
+body.core-screens-v1 .bottom-nav {
+  padding: 7px 8px calc(7px + env(safe-area-inset-bottom));
+  gap: 3px;
+  background: rgba(8, 7, 12, .97);
+  border-top-color: rgba(223, 201, 239, .13);
+  box-shadow: 0 -14px 36px rgba(0, 0, 0, .30);
+}
+body.core-screens-v1 .nav-button {
+  min-height: 54px;
+  border-radius: 13px;
+  gap: 4px;
+  font-size: 9px;
+  transition: background .16s ease, color .16s ease, transform .16s ease;
+}
+body.core-screens-v1 .nav-button svg { width: 21px; height: 21px; }
+body.core-screens-v1 .nav-button.active {
+  color: #e2bcf5;
+  background: linear-gradient(180deg, rgba(184, 122, 225, .14), rgba(184, 122, 225, .06));
+  box-shadow: inset 0 0 0 1px rgba(199, 151, 231, .12);
+}
+
+/* Feature scene / main hub */
+body.core-screens-v1 .home-scene {
+  min-height: clamp(270px, 41vh, 330px);
+  height: auto;
+  border-radius: var(--core-feature-radius);
+  border-color: rgba(218, 190, 234, .18);
+  box-shadow: 0 20px 55px rgba(0, 0, 0, .42);
+}
+body.core-screens-v1 .home-scene .scene-copy {
+  left: 18px;
+  right: 18px;
+  top: 18px;
+  max-width: min(68%, 320px);
+}
+body.core-screens-v1 .home-scene .scene-copy h1 {
+  max-width: 10ch;
+  font-size: clamp(27px, 8vw, 35px);
+  line-height: 1.03;
+}
+body.core-screens-v1 .home-scene .scene-copy p {
+  max-width: 30ch;
+  margin-top: 9px;
+  font-size: 11px;
+  line-height: 1.45;
+}
+body.core-screens-v1 .morwen-bubble {
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  min-height: 58px;
+  padding: 12px 14px 12px 50px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(17, 13, 22, .94), rgba(10, 9, 14, .88));
+  border-color: rgba(223, 189, 238, .22);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .30);
+  text-align: left;
+}
+body.core-screens-v1 .morwen-bubble::before {
+  content: "М";
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  width: 28px;
+  height: 28px;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #edd9a5;
+  background: radial-gradient(circle at 35% 30%, #65516f, #17121d 66%);
+  border: 1px solid rgba(224, 194, 236, .22);
+  font: 800 12px Georgia, serif;
+}
+
+/* Main quest hierarchy */
+body.core-screens-v1 .quest-card,
+body.core-screens-v1 .case-card,
+body.core-screens-v1 .recipe-card,
+body.core-screens-v1 .codex-card,
+body.core-screens-v1 .hero-panel {
+  padding: var(--core-card-pad);
+}
+body.core-screens-v1 .quest-card {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(194, 143, 226, .24);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(181, 113, 218, .17), transparent 34%),
+    linear-gradient(145deg, rgba(34, 26, 44, .97), rgba(15, 13, 20, .98));
+  box-shadow: 0 16px 42px rgba(0, 0, 0, .27);
+}
+body.core-screens-v1 .quest-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: linear-gradient(180deg, #d6a0f0, #6d4b8e);
+}
+body.core-screens-v1 .quest-card h3 {
+  font-size: clamp(19px, 5.5vw, 23px);
+  line-height: 1.12;
+}
+body.core-screens-v1 .quest-card p {
+  max-width: 46ch;
+  font-size: 11px;
+  line-height: 1.5;
+}
+body.core-screens-v1 .quest-progress { margin-top: 16px; }
+body.core-screens-v1 .progress-track { height: 7px; }
+body.core-screens-v1 .card-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+  gap: 9px;
+  margin-top: 16px;
+}
+body.core-screens-v1 .card-actions > * { width: 100%; }
+
+/* Quick actions */
+body.core-screens-v1 .quick-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+}
+body.core-screens-v1 .quick-card {
+  min-height: 104px;
+  padding: 12px 8px;
+  border-radius: 17px;
+  background:
+    radial-gradient(circle at 50% 12%, rgba(183, 128, 224, .10), transparent 45%),
+    linear-gradient(145deg, rgba(30, 23, 39, .96), rgba(14, 12, 19, .98));
+}
+body.core-screens-v1 .quick-card svg { width: 26px; height: 26px; }
+body.core-screens-v1 .quick-card strong {
+  margin-top: 9px;
+  font-size: 11px;
+  line-height: 1.15;
+}
+body.core-screens-v1 .quick-card small {
+  margin-top: 4px;
+  font-size: 8px;
+  line-height: 1.3;
+}
+
+/* Rooms */
+body.core-screens-v1 .room-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+body.core-screens-v1 .room-card {
+  min-height: 132px;
+  padding: 14px;
+  border-radius: 18px;
+  background:
+    linear-gradient(145deg, rgba(29, 23, 38, .97), rgba(14, 12, 19, .98));
+}
+body.core-screens-v1 .room-card h3 {
+  margin-top: 27px;
+  font-size: 14px;
+  line-height: 1.2;
+}
+body.core-screens-v1 .room-card p {
+  margin-top: 5px;
+  font-size: 9px;
+  line-height: 1.35;
+}
+body.core-screens-v1 .room-card.locked {
+  opacity: .52;
+  filter: saturate(.35);
+}
+
+/* Cases */
+body.core-screens-v1 .case-card {
+  border-radius: 19px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(167, 108, 207, .10), transparent 33%),
+    linear-gradient(145deg, rgba(28, 22, 36, .97), rgba(14, 12, 19, .98));
+}
+body.core-screens-v1 .case-card h3 {
+  font-size: 20px;
+  line-height: 1.14;
+}
+body.core-screens-v1 .case-card p { font-size: 11px; }
+body.core-screens-v1 .filter-row {
+  gap: 8px;
+  margin: 0 calc(var(--core-page-pad) * -1);
+  padding: 2px var(--core-page-pad) 7px;
+  scroll-padding-inline: var(--core-page-pad);
+}
+body.core-screens-v1 .filter-chip {
+  min-height: 40px;
+  padding-inline: 14px;
+  font-size: 10px;
+}
+
+/* Inventory */
+body.core-screens-v1 .inventory-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+body.core-screens-v1 .item-card {
+  min-height: 166px;
+  padding: 13px;
+  border-radius: 18px;
+}
+body.core-screens-v1 .item-art {
+  height: 74px;
+  border-radius: 14px;
+}
+body.core-screens-v1 .item-card h3 {
+  margin-top: 11px;
+  font-size: 12px;
+  line-height: 1.25;
+}
+body.core-screens-v1 .item-card p {
+  margin-top: 4px;
+  font-size: 9px;
+  line-height: 1.3;
+}
+
+/* Party */
+body.core-screens-v1 .party-strip {
+  gap: 9px;
+}
+body.core-screens-v1 .party-slot {
+  min-height: 104px;
+  border-radius: 17px;
+}
+body.core-screens-v1 .party-avatar {
+  width: 48px;
+  height: 48px;
+}
+body.core-screens-v1 .companion-list { gap: 10px; }
+body.core-screens-v1 .companion-card {
+  grid-template-columns: 66px minmax(0, 1fr) auto;
+  gap: 13px;
+  border-radius: 19px;
+}
+body.core-screens-v1 .companion-portrait {
+  width: 66px;
+  height: 80px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+body.core-screens-v1 .companion-card h3 {
+  font-size: 15px;
+  line-height: 1.2;
+}
+body.core-screens-v1 .companion-card p {
+  font-size: 9px;
+  line-height: 1.42;
+}
+
+/* Journal */
+body.core-screens-v1 .timeline { gap: 11px; }
+body.core-screens-v1 .timeline::before { left: 19px; }
+body.core-screens-v1 .chapter-row {
+  min-height: 92px;
+  padding: 15px 15px 15px 52px;
+  border-radius: 18px;
+}
+body.core-screens-v1 .chapter-dot {
+  left: 11px;
+  top: 18px;
+  width: 18px;
+  height: 18px;
+}
+body.core-screens-v1 .chapter-row h3 {
+  margin-top: 7px;
+  font-size: 14px;
+  line-height: 1.25;
+}
+body.core-screens-v1 .chapter-row p {
+  margin-top: 5px;
+  font-size: 9px;
+  line-height: 1.4;
+}
+body.core-screens-v1 .stats-grid { gap: 10px; }
+body.core-screens-v1 .stat-card {
+  min-height: 82px;
+  padding: 14px;
+}
+
+/* Laboratory / codex / spells */
+body.core-screens-v1 .recipe-card,
+body.core-screens-v1 .codex-card,
+body.core-screens-v1 .spell-card,
+body.core-screens-v1 .hero-panel {
+  border-radius: 19px;
+}
+body.core-screens-v1 .codex-list { gap: 10px; }
+body.core-screens-v1 .codex-head {
+  grid-template-columns: 58px minmax(0, 1fr);
+}
+body.core-screens-v1 .codex-glyph {
+  width: 58px;
+  height: 68px;
+}
+body.core-screens-v1 .spell-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+body.core-screens-v1 .spell-card {
+  min-height: 144px;
+  padding: 14px;
+}
+
+/* Stable interaction states */
+body.core-screens-v1 :where(.quick-card,.room-card,.case-card button,.item-card,.companion-card,.chapter-row button,.party-slot,.filter-chip) {
+  touch-action: manipulation;
+}
+body.core-screens-v1 :where(.quick-card,.room-card,.item-card,.companion-card,.filter-chip):active {
+  transform: scale(.985);
+}
+body.core-screens-v1 :where(button,[role="button"]):focus-visible {
+  outline: 2px solid #dbacf2;
+  outline-offset: 3px;
+}
+
+/* Narrow phones */
+@media (max-width: 370px) {
+  :root { --core-page-pad: 10px; }
+  body.core-screens-v1 .topbar { padding-inline: 10px; }
+  body.core-screens-v1 .currency-pill { padding-inline: 7px; }
+  body.core-screens-v1 .home-scene { min-height: 262px; }
+  body.core-screens-v1 .home-scene .scene-copy { max-width: 72%; }
+  body.core-screens-v1 .home-scene .scene-copy p { font-size: 10px; }
+  body.core-screens-v1 .quick-grid { gap: 6px; }
+  body.core-screens-v1 .quick-card { min-height: 96px; padding-inline: 5px; }
+  body.core-screens-v1 .quick-card strong { font-size: 10px; }
+  body.core-screens-v1 .quick-card small { font-size: 7px; }
+  body.core-screens-v1 .room-card { min-height: 122px; padding: 12px; }
+  body.core-screens-v1 .companion-card { grid-template-columns: 58px minmax(0, 1fr) auto; gap: 10px; padding: 12px; }
+  body.core-screens-v1 .companion-portrait { width: 58px; height: 72px; }
+}
+
+@media (max-width: 340px) {
+  body.core-screens-v1 .quick-grid { grid-template-columns: 1fr; }
+  body.core-screens-v1 .quick-card {
+    min-height: var(--core-tap);
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    column-gap: 10px;
+    text-align: left;
+  }
+  body.core-screens-v1 .quick-card svg { grid-row: 1 / 3; align-self: center; }
+  body.core-screens-v1 .quick-card strong { margin-top: 0; }
+  body.core-screens-v1 .room-grid,
+  body.core-screens-v1 .inventory-grid,
+  body.core-screens-v1 .spell-grid { grid-template-columns: 1fr; }
+}
+
+/* Short screens: preserve content, never hide controls */
+@media (max-height: 650px) {
+  body.core-screens-v1 .home-scene { min-height: 250px; }
+  body.core-screens-v1 .home-scene .scene-copy h1 { font-size: 27px; }
+  body.core-screens-v1 .section-title { margin-top: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.core-screens-v1 :where(.nav-button,.quick-card,.room-card,.item-card,.companion-card,.filter-chip) {
+    transition: none !important;
+  }
+}

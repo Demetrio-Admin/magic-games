@@ -1,11 +1,11 @@
-const VERSION='2.3.0-design-system-mobile-v1.1';
+const VERSION='2.5.0-investigation-ui-v1';
 const STATIC_CACHE=`magic-rpg-static-${VERSION}`;
 const RUNTIME_CACHE=`magic-rpg-runtime-${VERSION}`;
 
 const CORE_ASSETS=[
-  './','./index.html','./css/app.css','./css/design-system-v1.css','./css/mobile-layout-v1.1.css',
-  './js/app.js','./js/hotfix-v2.1.js','./js/mobile-layout-v1.1.js','./manifest.webmanifest',
-  './design-system-v1.html','./assets/icons/icon-512.png','./assets/icons/icon-192.png',
+  './','./index.html','./css/app.css','./css/design-system-v1.css','./css/mobile-layout-v1.1.css','./css/core-screens-v1.css','./css/investigation-ui-v1.css',
+  './js/app.js','./js/hotfix-v2.1.js','./js/mobile-layout-v1.1.js','./js/core-screens-v1.js','./js/investigation-ui-v1.js','./manifest.webmanifest',
+  './design-system-v1.html','./investigation-ui-v1.html','./assets/icons/icon-512.png','./assets/icons/icon-192.png',
   './assets/characters/celeste.svg','./assets/characters/nika.svg','./assets/characters/eren.svg',
   './assets/characters/liora.svg','./assets/characters/morven.svg','./assets/backgrounds/greenhouse.svg',
   './assets/backgrounds/c2home.svg','./assets/backgrounds/yard.svg','./assets/backgrounds/lab.svg',
