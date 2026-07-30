@@ -4,31 +4,33 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#08070d">
-<link rel="manifest" href="manifest.webmanifest?v=2.8.0">
+<link rel="manifest" href="manifest.webmanifest?v=2.9.0">
 <link rel="icon" href="assets/icons/icon-192.png">
-<link rel="stylesheet" href="css/app.css?v=2.8.0">
-<link rel="stylesheet" href="css/design-system-v1.css?v=2.8.0">
-<link rel="stylesheet" href="css/mobile-layout-v1.1.css?v=2.8.0">
-<link rel="stylesheet" href="css/core-screens-v1.css?v=2.8.0">
-<link rel="stylesheet" href="css/investigation-ui-v1.css?v=2.8.0">
-<link rel="stylesheet" href="css/battle-ui-v1.css?v=2.8.0">
-<link rel="stylesheet" href="css/alchemy-ui-v1.css?v=2.8.0">
-<link rel="stylesheet" href="css/narrative-choice-ui-v1.css?v=2.8.0">
-<title>Magic RPG — Narrative & Choice UI v1</title>
+<link rel="stylesheet" href="css/app.css?v=2.9.0">
+<link rel="stylesheet" href="css/design-system-v1.css?v=2.9.0">
+<link rel="stylesheet" href="css/mobile-layout-v1.1.css?v=2.9.0">
+<link rel="stylesheet" href="css/core-screens-v1.css?v=2.9.0">
+<link rel="stylesheet" href="css/investigation-ui-v1.css?v=2.9.0">
+<link rel="stylesheet" href="css/battle-ui-v1.css?v=2.9.0">
+<link rel="stylesheet" href="css/alchemy-ui-v1.css?v=2.9.0">
+<link rel="stylesheet" href="css/narrative-choice-ui-v1.css?v=2.9.0">
+<link rel="stylesheet" href="css/rooms-exploration-ui-v1.css?v=2.9.0">
+<title>Magic RPG — Rooms & Exploration UI v1</title>
 </head>
-<body class="design-system-v1 core-screens-v1 investigation-ui-v1 battle-ui-v1 alchemy-ui-v1 narrative-choice-ui-v1">
+<body class="design-system-v1 core-screens-v1 investigation-ui-v1 battle-ui-v1 alchemy-ui-v1 narrative-choice-ui-v1 rooms-exploration-ui-v1">
   <div id="app"></div>
   <div id="modal-root"></div>
   <div id="toast-root" class="toast-container" aria-live="polite"></div>
   <div id="save-indicator" class="save-indicator">Прогресс сохранён</div>
-<script src="js/app.js?v=2.8.0" defer></script>
-<script src="js/hotfix-v2.1.js?v=2.8.0" defer></script>
-<script src="js/mobile-layout-v1.1.js?v=2.8.0" defer></script>
-<script src="js/core-screens-v1.js?v=2.8.0" defer></script>
-<script src="js/investigation-ui-v1.js?v=2.8.0" defer></script>
-<script src="js/battle-ui-v1.js?v=2.8.0" defer></script>
-<script src="js/alchemy-ui-v1.js?v=2.8.0" defer></script>
-<script src="js/narrative-choice-ui-v1.js?v=2.8.0" defer></script>
+<script src="js/app.js?v=2.9.0" defer></script>
+<script src="js/hotfix-v2.1.js?v=2.9.0" defer></script>
+<script src="js/mobile-layout-v1.1.js?v=2.9.0" defer></script>
+<script src="js/core-screens-v1.js?v=2.9.0" defer></script>
+<script src="js/investigation-ui-v1.js?v=2.9.0" defer></script>
+<script src="js/battle-ui-v1.js?v=2.9.0" defer></script>
+<script src="js/alchemy-ui-v1.js?v=2.9.0" defer></script>
+<script src="js/narrative-choice-ui-v1.js?v=2.9.0" defer></script>
+<script src="js/rooms-exploration-ui-v1.js?v=2.9.0" defer></script>
 <script>
 if('serviceWorker' in navigator && location.protocol.startsWith('http')){
   let refreshing=false;
@@ -39,7 +41,7 @@ if('serviceWorker' in navigator && location.protocol.startsWith('http')){
   });
   addEventListener('load',async()=>{
     try{
-      const registration=await navigator.serviceWorker.register('./service-worker.js?v=2.8.0',{updateViaCache:'none'});
+      const registration=await navigator.serviceWorker.register('./service-worker.js?v=2.9.0',{updateViaCache:'none'});
       await registration.update();
     }catch(error){console.warn('Service worker registration failed:',error);}
   });

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rooms & Exploration UI v1 — Preview</title>
+<link rel="stylesheet" href="css/rooms-exploration-ui-v1.css">
+<style>
+:root{--text:#f3edf8;--muted:#aea3b8}*{box-sizing:border-box}body{margin:0;padding:16px;background:#050409;color:var(--text);font-family:Inter,system-ui,sans-serif}
+.preview{width:min(100%,520px);margin:0 auto}
+.room-grid{display:grid;gap:10px}
+.room-card{display:block}
+.recipe-card,.codex-card{padding:16px;border-radius:18px}
+</style>
+</head>
+<body class="rooms-exploration-ui-v1" data-rx-screen="laboratory">
+<main class="preview">
+  <section class="rx-room-hero rx-room-hero--lab">
+    <div class="rx-room-hero-copy">
+      <span class="rx-room-kicker">Комната · Лаборатория</span>
+      <h2>Алхимическая мастерская</h2>
+      <p>Рецепты, материалы и готовые смеси собраны в одном более читаемом пространстве.</p>
+      <div class="rx-room-metrics"><span class="rx-room-metric">• Рецепты</span><span class="rx-room-metric">• Материалы</span><span class="rx-room-metric">• Качество</span></div>
+    </div>
+  </section>
+  <section class="rx-room-rail">
+    <div class="rx-room-pill"><b>Подготовка</b><span>Проверить рецепт и материалы</span></div>
+    <div class="rx-room-pill"><b>Смешивание</b><span>Собрать порядок ингредиентов</span></div>
+    <div class="rx-room-pill"><b>Результат</b><span>Получить смесь и сохранить её</span></div>
+  </section>
+  <div class="room-grid">
+    <button class="room-card" data-rx-icon="⚗"><strong>Лаборатория</strong><small>Рецепты и расходники</small></button>
+    <button class="room-card" data-rx-icon="✦"><strong>Кабинет</strong><small>Книга Теней и знания</small></button>
+  </div>
+  <section class="recipe-card" style="margin-top:12px"><h3>Очищающая смесь</h3><p>Рецепт теперь выглядит как нормальная комната исследования, а не как сухой список.</p></section>
+</main>
+</body>
+</html>
