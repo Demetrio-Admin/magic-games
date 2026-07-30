@@ -1,5 +1,63 @@
-const CACHE='magic-rpg-art-v3-1';
-const ASSETS=["./index.html", "./css/app.css", "./js/app.js", "./manifest.webmanifest", "./assets/icons/icon-512.png", "./assets/icons/icon-192.png", "./assets/characters/celeste.svg", "./assets/characters/nika.svg", "./assets/characters/eren.svg", "./assets/characters/liora.svg", "./assets/characters/morven.svg", "./assets/backgrounds/greenhouse.svg", "./assets/backgrounds/c2home.svg", "./assets/backgrounds/yard.svg", "./assets/backgrounds/lab.svg", "./assets/backgrounds/c4hero.svg", "./assets/backgrounds/home.svg", "./assets/backgrounds/ritualist.svg", "./assets/backgrounds/hunger.svg", "./assets/backgrounds/warehouse.svg", "./assets/backgrounds/root.svg", "./assets/backgrounds/shop.svg", "./assets/backgrounds/apartment.svg", "./assets/backgrounds/roof.svg", "./assets/art-v3/intro-hero.webp", "./assets/art-v3/parents-home.webp", "./assets/art-v3/alchemy-lab.webp", "./assets/art-v3/neighbor-yard.webp", "./assets/art-v3/ritual-battle.webp", "./assets/art-v3/morven.webp", "./assets/art-v3/liora.webp", "./assets/art-v3/celeste.webp", "./assets/art-v3/nika.webp"];
-self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
-self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==CACHE).map(x=>caches.delete(x)))).then(()=>self.clients.claim())));
-self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(x=>{const y=x.clone();caches.open(CACHE).then(c=>c.put(e.request,y));return x;}).catch(()=>caches.match('./index.html'))));});
+const CACHE = 'magic-rpg-full-audit-2026-07-30-v1';
+const CORE = [
+  './',
+  './index.html',
+  './css/app.css',
+  './js/app.js',
+  './js/full-hotfix.js',
+  './manifest.webmanifest',
+  './assets/icons/icon-192.png',
+  './assets/icons/icon-512.png'
+];
+
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE)
+      .then(async cache => {
+        await Promise.allSettled(CORE.map(url => cache.add(url)));
+      })
+      .then(() => self.skipWaiting())
+  );
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys()
+      .then(keys => Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key))))
+      .then(() => self.clients.claim())
+  );
+});
+
+self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET') return;
+  const request = event.request;
+  const url = new URL(request.url);
+
+  if (request.mode === 'navigate') {
+    event.respondWith(
+      fetch(request)
+        .then(response => {
+          const copy = response.clone();
+          caches.open(CACHE).then(cache => cache.put('./index.html', copy));
+          return response;
+        })
+        .catch(() => caches.match('./index.html'))
+    );
+    return;
+  }
+
+  if (url.origin !== self.location.origin) return;
+
+  event.respondWith(
+    caches.match(request).then(cached => {
+      const network = fetch(request).then(response => {
+        if (response && response.ok) {
+          const copy = response.clone();
+          caches.open(CACHE).then(cache => cache.put(request, copy));
+        }
+        return response;
+      });
+      return cached || network;
+    })
+  );
+});
