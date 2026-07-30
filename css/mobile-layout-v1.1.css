@@ -1,0 +1,464 @@
+/* =========================================================
+   MAGIC RPG — MOBILE LAYOUT & TOUCH SAFETY v1.1
+   Loaded after app.css and design-system-v1.css.
+   One scroll owner per screen, non-overlapping chrome and safe tap layers.
+   ========================================================= */
+
+:root {
+  --mobile-app-height: 100dvh;
+  --mobile-safe-top: max(0px, env(safe-area-inset-top));
+  --mobile-safe-bottom: max(0px, env(safe-area-inset-bottom));
+  --mobile-top-size: 64px;
+  --mobile-footer-size: 72px;
+  --mobile-nav-size: 72px;
+  --mobile-keyboard-offset: 0px;
+}
+
+html {
+  width: 100%;
+  min-height: 100%;
+  background: #050409;
+  overflow-x: hidden;
+}
+
+body.design-system-v1 {
+  width: 100%;
+  min-height: var(--mobile-app-height);
+  overflow-x: hidden !important;
+}
+
+body.design-system-v1 * {
+  min-width: 0;
+}
+
+body.design-system-v1 button,
+body.design-system-v1 [role="button"],
+body.design-system-v1 [data-action] {
+  touch-action: manipulation;
+}
+
+body.design-system-v1 img,
+body.design-system-v1 svg {
+  -webkit-user-drag: none;
+}
+
+/* Decorative art must never eat a tap intended for a hotspot or button. */
+body.design-system-v1 .vp-art,
+body.design-system-v1 .vp-art-v2,
+body.design-system-v1 .vp-dust,
+body.design-system-v1 .vp-start-art,
+body.design-system-v1 .vp-start-runes,
+body.design-system-v1 .vp-morwen-mark,
+body.design-system-v1 .artv2-portrait,
+body.design-system-v1 .art-v3-portrait,
+body.design-system-v1 .c2-vines,
+body.design-system-v1 .c2-flower,
+body.design-system-v1 .c2-cat,
+body.design-system-v1 .c3-liora,
+body.design-system-v1 .c3-cat,
+body.design-system-v1 .c3-sigil,
+body.design-system-v1 .c4-celeste,
+body.design-system-v1 .cat,
+body.design-system-v1 .ux-danger-person,
+body.design-system-v1 .ux6-training-sign,
+body.design-system-v1 .ux6-training-child,
+body.design-system-v1 .ux6-training-beacon,
+body.design-system-v1 .ux6-shield-ring {
+  pointer-events: none !important;
+}
+
+body.design-system-v1 .vp-art *,
+body.design-system-v1 .vp-art-v2 *,
+body.design-system-v1 .vp-dust *,
+body.design-system-v1 .vp-start-art *,
+body.design-system-v1 .vp-start-runes * {
+  pointer-events: none !important;
+}
+
+body.design-system-v1 .c2-hotspot,
+body.design-system-v1 .ux-hotspot,
+body.design-system-v1 .ux6-hotspot,
+body.design-system-v1 button[data-action],
+body.design-system-v1 [role="button"][data-action] {
+  pointer-events: auto !important;
+}
+
+body.design-system-v1 .c2-hotspot,
+body.design-system-v1 .ux-hotspot,
+body.design-system-v1 .ux6-hotspot {
+  z-index: 40 !important;
+}
+
+/* Start screen may scroll naturally on short phones and browser UI changes. */
+body.design-system-v1.ux5-start-mode {
+  height: auto !important;
+  min-height: var(--mobile-app-height) !important;
+  overflow-y: auto !important;
+  overscroll-behavior-y: auto !important;
+}
+
+body.design-system-v1.ux5-start-mode #app,
+body.design-system-v1.ux5-start-mode .start-screen {
+  height: auto !important;
+  min-height: var(--mobile-app-height) !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+body.design-system-v1.ux5-start-mode .start-screen {
+  padding-bottom: max(24px, calc(16px + var(--mobile-safe-bottom))) !important;
+}
+
+/* Main hub: top bar + one scroll viewport + fixed in-app nav. */
+body.design-system-v1.ux5-game-mode {
+  height: var(--mobile-app-height) !important;
+  min-height: 0 !important;
+  max-height: var(--mobile-app-height) !important;
+  overflow: hidden !important;
+  overscroll-behavior: none !important;
+}
+
+body.design-system-v1.ux5-game-mode #app {
+  height: var(--mobile-app-height) !important;
+  min-height: 0 !important;
+  max-height: var(--mobile-app-height) !important;
+  overflow: hidden !important;
+}
+
+body.design-system-v1.ux5-game-mode .game-shell {
+  height: var(--mobile-app-height) !important;
+  min-height: 0 !important;
+  max-height: var(--mobile-app-height) !important;
+  display: grid !important;
+  grid-template-rows: auto minmax(0, 1fr) !important;
+  overflow: hidden !important;
+  padding-bottom: calc(var(--mobile-nav-size) + var(--mobile-safe-bottom)) !important;
+}
+
+body.design-system-v1.ux5-game-mode #screen-content {
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+body.design-system-v1.ux5-game-mode #screen-content > .screen,
+body.design-system-v1.ux5-game-mode .game-shell > .screen {
+  height: 100% !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  padding-bottom: max(30px, calc(18px + var(--mobile-safe-bottom))) !important;
+  scroll-padding-block: 16px calc(var(--mobile-nav-size) + 18px);
+}
+
+body.design-system-v1 .bottom-nav {
+  position: absolute !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: 0 !important;
+  transform: translateX(-50%) !important;
+  width: min(100%, 520px) !important;
+  z-index: 80 !important;
+  padding-bottom: calc(7px + var(--mobile-safe-bottom)) !important;
+}
+
+/* Chapter shells: header and footer are grid rows; only main scrolls. */
+body.design-system-v1 .c2-shell,
+body.design-system-v1 .c3-shell,
+body.design-system-v1 .c4-shell,
+body.design-system-v1 .inc-shell {
+  width: min(100%, 520px) !important;
+  height: var(--mobile-app-height) !important;
+  min-height: 0 !important;
+  max-height: var(--mobile-app-height) !important;
+  display: grid !important;
+  grid-template-rows: auto minmax(0, 1fr) auto !important;
+  overflow: hidden !important;
+}
+
+body.design-system-v1 .c2-top,
+body.design-system-v1 .c3-top,
+body.design-system-v1 .c4-top,
+body.design-system-v1 .inc-top {
+  position: relative !important;
+  inset: auto !important;
+  z-index: 30 !important;
+  flex: 0 0 auto;
+}
+
+body.design-system-v1 .c2-main,
+body.design-system-v1 .c3-main,
+body.design-system-v1 .c4-main,
+body.design-system-v1 .inc-main {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  scroll-behavior: auto;
+  scroll-padding-block: 14px 24px;
+  padding-bottom: max(22px, calc(14px + var(--mobile-safe-bottom))) !important;
+}
+
+/* Remove nested scroll traps: the chapter main is the single owner. */
+body.design-system-v1 .c2-scroll,
+body.design-system-v1 .c4-scroll,
+body.design-system-v1 .ux-point-body,
+body.design-system-v1 .ux-board-scroll,
+body.design-system-v1 .ux-danger-actions {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: visible !important;
+  overscroll-behavior: auto !important;
+  -webkit-overflow-scrolling: auto !important;
+}
+
+body.design-system-v1 .c2-footer,
+body.design-system-v1 .c3-footer,
+body.design-system-v1 .c4-footer,
+body.design-system-v1 .inc-footer {
+  position: relative !important;
+  inset: auto !important;
+  bottom: auto !important;
+  z-index: 50 !important;
+  flex: 0 0 auto;
+  width: 100%;
+  padding-top: 8px !important;
+  padding-bottom: max(10px, calc(8px + var(--mobile-safe-bottom))) !important;
+  background: rgba(8, 7, 12, .985) !important;
+}
+
+body.design-system-v1 .c2-footer,
+body.design-system-v1 .c4-footer {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr)) !important;
+}
+
+body.design-system-v1 .c3-footer,
+body.design-system-v1 .inc-footer {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr)) !important;
+  gap: 8px !important;
+}
+
+body.design-system-v1 .c2-footer button,
+body.design-system-v1 .c3-footer button,
+body.design-system-v1 .c4-footer button,
+body.design-system-v1 .inc-footer button {
+  width: 100%;
+  min-height: 48px !important;
+  white-space: normal !important;
+  line-height: 1.2 !important;
+}
+
+/* Let long game screens grow vertically instead of compressing controls. */
+body.design-system-v1 .c2-scene-layout,
+body.design-system-v1 .c2-invest,
+body.design-system-v1 .c2-alchemy,
+body.design-system-v1 .c2-battle,
+body.design-system-v1 .inc-battle,
+body.design-system-v1 .ux-investigation,
+body.design-system-v1 .ux-deduction,
+body.design-system-v1 .ux-danger,
+body.design-system-v1 .ux6-battle-layout,
+body.design-system-v1 .c4-invest,
+body.design-system-v1 .c4-battle {
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+body.design-system-v1 .c2-battle,
+body.design-system-v1 .inc-battle,
+body.design-system-v1 .ux6-battle-layout,
+body.design-system-v1 .c4-battle {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+}
+
+body.design-system-v1 .c2-battle > *,
+body.design-system-v1 .inc-battle > *,
+body.design-system-v1 .ux6-battle-layout > *,
+body.design-system-v1 .c4-battle > * {
+  flex: 0 0 auto;
+}
+
+body.design-system-v1 .ux-investigation,
+body.design-system-v1 .ux-danger {
+  grid-template-rows: auto auto !important;
+}
+
+body.design-system-v1 .ux-invest-panel,
+body.design-system-v1 .ux-danger-panel {
+  min-height: 0 !important;
+  overflow: visible !important;
+}
+
+/* Scene size remains usable for hotspots without consuming the whole short viewport. */
+body.design-system-v1 .c2-visual.c2-room,
+body.design-system-v1 .ux-scene,
+body.design-system-v1 .ux6-scene,
+body.design-system-v1 .c4-invest-scene {
+  height: clamp(178px, 31svh, 238px) !important;
+  min-height: 178px !important;
+  max-height: 238px !important;
+}
+
+body.design-system-v1 .c3-arena,
+body.design-system-v1 .c2-enemy,
+body.design-system-v1 .inc-enemy,
+body.design-system-v1 .c4-enemy {
+  min-height: 164px !important;
+  height: auto !important;
+}
+
+/* Choice/action grids become one column before text is squeezed. */
+@media (max-width: 430px) {
+  body.design-system-v1 .c2-actions,
+  body.design-system-v1 .c3-actions,
+  body.design-system-v1 .c4-actions,
+  body.design-system-v1 .inc-actions,
+  body.design-system-v1 .ux6-methods,
+  body.design-system-v1 .ux6-training-actions,
+  body.design-system-v1 .ux6-danger-grid,
+  body.design-system-v1 .c3-plan-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  body.design-system-v1 .c2-footer,
+  body.design-system-v1 .c3-footer,
+  body.design-system-v1 .c4-footer,
+  body.design-system-v1 .inc-footer {
+    grid-template-columns: 1fr !important;
+  }
+
+  body.design-system-v1 .c2-action,
+  body.design-system-v1 .c3-action,
+  body.design-system-v1 .c4-action,
+  body.design-system-v1 .inc-action {
+    min-height: 64px !important;
+  }
+}
+
+@media (max-height: 700px) {
+  body.design-system-v1 .c2-visual.c2-room,
+  body.design-system-v1 .ux-scene,
+  body.design-system-v1 .ux6-scene,
+  body.design-system-v1 .c4-invest-scene {
+    height: 168px !important;
+    min-height: 168px !important;
+  }
+
+  body.design-system-v1 .c3-arena,
+  body.design-system-v1 .c2-enemy,
+  body.design-system-v1 .inc-enemy,
+  body.design-system-v1 .c4-enemy {
+    min-height: 148px !important;
+  }
+}
+
+/* Modals: header stays visible; content itself scrolls. */
+body.design-system-v1 .modal-layer {
+  position: fixed !important;
+  z-index: 250 !important;
+  inset: 0 !important;
+  width: 100%;
+  height: var(--mobile-app-height) !important;
+  max-height: var(--mobile-app-height) !important;
+  overflow: hidden !important;
+  padding-top: var(--mobile-safe-top) !important;
+  padding-bottom: 0 !important;
+}
+
+body.design-system-v1 .modal {
+  width: min(100%, 520px) !important;
+  max-height: calc(var(--mobile-app-height) - var(--mobile-safe-top) - 6px) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+
+body.design-system-v1 .modal-header,
+body.design-system-v1 .modal-handle {
+  flex: 0 0 auto;
+}
+
+body.design-system-v1 .modal-body {
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  padding-bottom: max(22px, calc(14px + var(--mobile-safe-bottom))) !important;
+  scroll-padding-bottom: 20px;
+}
+
+/* Coach stays above chapter controls and does not create a full-screen tap blocker. */
+body.design-system-v1 .ux-coach-layer,
+body.design-system-v1 .ux-coach-spot {
+  pointer-events: none !important;
+}
+
+body.design-system-v1 .ux-coach-card,
+body.design-system-v1 .ux-coach-card-inline {
+  pointer-events: auto !important;
+  z-index: 120 !important;
+  max-height: min(230px, calc(var(--mobile-app-height) - var(--mobile-top-size) - var(--mobile-footer-size) - 24px)) !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+body.design-system-v1 .ux-coach-card {
+  bottom: calc(var(--mobile-footer-size) + var(--mobile-safe-bottom) + 8px) !important;
+}
+
+/* Checklist fallback is a real mobile control, not passive text. */
+body.design-system-v1 .c2-story .c2-check[data-mobile-home-key] {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  margin-inline: -8px;
+  padding: 8px 10px 8px 30px;
+  border-radius: 11px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+body.design-system-v1 .c2-story .c2-check[data-mobile-home-key]:not(.done) {
+  border: 1px solid rgba(198,148,232,.14);
+  background: rgba(198,148,232,.05);
+}
+
+body.design-system-v1 .c2-story .c2-check[data-mobile-home-key]:not(.done):active {
+  background: rgba(198,148,232,.12);
+}
+
+body.design-system-v1 .c2-story .c2-check[data-mobile-home-key].done {
+  cursor: default;
+  opacity: .78;
+}
+
+/* Keep focused controls out from under footer/nav/keyboard. */
+body.design-system-v1 :focus-visible {
+  scroll-margin-top: calc(var(--mobile-top-size) + 12px);
+  scroll-margin-bottom: calc(var(--mobile-footer-size) + var(--mobile-safe-bottom) + 16px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.design-system-v1 .c2-main,
+  body.design-system-v1 .c3-main,
+  body.design-system-v1 .c4-main,
+  body.design-system-v1 .inc-main,
+  body.design-system-v1 #screen-content > .screen,
+  body.design-system-v1 .modal-body {
+    scroll-behavior: auto !important;
+  }
+}
