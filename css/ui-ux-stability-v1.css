@@ -1,0 +1,69 @@
+/* Final UI/UX stability layer.
+   Keeps touch controls, help sheets and decorative art safe across small phones. */
+
+body.design-system-v1 .modal-layer {
+  inset:0 !important;
+  height:100dvh !important;
+  max-height:100dvh !important;
+  padding-top:16px !important;
+  overflow:hidden !important;
+}
+
+body.design-system-v1 .modal {
+  max-height:calc(100dvh - 16px) !important;
+  max-width:min(100%, 520px);
+}
+
+html[data-ui-audit="1"] .modal {
+  animation:none !important;
+}
+
+.modal-close,
+.c2-back,
+.c2-help,
+.c3-top > button,
+.ux6-help,
+.c4-back,
+.inc-top > button {
+  min-width:44px !important;
+  min-height:44px !important;
+}
+
+.modal-close {
+  width:44px !important;
+  height:44px !important;
+  flex:0 0 44px;
+}
+
+.c2-root,
+.ux-hotspot,
+.ux6-hotspot {
+  min-width:44px !important;
+  min-height:44px !important;
+}
+
+.small-button,
+.c2-text-button,
+.c2-team > button {
+  min-height:44px !important;
+}
+
+.direct-art-bg,
+.vp-ivy-portrait,
+.vp-art,
+.vp-art-v2,
+.artv2-portrait,
+.art-v3-portrait {
+  pointer-events:none !important;
+}
+
+@media (max-width:370px) {
+  .modal {
+    border-radius:20px 20px 0 0;
+    padding-inline:14px;
+  }
+
+  .modal-header h2 {
+    font-size:24px;
+  }
+}

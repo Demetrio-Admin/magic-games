@@ -1,4 +1,4 @@
-const VERSION='3.0.0-rc-qa-stabilization-v1';
+const VERSION='3.1.0-ui-ux-audit-v1';
 const STATIC_CACHE=`magic-rpg-static-${VERSION}`;
 const RUNTIME_CACHE=`magic-rpg-runtime-${VERSION}`;
 
@@ -6,12 +6,13 @@ const CORE_ASSETS=[
   './','./index.html',
   './css/app.css','./css/design-system-v1.css','./css/mobile-layout-v1.1.css','./css/core-screens-v1.css',
   './css/investigation-ui-v1.css','./css/battle-ui-v1.css','./css/alchemy-ui-v1.css',
-  './css/narrative-choice-ui-v1.css','./css/rooms-exploration-ui-v1.css','./css/chapter2-home-fix-v1.css',
-  './css/rc-qa-fixes-v1.css',
+  './css/narrative-choice-ui-v1.css','./css/rooms-exploration-ui-v1.css',
+  './css/rc-qa-fixes-v1.css','./css/ui-ux-stability-v1.css',
   './js/app.js','./js/hotfix-v2.1.js','./js/mobile-layout-v1.1.js','./js/core-screens-v1.js',
   './js/investigation-ui-v1.js','./js/battle-ui-v1.js','./js/alchemy-ui-v1.js',
-  './js/narrative-choice-ui-v1.js','./js/rooms-exploration-ui-v1.js','./js/chapter2-home-fix-v1.js',
+  './js/narrative-choice-ui-v1.js','./js/rooms-exploration-ui-v1.js',
   './js/rc-qa-fixes-v1.js',
+  './tests/ui-audit-bootstrap.js','./tests/ui-ux-audit.js',
   './manifest.webmanifest','./assets/icons/icon-512.png','./assets/icons/icon-192.png'
 ];
 

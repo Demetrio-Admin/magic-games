@@ -299,7 +299,6 @@
     });
   }
   function decorate(){
-    decorateC2HomeFallback();
     decorateC4Battle();
     decorateVersion();
   }
