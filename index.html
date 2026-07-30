@@ -15,9 +15,36 @@
   <div id="modal-root"></div>
   <div id="toast-root" class="toast-container" aria-live="polite"></div>
   <div id="save-indicator" class="save-indicator">Прогресс сохранён</div>
-  
 
 <script src="js/app.js" defer></script>
-<script>if('serviceWorker'in navigator&&location.protocol.startsWith('http'))addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(console.warn));</script>
+<script>
+(() => {
+  if (!('serviceWorker' in navigator) || !location.protocol.startsWith('http')) return;
+
+  let refreshing = false;
+
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (refreshing) return;
+    refreshing = true;
+    location.reload();
+  });
+
+  addEventListener('load', async () => {
+    try {
+      const registration = await navigator.serviceWorker.register('./service-worker.js', {
+        updateViaCache: 'none'
+      });
+
+      // Проверяем новую версию сразу при открытии игры.
+      await registration.update();
+
+      // И затем периодически, пока вкладка открыта.
+      setInterval(() => registration.update().catch(console.warn), 5 * 60 * 1000);
+    } catch (error) {
+      console.warn('Service worker registration failed:', error);
+    }
+  });
+})();
+</script>
 </body>
 </html>
