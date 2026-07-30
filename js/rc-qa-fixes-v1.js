@@ -176,9 +176,17 @@
     });
   }
 
+  function normalizeModalControls() {
+    document.querySelectorAll('.modal-close').forEach(button => {
+      if (!button.getAttribute('aria-label')) button.setAttribute('aria-label', 'Закрыть');
+      button.type = 'button';
+    });
+  }
+
   function apply() {
     document.documentElement.dataset.rcQa = '1';
     document.body.classList.add('rc-qa-fixes-v1');
+    normalizeModalControls();
 
     const root = currentRoot();
     if (!root) return;
@@ -213,6 +221,8 @@
   }
 
   new MutationObserver(schedule).observe(app, {childList:true, subtree:true});
+  const modalRoot = document.getElementById('modal-root');
+  if (modalRoot) new MutationObserver(schedule).observe(modalRoot, {childList:true, subtree:true});
   addEventListener('resize', schedule, {passive:true});
   addEventListener('orientationchange', schedule, {passive:true});
 
