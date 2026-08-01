@@ -1,21 +1,14 @@
-const VERSION='4.2.0-chapter2-home-v3';
+const VERSION='5.0.0-nocturne-clean';
 const STATIC_CACHE=`magic-rpg-static-${VERSION}`;
 const RUNTIME_CACHE=`magic-rpg-runtime-${VERSION}`;
 
 const CORE_ASSETS=[
   './','./index.html',
-  './css/app.css','./css/design-system-v1.css','./css/mobile-layout-v1.1.css','./css/core-screens-v1.css',
-  './css/investigation-ui-v1.css','./css/battle-ui-v1.css','./css/alchemy-ui-v1.css',
-  './css/narrative-choice-ui-v1.css','./css/rooms-exploration-ui-v1.css',
-  './css/rc-qa-fixes-v1.css','./css/ui-ux-stability-v1.css','./css/nocturne-ritual-v1.css','./css/nocturne-scenes-v2.css','./css/chapter2-home-v3.css',
-  './js/app.js','./js/hotfix-v2.1.js','./js/mobile-layout-v1.1.js','./js/core-screens-v1.js',
-  './js/investigation-ui-v1.js','./js/battle-ui-v1.js','./js/alchemy-ui-v1.js',
-  './js/narrative-choice-ui-v1.js','./js/rooms-exploration-ui-v1.js',
-  './js/rc-qa-fixes-v1.js','./js/nocturne-ritual-v1.js','./js/nocturne-scenes-v2.js','./js/chapter2-home-v3.js',
+  './css/nocturne-game.css','./js/app.js','./js/nocturne-ui.js',
   './tests/ui-audit-bootstrap.js','./tests/ui-ux-audit.js',
   './manifest.webmanifest','./assets/icons/icon-512.png','./assets/icons/icon-192.png',
   './assets/art-v3/intro-hero.webp','./assets/art-v3/ritual-battle.webp','./assets/art-v3/alchemy-lab.webp',
-  './assets/art-v3/neighbor-yard.webp','./assets/art-v3/morven.webp','./assets/art-v3/liora.webp',
+  './assets/art-v3/neighbor-yard.webp','./assets/art-v3/parents-home.webp','./assets/art-v3/morven.webp','./assets/art-v3/liora.webp',
   './assets/art-v3/celeste.webp','./assets/art-v3/nika.webp',
   './assets/nocturne/hero-male.webp','./assets/nocturne/hero-female.webp',
   './assets/nocturne/spell-telekinesis.webp','./assets/nocturne/spell-shield.webp',
@@ -23,7 +16,13 @@ const CORE_ASSETS=[
   './assets/nocturne/main-house.webp','./assets/nocturne/occult-study.webp',
   './assets/nocturne/memory-apartment.webp','./assets/nocturne/memory-pact.webp',
   './assets/nocturne/bus-stop-flowers.webp','./assets/nocturne/first-light-square.webp',
-  './assets/nocturne/memory-warehouse.webp','./assets/nocturne/mirror-sediment.webp'
+  './assets/nocturne/memory-warehouse.webp','./assets/nocturne/mirror-sediment.webp',
+  './assets/backgrounds/apartment.svg','./assets/backgrounds/c2home.svg','./assets/backgrounds/c4hero.svg',
+  './assets/backgrounds/greenhouse.svg','./assets/backgrounds/home.svg','./assets/backgrounds/hunger.svg',
+  './assets/backgrounds/lab.svg','./assets/backgrounds/ritualist.svg','./assets/backgrounds/roof.svg',
+  './assets/backgrounds/root.svg','./assets/backgrounds/shop.svg','./assets/backgrounds/warehouse.svg','./assets/backgrounds/yard.svg',
+  './assets/characters/celeste.svg','./assets/characters/eren.svg','./assets/characters/liora.svg',
+  './assets/characters/morven.svg','./assets/characters/nika.svg'
 ];
 
 self.addEventListener('install',event=>{

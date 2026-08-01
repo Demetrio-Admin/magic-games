@@ -1,0 +1,1792 @@
+{
+  "captures": [
+    {
+      "id": "start",
+      "file": "/workspace/scratch/a2215ff8186a/magic-games-clean/tests/screenshots/clean-rebuild/start-390x844.png",
+      "audit": {
+        "id": "start",
+        "label": "Стартовый экран",
+        "viewport": "390x844",
+        "failures": [],
+        "warnings": [],
+        "actions": 1,
+        "images": 0
+      }
+    },
+    {
+      "id": "home-early",
+      "file": "/workspace/scratch/a2215ff8186a/magic-games-clean/tests/screenshots/clean-rebuild/home-early-390x844.png",
+      "audit": {
+        "id": "home-early",
+        "label": "Дом до главы 2",
+        "viewport": "390x844",
+        "failures": [],
+        "warnings": [],
+        "actions": 13,
+        "images": 1
+      }
+    },
+    {
+      "id": "c2-home",
+      "file": "/workspace/scratch/a2215ff8186a/magic-games-clean/tests/screenshots/clean-rebuild/c2-home-390x844.png",
+      "audit": {
+        "id": "c2-home",
+        "label": "Глава 2 · дом родителей",
+        "viewport": "390x844",
+        "failures": [],
+        "warnings": [],
+        "actions": 11,
+        "images": 4
+      }
+    },
+    {
+      "id": "c2-investigation",
+      "file": "/workspace/scratch/a2215ff8186a/magic-games-clean/tests/screenshots/clean-rebuild/c2-investigation-390x844.png",
+      "audit": {
+        "id": "c2-investigation",
+        "label": "Глава 2 · расследование",
+        "viewport": "390x844",
+        "failures": [],
+        "warnings": [],
+        "actions": 9,
+        "images": 1
+      }
+    },
+    {
+      "id": "c2-alchemy",
+      "file": "/workspace/scratch/a2215ff8186a/magic-games-clean/tests/screenshots/clean-rebuild/c2-alchemy-390x844.png",
+      "audit": {
+        "id": "c2-alchemy",
+        "label": "Глава 2 · алхимия",
+        "viewport": "390x844",
+        "failures": [],
+        "warnings": [],
+        "actions": 11,
+        "images": 1
+      }
+    },
+    {
+      "id": "c2-battle-hero",
+      "file": "/workspace/scratch/a2215ff8186a/magic-games-clean/tests/screenshots/clean-rebuild/c2-battle-hero-390x844.png",
+      "audit": {
+        "id": "c2-battle-hero",
+        "label": "Глава 2 · бой героя",
+        "viewport": "390x844",
+        "failures": [],
+        "warnings": [],
+        "actions": 14,
+        "images": 7
+      }
+    },
+    {
+      "id": "c3-battle",
+      "file": "/workspace/scratch/a2215ff8186a/magic-games-clean/tests/screenshots/clean-rebuild/c3-battle-390x844.png",
+      "audit": {
+        "id": "c3-battle",
+        "label": "Глава 3 · бой",
+        "viewport": "390x844",
+        "failures": [],
+        "warnings": [],
+        "actions": 11,
+        "images": 9
+      }
+    },
+    {
+      "id": "c4-battle-hero",
+      "file": "/workspace/scratch/a2215ff8186a/magic-games-clean/tests/screenshots/clean-rebuild/c4-battle-hero-390x844.png",
+      "audit": {
+        "id": "c4-battle-hero",
+        "label": "Глава 4 · бой · hero",
+        "viewport": "390x844",
+        "failures": [],
+        "warnings": [],
+        "actions": 10,
+        "images": 8
+      }
+    }
+  ],
+  "audits": [
+    {
+      "viewport": "320x568",
+      "scenarios": 61,
+      "passed": 61,
+      "failed": 0,
+      "warnings": 0,
+      "assetsChecked": 26,
+      "brokenAssets": [],
+      "results": [
+        {
+          "id": "start",
+          "label": "Стартовый экран",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 1,
+          "images": 0
+        },
+        {
+          "id": "start-new-game",
+          "label": "Создание героя",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 5,
+          "images": 2
+        },
+        {
+          "id": "home-early",
+          "label": "Дом до главы 2",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 13,
+          "images": 1
+        },
+        {
+          "id": "home-chapter4",
+          "label": "Дом перед главой 4",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 13,
+          "images": 1
+        },
+        {
+          "id": "home-settings",
+          "label": "Настройки и сохранение",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 10,
+          "images": 1
+        },
+        {
+          "id": "home-room",
+          "label": "Комната дома",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "cases",
+          "label": "Доска дел",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 12,
+          "images": 1
+        },
+        {
+          "id": "inventory",
+          "label": "Инвентарь",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 19,
+          "images": 1
+        },
+        {
+          "id": "inventory-item",
+          "label": "Карточка предмета",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "companions",
+          "label": "Спутники",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 13,
+          "images": 8
+        },
+        {
+          "id": "companion-details",
+          "label": "Карточка спутника",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 8
+        },
+        {
+          "id": "journal",
+          "label": "Журнал",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 7,
+          "images": 1
+        },
+        {
+          "id": "codex",
+          "label": "Книга Теней",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 8,
+          "images": 1
+        },
+        {
+          "id": "laboratory",
+          "label": "Лаборатория",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 9,
+          "images": 1
+        },
+        {
+          "id": "hero",
+          "label": "Развитие героя",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 8,
+          "images": 1
+        },
+        {
+          "id": "party-picker",
+          "label": "Выбор отряда",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 4,
+          "images": 2
+        },
+        {
+          "id": "c2-intro",
+          "label": "Глава 2 · вступление",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "c2-home",
+          "label": "Глава 2 · дом родителей",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 11,
+          "images": 4
+        },
+        {
+          "id": "c2-home-help",
+          "label": "Глава 2 · подсказка",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 4,
+          "images": 4
+        },
+        {
+          "id": "c2-investigation",
+          "label": "Глава 2 · расследование",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 9,
+          "images": 1
+        },
+        {
+          "id": "c2-deduction",
+          "label": "Глава 2 · доска выводов",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 7,
+          "images": 1
+        },
+        {
+          "id": "c2-danger",
+          "label": "Глава 2 · опасная сцена",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 6,
+          "images": 1
+        },
+        {
+          "id": "c2-alchemy",
+          "label": "Глава 2 · алхимия",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 11,
+          "images": 1
+        },
+        {
+          "id": "c2-alchemy-result",
+          "label": "Глава 2 · результат алхимии",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 4,
+          "images": 1
+        },
+        {
+          "id": "c2-battle-hero",
+          "label": "Глава 2 · бой героя",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 14,
+          "images": 7
+        },
+        {
+          "id": "c2-battle-morven",
+          "label": "Глава 2 · бой Морвена",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 14,
+          "images": 5
+        },
+        {
+          "id": "c2-choice",
+          "label": "Глава 2 · выбор",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 5,
+          "images": 1
+        },
+        {
+          "id": "c2-return",
+          "label": "Глава 2 · возвращение",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "c2-summon",
+          "label": "Глава 2 · договор",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "c2-summary",
+          "label": "Глава 2 · итог",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "incident-brief",
+          "label": "Дело района · вводная",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "incident-investigation",
+          "label": "Дело района · расследование",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 7,
+          "images": 1
+        },
+        {
+          "id": "incident-preparation",
+          "label": "Дело района · подготовка",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 7,
+          "images": 1
+        },
+        {
+          "id": "incident-battle",
+          "label": "Дело района · бой",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 10,
+          "images": 11
+        },
+        {
+          "id": "incident-result",
+          "label": "Дело района · итог",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "c3-intro",
+          "label": "Глава 3 · вступление",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "c3-meeting",
+          "label": "Глава 3 · разговор",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 6,
+          "images": 1
+        },
+        {
+          "id": "c3-investigation",
+          "label": "Глава 3 · расследование",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 10,
+          "images": 1
+        },
+        {
+          "id": "c3-investigation-help",
+          "label": "Глава 3 · подсказка",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "c3-deduction",
+          "label": "Глава 3 · доска выводов",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 7,
+          "images": 1
+        },
+        {
+          "id": "c3-training",
+          "label": "Глава 3 · обучение Щиту",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 4,
+          "images": 1
+        },
+        {
+          "id": "c3-danger",
+          "label": "Глава 3 · опасная сцена",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 7,
+          "images": 1
+        },
+        {
+          "id": "c3-brief",
+          "label": "Глава 3 · подготовка",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 7,
+          "images": 1
+        },
+        {
+          "id": "c3-battle",
+          "label": "Глава 3 · бой",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 11,
+          "images": 9
+        },
+        {
+          "id": "c3-amulet",
+          "label": "Глава 3 · выбор после боя",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 6,
+          "images": 1
+        },
+        {
+          "id": "c3-registration",
+          "label": "Глава 3 · регистрация",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 6,
+          "images": 1
+        },
+        {
+          "id": "c3-final",
+          "label": "Глава 3 · итог",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 4,
+          "images": 1
+        },
+        {
+          "id": "c4-intro",
+          "label": "Глава 4 · вступление",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 2
+        },
+        {
+          "id": "c4-meeting",
+          "label": "Глава 4 · разговор",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 6,
+          "images": 2
+        },
+        {
+          "id": "c4-investigation",
+          "label": "Глава 4 · расследование",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 9,
+          "images": 2
+        },
+        {
+          "id": "c4-deduction",
+          "label": "Глава 4 · диагноз",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 6,
+          "images": 1
+        },
+        {
+          "id": "c4-formula",
+          "label": "Глава 4 · формула",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 6,
+          "images": 1
+        },
+        {
+          "id": "c4-alchemy",
+          "label": "Глава 4 · алхимия",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 10,
+          "images": 1
+        },
+        {
+          "id": "c4-alchemy-result",
+          "label": "Глава 4 · результат алхимии",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "c4-brief",
+          "label": "Глава 4 · подготовка",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "c4-battle-hero",
+          "label": "Глава 4 · бой · hero",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 10,
+          "images": 8
+        },
+        {
+          "id": "c4-battle-celeste",
+          "label": "Глава 4 · бой · celeste",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 9,
+          "images": 5
+        },
+        {
+          "id": "c4-battle-liora",
+          "label": "Глава 4 · бой · liora",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 8,
+          "images": 5
+        },
+        {
+          "id": "c4-battle-help",
+          "label": "Глава 4 · подсказка боя",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 8
+        },
+        {
+          "id": "c4-choice",
+          "label": "Глава 4 · финальный выбор",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 6,
+          "images": 1
+        },
+        {
+          "id": "c4-final",
+          "label": "Глава 4 · итог",
+          "viewport": "320x568",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        }
+      ]
+    },
+    {
+      "viewport": "390x844",
+      "scenarios": 61,
+      "passed": 61,
+      "failed": 0,
+      "warnings": 0,
+      "assetsChecked": 26,
+      "brokenAssets": [],
+      "results": [
+        {
+          "id": "start",
+          "label": "Стартовый экран",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 2,
+          "images": 0
+        },
+        {
+          "id": "start-new-game",
+          "label": "Создание героя",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 5,
+          "images": 2
+        },
+        {
+          "id": "home-early",
+          "label": "Дом до главы 2",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 13,
+          "images": 1
+        },
+        {
+          "id": "home-chapter4",
+          "label": "Дом перед главой 4",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 13,
+          "images": 1
+        },
+        {
+          "id": "home-settings",
+          "label": "Настройки и сохранение",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 10,
+          "images": 1
+        },
+        {
+          "id": "home-room",
+          "label": "Комната дома",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "cases",
+          "label": "Доска дел",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 12,
+          "images": 1
+        },
+        {
+          "id": "inventory",
+          "label": "Инвентарь",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 19,
+          "images": 1
+        },
+        {
+          "id": "inventory-item",
+          "label": "Карточка предмета",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "companions",
+          "label": "Спутники",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 13,
+          "images": 8
+        },
+        {
+          "id": "companion-details",
+          "label": "Карточка спутника",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 8
+        },
+        {
+          "id": "journal",
+          "label": "Журнал",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 7,
+          "images": 1
+        },
+        {
+          "id": "codex",
+          "label": "Книга Теней",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 8,
+          "images": 1
+        },
+        {
+          "id": "laboratory",
+          "label": "Лаборатория",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 9,
+          "images": 1
+        },
+        {
+          "id": "hero",
+          "label": "Развитие героя",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 8,
+          "images": 1
+        },
+        {
+          "id": "party-picker",
+          "label": "Выбор отряда",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 4,
+          "images": 2
+        },
+        {
+          "id": "c2-intro",
+          "label": "Глава 2 · вступление",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "c2-home",
+          "label": "Глава 2 · дом родителей",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 11,
+          "images": 4
+        },
+        {
+          "id": "c2-home-help",
+          "label": "Глава 2 · подсказка",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 4,
+          "images": 4
+        },
+        {
+          "id": "c2-investigation",
+          "label": "Глава 2 · расследование",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 9,
+          "images": 1
+        },
+        {
+          "id": "c2-deduction",
+          "label": "Глава 2 · доска выводов",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 7,
+          "images": 1
+        },
+        {
+          "id": "c2-danger",
+          "label": "Глава 2 · опасная сцена",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 6,
+          "images": 1
+        },
+        {
+          "id": "c2-alchemy",
+          "label": "Глава 2 · алхимия",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 11,
+          "images": 1
+        },
+        {
+          "id": "c2-alchemy-result",
+          "label": "Глава 2 · результат алхимии",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 4,
+          "images": 1
+        },
+        {
+          "id": "c2-battle-hero",
+          "label": "Глава 2 · бой героя",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 14,
+          "images": 7
+        },
+        {
+          "id": "c2-battle-morven",
+          "label": "Глава 2 · бой Морвена",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 14,
+          "images": 5
+        },
+        {
+          "id": "c2-choice",
+          "label": "Глава 2 · выбор",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 5,
+          "images": 1
+        },
+        {
+          "id": "c2-return",
+          "label": "Глава 2 · возвращение",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "c2-summon",
+          "label": "Глава 2 · договор",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "c2-summary",
+          "label": "Глава 2 · итог",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "incident-brief",
+          "label": "Дело района · вводная",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "incident-investigation",
+          "label": "Дело района · расследование",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 7,
+          "images": 1
+        },
+        {
+          "id": "incident-preparation",
+          "label": "Дело района · подготовка",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 7,
+          "images": 1
+        },
+        {
+          "id": "incident-battle",
+          "label": "Дело района · бой",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 10,
+          "images": 11
+        },
+        {
+          "id": "incident-result",
+          "label": "Дело района · итог",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "c3-intro",
+          "label": "Глава 3 · вступление",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "c3-meeting",
+          "label": "Глава 3 · разговор",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 6,
+          "images": 1
+        },
+        {
+          "id": "c3-investigation",
+          "label": "Глава 3 · расследование",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 10,
+          "images": 1
+        },
+        {
+          "id": "c3-investigation-help",
+          "label": "Глава 3 · подсказка",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "c3-deduction",
+          "label": "Глава 3 · доска выводов",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 7,
+          "images": 1
+        },
+        {
+          "id": "c3-training",
+          "label": "Глава 3 · обучение Щиту",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 4,
+          "images": 1
+        },
+        {
+          "id": "c3-danger",
+          "label": "Глава 3 · опасная сцена",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 7,
+          "images": 1
+        },
+        {
+          "id": "c3-brief",
+          "label": "Глава 3 · подготовка",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 7,
+          "images": 1
+        },
+        {
+          "id": "c3-battle",
+          "label": "Глава 3 · бой",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 11,
+          "images": 9
+        },
+        {
+          "id": "c3-amulet",
+          "label": "Глава 3 · выбор после боя",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 6,
+          "images": 1
+        },
+        {
+          "id": "c3-registration",
+          "label": "Глава 3 · регистрация",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 6,
+          "images": 1
+        },
+        {
+          "id": "c3-final",
+          "label": "Глава 3 · итог",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 4,
+          "images": 1
+        },
+        {
+          "id": "c4-intro",
+          "label": "Глава 4 · вступление",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 2
+        },
+        {
+          "id": "c4-meeting",
+          "label": "Глава 4 · разговор",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 6,
+          "images": 2
+        },
+        {
+          "id": "c4-investigation",
+          "label": "Глава 4 · расследование",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 9,
+          "images": 2
+        },
+        {
+          "id": "c4-deduction",
+          "label": "Глава 4 · диагноз",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 6,
+          "images": 1
+        },
+        {
+          "id": "c4-formula",
+          "label": "Глава 4 · формула",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 6,
+          "images": 1
+        },
+        {
+          "id": "c4-alchemy",
+          "label": "Глава 4 · алхимия",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 10,
+          "images": 1
+        },
+        {
+          "id": "c4-alchemy-result",
+          "label": "Глава 4 · результат алхимии",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "c4-brief",
+          "label": "Глава 4 · подготовка",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "c4-battle-hero",
+          "label": "Глава 4 · бой · hero",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 10,
+          "images": 8
+        },
+        {
+          "id": "c4-battle-celeste",
+          "label": "Глава 4 · бой · celeste",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 9,
+          "images": 5
+        },
+        {
+          "id": "c4-battle-liora",
+          "label": "Глава 4 · бой · liora",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 8,
+          "images": 5
+        },
+        {
+          "id": "c4-battle-help",
+          "label": "Глава 4 · подсказка боя",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 8
+        },
+        {
+          "id": "c4-choice",
+          "label": "Глава 4 · финальный выбор",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 6,
+          "images": 1
+        },
+        {
+          "id": "c4-final",
+          "label": "Глава 4 · итог",
+          "viewport": "390x844",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        }
+      ]
+    },
+    {
+      "viewport": "430x932",
+      "scenarios": 61,
+      "passed": 61,
+      "failed": 0,
+      "warnings": 0,
+      "assetsChecked": 26,
+      "brokenAssets": [],
+      "results": [
+        {
+          "id": "start",
+          "label": "Стартовый экран",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 2,
+          "images": 0
+        },
+        {
+          "id": "start-new-game",
+          "label": "Создание героя",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 5,
+          "images": 2
+        },
+        {
+          "id": "home-early",
+          "label": "Дом до главы 2",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 13,
+          "images": 1
+        },
+        {
+          "id": "home-chapter4",
+          "label": "Дом перед главой 4",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 13,
+          "images": 1
+        },
+        {
+          "id": "home-settings",
+          "label": "Настройки и сохранение",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 10,
+          "images": 1
+        },
+        {
+          "id": "home-room",
+          "label": "Комната дома",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "cases",
+          "label": "Доска дел",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 12,
+          "images": 1
+        },
+        {
+          "id": "inventory",
+          "label": "Инвентарь",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 19,
+          "images": 1
+        },
+        {
+          "id": "inventory-item",
+          "label": "Карточка предмета",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "companions",
+          "label": "Спутники",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 13,
+          "images": 8
+        },
+        {
+          "id": "companion-details",
+          "label": "Карточка спутника",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 8
+        },
+        {
+          "id": "journal",
+          "label": "Журнал",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 7,
+          "images": 1
+        },
+        {
+          "id": "codex",
+          "label": "Книга Теней",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 8,
+          "images": 1
+        },
+        {
+          "id": "laboratory",
+          "label": "Лаборатория",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 9,
+          "images": 1
+        },
+        {
+          "id": "hero",
+          "label": "Развитие героя",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 8,
+          "images": 1
+        },
+        {
+          "id": "party-picker",
+          "label": "Выбор отряда",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 4,
+          "images": 2
+        },
+        {
+          "id": "c2-intro",
+          "label": "Глава 2 · вступление",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "c2-home",
+          "label": "Глава 2 · дом родителей",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 11,
+          "images": 4
+        },
+        {
+          "id": "c2-home-help",
+          "label": "Глава 2 · подсказка",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 4,
+          "images": 4
+        },
+        {
+          "id": "c2-investigation",
+          "label": "Глава 2 · расследование",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 9,
+          "images": 1
+        },
+        {
+          "id": "c2-deduction",
+          "label": "Глава 2 · доска выводов",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 7,
+          "images": 1
+        },
+        {
+          "id": "c2-danger",
+          "label": "Глава 2 · опасная сцена",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 6,
+          "images": 1
+        },
+        {
+          "id": "c2-alchemy",
+          "label": "Глава 2 · алхимия",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 11,
+          "images": 1
+        },
+        {
+          "id": "c2-alchemy-result",
+          "label": "Глава 2 · результат алхимии",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 4,
+          "images": 1
+        },
+        {
+          "id": "c2-battle-hero",
+          "label": "Глава 2 · бой героя",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 14,
+          "images": 7
+        },
+        {
+          "id": "c2-battle-morven",
+          "label": "Глава 2 · бой Морвена",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 14,
+          "images": 5
+        },
+        {
+          "id": "c2-choice",
+          "label": "Глава 2 · выбор",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 5,
+          "images": 1
+        },
+        {
+          "id": "c2-return",
+          "label": "Глава 2 · возвращение",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "c2-summon",
+          "label": "Глава 2 · договор",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "c2-summary",
+          "label": "Глава 2 · итог",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "incident-brief",
+          "label": "Дело района · вводная",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "incident-investigation",
+          "label": "Дело района · расследование",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 7,
+          "images": 1
+        },
+        {
+          "id": "incident-preparation",
+          "label": "Дело района · подготовка",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 7,
+          "images": 1
+        },
+        {
+          "id": "incident-battle",
+          "label": "Дело района · бой",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 10,
+          "images": 11
+        },
+        {
+          "id": "incident-result",
+          "label": "Дело района · итог",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "c3-intro",
+          "label": "Глава 3 · вступление",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "c3-meeting",
+          "label": "Глава 3 · разговор",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 6,
+          "images": 1
+        },
+        {
+          "id": "c3-investigation",
+          "label": "Глава 3 · расследование",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 10,
+          "images": 1
+        },
+        {
+          "id": "c3-investigation-help",
+          "label": "Глава 3 · подсказка",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "c3-deduction",
+          "label": "Глава 3 · доска выводов",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 7,
+          "images": 1
+        },
+        {
+          "id": "c3-training",
+          "label": "Глава 3 · обучение Щиту",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 4,
+          "images": 1
+        },
+        {
+          "id": "c3-danger",
+          "label": "Глава 3 · опасная сцена",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 7,
+          "images": 1
+        },
+        {
+          "id": "c3-brief",
+          "label": "Глава 3 · подготовка",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 7,
+          "images": 1
+        },
+        {
+          "id": "c3-battle",
+          "label": "Глава 3 · бой",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 11,
+          "images": 9
+        },
+        {
+          "id": "c3-amulet",
+          "label": "Глава 3 · выбор после боя",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 6,
+          "images": 1
+        },
+        {
+          "id": "c3-registration",
+          "label": "Глава 3 · регистрация",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 6,
+          "images": 1
+        },
+        {
+          "id": "c3-final",
+          "label": "Глава 3 · итог",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 4,
+          "images": 1
+        },
+        {
+          "id": "c4-intro",
+          "label": "Глава 4 · вступление",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 2
+        },
+        {
+          "id": "c4-meeting",
+          "label": "Глава 4 · разговор",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 6,
+          "images": 2
+        },
+        {
+          "id": "c4-investigation",
+          "label": "Глава 4 · расследование",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 9,
+          "images": 2
+        },
+        {
+          "id": "c4-deduction",
+          "label": "Глава 4 · диагноз",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 6,
+          "images": 1
+        },
+        {
+          "id": "c4-formula",
+          "label": "Глава 4 · формула",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 6,
+          "images": 1
+        },
+        {
+          "id": "c4-alchemy",
+          "label": "Глава 4 · алхимия",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 10,
+          "images": 1
+        },
+        {
+          "id": "c4-alchemy-result",
+          "label": "Глава 4 · результат алхимии",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "c4-brief",
+          "label": "Глава 4 · подготовка",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        },
+        {
+          "id": "c4-battle-hero",
+          "label": "Глава 4 · бой · hero",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 10,
+          "images": 8
+        },
+        {
+          "id": "c4-battle-celeste",
+          "label": "Глава 4 · бой · celeste",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 9,
+          "images": 5
+        },
+        {
+          "id": "c4-battle-liora",
+          "label": "Глава 4 · бой · liora",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 8,
+          "images": 5
+        },
+        {
+          "id": "c4-battle-help",
+          "label": "Глава 4 · подсказка боя",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 8
+        },
+        {
+          "id": "c4-choice",
+          "label": "Глава 4 · финальный выбор",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 6,
+          "images": 1
+        },
+        {
+          "id": "c4-final",
+          "label": "Глава 4 · итог",
+          "viewport": "430x932",
+          "failures": [],
+          "warnings": [],
+          "actions": 3,
+          "images": 1
+        }
+      ]
+    }
+  ],
+  "consoleErrors": [],
+  "interactionChecks": []
+}

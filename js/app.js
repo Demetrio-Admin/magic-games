@@ -2542,10 +2542,11 @@ const ART_V3_PORTRAITS={
   }
   function artV2Decorate(){
     document.body.classList.add('art-pass-v2');
-    document.body.style.setProperty('--artv2-hunger',`url("${EXTERNAL_ASSETS.hunger}")`);
-    document.body.style.setProperty('--artv2-root',`url("${EXTERNAL_ASSETS.root}")`);
-    document.body.style.setProperty('--artv2-ritualist',`url("${EXTERNAL_ASSETS.ritualist}")`);
-    document.body.style.setProperty('--artv2-morven',`url("${EXTERNAL_ASSETS.morven}")`);
+    const artUrl=path=>new URL(path,document.baseURI).href;
+    document.body.style.setProperty('--artv2-hunger',`url("${artUrl(EXTERNAL_ASSETS.hunger)}")`);
+    document.body.style.setProperty('--artv2-root',`url("${artUrl(EXTERNAL_ASSETS.root)}")`);
+    document.body.style.setProperty('--artv2-ritualist',`url("${artUrl(EXTERNAL_ASSETS.ritualist)}")`);
+    document.body.style.setProperty('--artv2-morven',`url("${artUrl(EXTERNAL_ASSETS.morven)}")`);
     document.querySelectorAll('.c2-visual.c2-room').forEach(n=>artV2Insert(n,'c2home'));
     document.querySelectorAll('.c2-location-scene.apartment').forEach(n=>artV2Insert(n,'apartment'));
     document.querySelectorAll('.c2-location-scene.shop').forEach(n=>artV2Insert(n,'shop'));

@@ -35,9 +35,9 @@ The machine-readable report is also stored in `window.__uiAuditResult`.
 
 ## Current baseline
 
-Validated on 2026-07-30:
+Validated on 2026-08-01:
 
 - 61 deterministic UI states;
-- 4 mobile viewports;
-- 244 passed scenario/viewport combinations;
+- 3 mobile viewports: 320 × 568, 390 × 844 and 430 × 932;
+- 183 passed scenario/viewport combinations;
 - 0 failures, 0 touch-target warnings and 0 broken image assets.
