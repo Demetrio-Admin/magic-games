@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="css/ui-ux-stability-v1.css?v=3.1.5">
 <link rel="stylesheet" href="css/nocturne-ritual-v1.css?v=4.0.0">
 <link rel="stylesheet" href="css/nocturne-scenes-v2.css?v=4.1.0">
+<link rel="stylesheet" href="css/chapter2-home-v3.css?v=4.2.0">
 <title>Magic RPG — Между светом и тьмой</title>
 </head>
 <body class="design-system-v1 core-screens-v1 investigation-ui-v1 battle-ui-v1 alchemy-ui-v1 narrative-choice-ui-v1 rooms-exploration-ui-v1 nocturne-ritual-v1 nocturne-scenes-v2">
@@ -39,6 +40,7 @@
 <script src="js/rc-qa-fixes-v1.js?v=3.1.0" defer></script>
 <script src="js/nocturne-ritual-v1.js?v=4.0.0" defer></script>
 <script src="js/nocturne-scenes-v2.js?v=4.1.0" defer></script>
+<script src="js/chapter2-home-v3.js?v=4.2.0" defer></script>
 <script>
 if('serviceWorker' in navigator && location.protocol.startsWith('http')){
   let refreshing=false;
@@ -50,7 +52,7 @@ if('serviceWorker' in navigator && location.protocol.startsWith('http')){
   addEventListener('load',async()=>{
     try{
       if(new URLSearchParams(location.search).has('ui-audit'))return;
-      const registration=await navigator.serviceWorker.register('./service-worker.js?v=4.1.0',{updateViaCache:'none'});
+      const registration=await navigator.serviceWorker.register('./service-worker.js?v=4.2.0',{updateViaCache:'none'});
       await registration.update();
     }catch(error){console.warn('Service worker registration failed:',error);}
   });
