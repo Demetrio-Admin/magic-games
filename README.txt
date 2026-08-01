@@ -1,6 +1,8 @@
-MAGIC RPG — PROJECT v2.0
+MAGIC RPG — NOCTURNE CLEAN v5.0
 
-Это многофайловая PWA-сборка. Не открывайте index.html напрямую через content:// или file:// — отдельные CSS, JS и изображения могут не загрузиться.
+Это чистая PWA-сборка с единым интерфейсом Nocturne. Визуальный слой находится в css/nocturne-game.css и js/nocturne-ui.js, игровая логика — в js/app.js.
+
+Не открывайте index.html напрямую через content:// или file:// — CSS, JS и изображения могут не загрузиться.
 
 ПК: запустите start_server.bat или выполните python -m http.server 8080, затем откройте http://localhost:8080.
 

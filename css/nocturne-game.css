@@ -1,4 +1,6 @@
 
+/* Consolidated source: css/app.css */
+
 :root {
   color-scheme: dark;
   --bg: #08070d;
@@ -2058,4 +2060,1458 @@ button[disabled]{opacity:.42;filter:saturate(.65)}
   background:
     linear-gradient(180deg,rgba(7,5,10,.08),rgba(7,5,10,.32)),
     url("../assets/art-v3/ritual-battle.webp") center/cover no-repeat!important;
+}
+
+/* Consolidated source: css/nocturne-ritual-v1.css */
+/* =========================================================
+   MAGIC RPG — NOCTURNE RITUAL v1
+   Product Design direction: Obsidian Ritual.
+   Final visual layer; mechanics remain in the existing files.
+   ========================================================= */
+
+:root{
+  --nr-ink:#050407;
+  --nr-canvas:#08070b;
+  --nr-obsidian:#0e0c12;
+  --nr-panel:#15111a;
+  --nr-panel-2:#1b1421;
+  --nr-violet:#b77be4;
+  --nr-violet-bright:#d8a9f3;
+  --nr-violet-soft:rgba(183,123,228,.14);
+  --nr-gold:#d4b77f;
+  --nr-gold-bright:#ead19f;
+  --nr-gold-soft:rgba(212,183,127,.16);
+  --nr-silver:#cbc5cf;
+  --nr-muted:#aaa2ae;
+  --nr-faint:#79717f;
+  --nr-green:#91c8a8;
+  --nr-red:#d98398;
+  --nr-line:rgba(212,183,127,.22);
+  --nr-line-strong:rgba(212,183,127,.48);
+  --nr-font-display:Georgia,"Times New Roman",serif;
+  --nr-font-body:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --nr-shadow:0 18px 50px rgba(0,0,0,.52);
+  --nr-glow:0 0 28px rgba(183,123,228,.16);
+
+  --ds-bg-canvas:var(--nr-ink);
+  --ds-bg-app:var(--nr-canvas);
+  --ds-surface-1:var(--nr-obsidian);
+  --ds-surface-2:var(--nr-panel);
+  --ds-surface-3:var(--nr-panel-2);
+  --ds-surface-glass:rgba(14,12,18,.93);
+  --ds-surface-glass-strong:rgba(8,7,11,.98);
+  --ds-text-1:#f4eff5;
+  --ds-text-2:var(--nr-muted);
+  --ds-text-3:var(--nr-faint);
+  --ds-arcane:var(--nr-violet);
+  --ds-arcane-strong:#8751b2;
+  --ds-arcane-soft:var(--nr-violet-soft);
+  --ds-gold:var(--nr-gold);
+  --ds-gold-soft:var(--nr-gold-soft);
+  --ds-life:var(--nr-green);
+  --ds-danger:var(--nr-red);
+  --ds-line-subtle:rgba(212,183,127,.10);
+  --ds-line:var(--nr-line);
+  --ds-line-strong:var(--nr-line-strong);
+  --ds-font-display:var(--nr-font-display);
+  --ds-font-body:var(--nr-font-body);
+  --ds-radius-xs:5px;
+  --ds-radius-sm:8px;
+  --ds-radius-md:12px;
+  --ds-radius-lg:16px;
+  --ds-radius-xl:20px;
+}
+
+html{background:var(--nr-ink)}
+body.nocturne-ritual-v1{
+  font-family:var(--nr-font-body);
+  color:#f4eff5;
+  background:
+    radial-gradient(circle at 50% -20%,rgba(93,55,120,.24),transparent 36%),
+    var(--nr-ink);
+}
+body.nocturne-ritual-v1 #app{
+  width:min(100%,480px);
+  background:
+    radial-gradient(circle at 50% 0%,rgba(92,58,117,.13),transparent 24%),
+    linear-gradient(180deg,#0b0910,var(--nr-canvas));
+  box-shadow:0 0 90px rgba(0,0,0,.82);
+}
+
+/* Type and hierarchy */
+body.nocturne-ritual-v1 .start-title,
+body.nocturne-ritual-v1 .screen-header h1,
+body.nocturne-ritual-v1 .c2-top h1,
+body.nocturne-ritual-v1 .c3-top h1,
+body.nocturne-ritual-v1 .c4-top h1,
+body.nocturne-ritual-v1 .inc-top h1,
+body.nocturne-ritual-v1 .modal-header h2,
+body.nocturne-ritual-v1 h2{
+  font-family:var(--nr-font-display);
+  font-weight:600;
+  letter-spacing:.01em;
+}
+body.nocturne-ritual-v1 p,
+body.nocturne-ritual-v1 small,
+body.nocturne-ritual-v1 span{
+  overflow-wrap:anywhere;
+}
+body.nocturne-ritual-v1 .eyebrow,
+body.nocturne-ritual-v1 .speaker,
+body.nocturne-ritual-v1 .c3-speaker,
+body.nocturne-ritual-v1 .brand-kicker{
+  color:var(--nr-gold-bright);
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.17em;
+  text-transform:uppercase;
+}
+
+/* Start screen */
+body.nocturne-ritual-v1 .start-screen{
+  min-height:100dvh;
+  padding:max(22px,env(safe-area-inset-top)) 20px max(24px,env(safe-area-inset-bottom));
+  background:
+    linear-gradient(180deg,rgba(4,3,7,.16) 0%,rgba(4,3,7,.24) 36%,rgba(5,4,8,.92) 75%,#050407 100%),
+    url("../assets/art-v3/intro-hero.webp") center 28%/cover no-repeat;
+}
+body.nocturne-ritual-v1 .start-screen::before,
+body.nocturne-ritual-v1 .start-screen::after{display:none}
+body.nocturne-ritual-v1 .brand-kicker{gap:12px;text-shadow:0 2px 12px #000}
+body.nocturne-ritual-v1 .brand-kicker::before{background:var(--nr-gold);width:38px}
+body.nocturne-ritual-v1 .start-copy{padding-top:min(55vh,470px)}
+body.nocturne-ritual-v1 .start-title{
+  font-size:clamp(43px,12vw,62px);
+  line-height:.86;
+  color:#f2e5cc;
+  text-shadow:0 3px 24px #000,0 0 35px rgba(183,123,228,.22);
+}
+body.nocturne-ritual-v1 .start-subtitle{
+  max-width:420px;
+  margin-top:18px;
+  color:#c7becb;
+  font-size:14px;
+  line-height:1.55;
+  text-shadow:0 2px 10px #000;
+}
+body.nocturne-ritual-v1 .save-preview{
+  border-color:var(--nr-line);
+  border-radius:9px;
+  background:rgba(8,7,11,.88);
+  box-shadow:inset 0 1px rgba(255,255,255,.025);
+}
+body.nocturne-ritual-v1 .version-line{color:#857b8c}
+
+/* Buttons */
+body.nocturne-ritual-v1 .primary-button,
+body.nocturne-ritual-v1 .secondary-button,
+body.nocturne-ritual-v1 .ghost-button,
+body.nocturne-ritual-v1 .danger-button,
+body.nocturne-ritual-v1 .small-button{
+  min-height:50px;
+  border-radius:8px;
+  border:1px solid var(--nr-line);
+  letter-spacing:.035em;
+  font-size:13px;
+  font-weight:750;
+}
+body.nocturne-ritual-v1 .primary-button{
+  color:#f9efff;
+  border-color:rgba(210,156,243,.52);
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.055),transparent 45%),
+    linear-gradient(135deg,#6e388d,#3d204f);
+  box-shadow:0 12px 28px rgba(61,25,82,.45),inset 0 0 24px rgba(183,123,228,.12);
+}
+body.nocturne-ritual-v1 .secondary-button{
+  color:#e8dcc7;
+  border-color:var(--nr-line-strong);
+  background:linear-gradient(180deg,rgba(31,25,36,.98),rgba(13,11,16,.98));
+}
+body.nocturne-ritual-v1 .ghost-button,
+body.nocturne-ritual-v1 .small-button{background:rgba(12,10,15,.78)}
+body.nocturne-ritual-v1 button:focus-visible,
+body.nocturne-ritual-v1 [role="button"]:focus-visible{
+  outline:2px solid var(--nr-violet-bright);
+  outline-offset:3px;
+  box-shadow:0 0 0 4px rgba(183,123,228,.17);
+}
+
+/* Shells and navigation */
+body.nocturne-ritual-v1 .topbar,
+body.nocturne-ritual-v1 .c2-top,
+body.nocturne-ritual-v1 .c3-top,
+body.nocturne-ritual-v1 .c4-top,
+body.nocturne-ritual-v1 .inc-top{
+  border-bottom:1px solid var(--nr-line);
+  background:rgba(6,5,8,.94);
+  backdrop-filter:blur(18px);
+  box-shadow:0 10px 28px rgba(0,0,0,.32);
+}
+body.nocturne-ritual-v1 .c2-top h1,
+body.nocturne-ritual-v1 .c3-top h1,
+body.nocturne-ritual-v1 .c4-top h1,
+body.nocturne-ritual-v1 .inc-top h1{
+  color:#ead9b9;
+  font-size:clamp(24px,7vw,32px);
+  line-height:1;
+}
+body.nocturne-ritual-v1 .c2-back,
+body.nocturne-ritual-v1 .c3-top>button,
+body.nocturne-ritual-v1 .c4-back,
+body.nocturne-ritual-v1 .inc-back{
+  border-color:var(--nr-line-strong);
+  color:var(--nr-gold-bright);
+  background:rgba(22,16,25,.88);
+}
+body.nocturne-ritual-v1 .bottom-nav{
+  border-top-color:var(--nr-line);
+  background:rgba(6,5,8,.97);
+  box-shadow:0 -14px 34px rgba(0,0,0,.42);
+}
+body.nocturne-ritual-v1 .nav-button{min-height:52px;color:#77707e;border-radius:8px}
+body.nocturne-ritual-v1 .nav-button.active{
+  color:var(--nr-violet-bright);
+  background:linear-gradient(180deg,rgba(183,123,228,.14),rgba(183,123,228,.045));
+  box-shadow:inset 0 1px rgba(222,177,247,.18);
+}
+body.nocturne-ritual-v1 .hero-sigil{
+  border-color:var(--nr-gold);
+  background:url("../assets/icons/icon-192.png") center/cover no-repeat;
+  color:transparent;
+  box-shadow:var(--nr-glow);
+}
+
+/* Shared surfaces */
+body.nocturne-ritual-v1 .card,
+body.nocturne-ritual-v1 .ux6-stage-card,
+body.nocturne-ritual-v1 .c4-panel,
+body.nocturne-ritual-v1 .c2-ritual,
+body.nocturne-ritual-v1 .inc-ritual,
+body.nocturne-ritual-v1 .c3-objective{
+  border-color:var(--nr-line);
+  border-radius:12px;
+  background:
+    linear-gradient(145deg,rgba(27,21,32,.96),rgba(10,9,13,.985));
+  box-shadow:0 12px 30px rgba(0,0,0,.3),inset 0 1px rgba(235,215,181,.025);
+}
+body.nocturne-ritual-v1 .screen{padding-inline:14px}
+body.nocturne-ritual-v1 .screen-header{align-items:center;margin-bottom:18px}
+body.nocturne-ritual-v1 .screen-header h1{color:#ead9b9;font-size:32px;line-height:1}
+body.nocturne-ritual-v1 .screen-header p{font-size:13px;line-height:1.5}
+body.nocturne-ritual-v1 .section-title{border-bottom:1px solid rgba(212,183,127,.12);padding-bottom:8px}
+body.nocturne-ritual-v1 .section-title h2{font-family:var(--nr-font-body);font-size:13px;letter-spacing:.07em;text-transform:uppercase}
+body.nocturne-ritual-v1 .tag{border-color:var(--nr-line);border-radius:5px;background:rgba(212,183,127,.06)}
+body.nocturne-ritual-v1 .status-row{min-height:48px;border-color:rgba(212,183,127,.13)}
+
+/* Portraits and authored art */
+body.nocturne-ritual-v1 .party-avatar,
+body.nocturne-ritual-v1 .hero-orb{
+  overflow:hidden;
+  padding:0;
+  border:1px solid var(--nr-line-strong);
+  background:#0b0910;
+}
+body.nocturne-ritual-v1 .party-avatar img,
+body.nocturne-ritual-v1 .hero-orb img{width:100%;height:100%;object-fit:cover;display:block}
+body.nocturne-ritual-v1 .companion-portrait img{filter:saturate(.86) contrast(1.04)}
+body.nocturne-ritual-v1 .direct-art-block,
+body.nocturne-ritual-v1 .home-scene,
+body.nocturne-ritual-v1 .c4-hero{border-color:var(--nr-line);border-radius:14px;box-shadow:var(--nr-shadow)}
+body.nocturne-ritual-v1 .home-scene .scene-copy{
+  max-width:min(76%,330px);
+  padding:10px 12px;
+  background:linear-gradient(90deg,rgba(7,6,10,.82),rgba(7,6,10,.2));
+}
+body.nocturne-ritual-v1 .home-scene .scene-copy h1{
+  max-width:12ch;
+  font-size:clamp(26px,7.2vw,31px);
+  line-height:.96;
+}
+body.nocturne-ritual-v1 .home-scene .scene-copy p{
+  max-width:31ch;
+  font-size:11px;
+}
+
+/* Investigation */
+body.nocturne-ritual-v1 .investigation-flow{
+  border-color:var(--nr-line);
+  background:rgba(9,8,12,.94);
+}
+body.nocturne-ritual-v1 .investigation-flow-step{color:var(--nr-faint)}
+body.nocturne-ritual-v1 .investigation-flow-step i{border-color:var(--nr-line-strong);background:#0b0910;color:var(--nr-gold)}
+body.nocturne-ritual-v1 .investigation-flow-step.active{color:#efe5ef}
+body.nocturne-ritual-v1 .investigation-flow-step.active i{border-color:var(--nr-violet);background:var(--nr-violet-soft);color:var(--nr-violet-bright)}
+body.nocturne-ritual-v1 .investigation-object-button,
+body.nocturne-ritual-v1 .ux-method,
+body.nocturne-ritual-v1 .c3-invest,
+body.nocturne-ritual-v1 .c4-method,
+body.nocturne-ritual-v1 .c4-point{
+  min-height:52px;
+  border-radius:8px;
+  border-color:var(--nr-line);
+  background:linear-gradient(145deg,rgba(24,19,29,.96),rgba(11,9,14,.98));
+}
+body.nocturne-ritual-v1 .investigation-object-button.selected,
+body.nocturne-ritual-v1 .ux-method.selected,
+body.nocturne-ritual-v1 .c4-method.active{
+  border-color:rgba(183,123,228,.65);
+  background:var(--nr-violet-soft);
+  box-shadow:0 0 0 1px rgba(183,123,228,.13),var(--nr-glow);
+}
+body.nocturne-ritual-v1 .ux-invest-head b,
+body.nocturne-ritual-v1 .c3-invest b,
+body.nocturne-ritual-v1 .c4-method b{font-size:13px}
+body.nocturne-ritual-v1 .ux-point-body,
+body.nocturne-ritual-v1 .c3-invest small,
+body.nocturne-ritual-v1 .c4-method span{font-size:12px;line-height:1.45}
+body.nocturne-ritual-v1 .ux-clue,
+body.nocturne-ritual-v1 .c4-evidence-chip{border-radius:7px;border-color:var(--nr-line);background:rgba(212,183,127,.05)}
+body.nocturne-ritual-v1 .ux-board-summary,
+body.nocturne-ritual-v1 .ux-hypothesis,
+body.nocturne-ritual-v1 .c3-plan,
+body.nocturne-ritual-v1 .c4-choice{
+  border-color:var(--nr-line);
+  border-radius:10px;
+  background:linear-gradient(145deg,rgba(25,20,30,.97),rgba(11,9,14,.99));
+}
+body.nocturne-ritual-v1 .ux-hypothesis.selected,
+body.nocturne-ritual-v1 .c3-plan.selected,
+body.nocturne-ritual-v1 .c4-choice.active{border-color:var(--nr-violet);background:var(--nr-violet-soft)}
+
+/* Alchemy */
+body.nocturne-ritual-v1 .c2-alchemy-hero,
+body.nocturne-ritual-v1 .c4-hero{min-height:220px}
+body.nocturne-ritual-v1 .c2-recipe,
+body.nocturne-ritual-v1 .c2-alchemy-body,
+body.nocturne-ritual-v1 .c4-alchemy-body{border-color:var(--nr-line);background:rgba(11,9,14,.96)}
+body.nocturne-ritual-v1 .c2-ingredient,
+body.nocturne-ritual-v1 .c4-ingredient,
+body.nocturne-ritual-v1 .c2-temp button,
+body.nocturne-ritual-v1 .c4-temp button{
+  min-height:52px;
+  border-radius:8px;
+  border-color:var(--nr-line);
+  background:linear-gradient(145deg,#1a141f,#0d0b10);
+}
+body.nocturne-ritual-v1 .c2-ingredient.selected,
+body.nocturne-ritual-v1 .c4-ingredient.active,
+body.nocturne-ritual-v1 .c2-temp button.active,
+body.nocturne-ritual-v1 .c4-temp button.active{border-color:var(--nr-violet);background:var(--nr-violet-soft);box-shadow:var(--nr-glow)}
+body.nocturne-ritual-v1 .c2-charge,
+body.nocturne-ritual-v1 .c4-charge{border-color:var(--nr-line-strong);background:#09070c}
+
+/* Narrative choices */
+body.nocturne-ritual-v1 .c2-choice,
+body.nocturne-ritual-v1 .c3-choice,
+body.nocturne-ritual-v1 .nui-choice,
+body.nocturne-ritual-v1 .ux6-danger-choice{
+  min-height:76px;
+  padding:14px;
+  border-radius:9px;
+  border-color:var(--nr-line);
+  background:linear-gradient(145deg,rgba(25,20,30,.97),rgba(11,9,14,.99));
+}
+body.nocturne-ritual-v1 .c2-choice.selected,
+body.nocturne-ritual-v1 .c3-choice.selected,
+body.nocturne-ritual-v1 .nui-choice.selected,
+body.nocturne-ritual-v1 .ux6-danger-choice.selected{
+  border-color:rgba(183,123,228,.7);
+  background:linear-gradient(145deg,rgba(70,40,88,.84),rgba(26,16,34,.98));
+  box-shadow:var(--nr-glow);
+}
+body.nocturne-ritual-v1 .c2-choice b,
+body.nocturne-ritual-v1 .c3-choice b,
+body.nocturne-ritual-v1 .nui-choice b{font-family:var(--nr-font-display);font-size:18px;color:#ebd9bb}
+body.nocturne-ritual-v1 .c2-choice small,
+body.nocturne-ritual-v1 .c3-choice small,
+body.nocturne-ritual-v1 .nui-choice span{font-size:12px;line-height:1.45}
+
+/* Battle composition */
+body.nocturne-ritual-v1 .battle-main-v1{background:#07060a!important;padding-bottom:34px!important}
+body.nocturne-ritual-v1 .battle-layout-v1{gap:10px!important;padding:0 10px 14px}
+body.nocturne-ritual-v1 .nr-battle-art{
+  position:relative;
+  height:clamp(230px,39dvh,370px);
+  margin:0 -10px 2px;
+  overflow:hidden;
+  border-bottom:1px solid var(--nr-line-strong);
+  background:#08070b;
+}
+body.nocturne-ritual-v1 .nr-battle-art img{width:100%;height:100%;display:block;object-fit:cover;object-position:center 56%}
+body.nocturne-ritual-v1 .nr-battle-art.nr-chapter3 img,
+body.nocturne-ritual-v1 .nr-battle-art.nr-chapter4 img{object-position:center}
+body.nocturne-ritual-v1 .nr-battle-art::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,transparent 48%,rgba(6,5,8,.28) 72%,#07060a 100%);
+  pointer-events:none;
+}
+body.nocturne-ritual-v1 .battle-objective-card{
+  padding:14px!important;
+  border-color:var(--nr-line-strong)!important;
+  border-radius:10px!important;
+  background:linear-gradient(145deg,rgba(22,17,27,.98),rgba(8,7,11,.99))!important;
+  box-shadow:var(--nr-shadow),inset 0 0 35px rgba(183,123,228,.055)!important;
+}
+body.nocturne-ritual-v1 .battle-objective-card::before{display:none}
+body.nocturne-ritual-v1 .battle-objective-card .c2-ritual-grid,
+body.nocturne-ritual-v1 .battle-objective-card .inc-ritual-list,
+body.nocturne-ritual-v1 .battle-objective-card .c3-objective-list,
+body.nocturne-ritual-v1 .battle-objective-card .c4-objective-grid{
+  grid-template-columns:1fr!important;
+  gap:2px!important;
+  margin-top:10px!important;
+}
+body.nocturne-ritual-v1 .battle-check{
+  min-height:40px;
+  padding:9px 10px 9px 31px!important;
+  border:0;
+  border-top:1px solid rgba(212,183,127,.11);
+  border-radius:0;
+  background:transparent;
+  color:#b4abb8!important;
+  font-size:12px!important;
+  line-height:1.4!important;
+}
+body.nocturne-ritual-v1 .battle-check::before{left:9px!important;color:var(--nr-gold)!important}
+body.nocturne-ritual-v1 .battle-check.done{border-color:rgba(145,200,168,.18);background:rgba(145,200,168,.035);color:#b8dcc7!important}
+body.nocturne-ritual-v1 .battle-objective-progress{margin-top:11px}
+body.nocturne-ritual-v1 .battle-objective-progress>div{height:5px;background:rgba(255,255,255,.055)}
+body.nocturne-ritual-v1 .battle-objective-progress>div>span{background:linear-gradient(90deg,#70418f,var(--nr-violet-bright))}
+body.nocturne-ritual-v1 .battle-objective-progress>b{font-family:var(--nr-font-display);font-size:18px;color:#e7d3b1}
+body.nocturne-ritual-v1 .ux-invest-bonuses{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:5px!important;
+  overflow:visible!important;
+}
+body.nocturne-ritual-v1 .ux-invest-bonuses span{
+  flex:1 1 120px!important;
+  padding:4px 6px!important;
+  white-space:normal!important;
+  font-size:8px!important;
+  line-height:1.35!important;
+}
+body.nocturne-ritual-v1 .battle-next-step{border-radius:7px;border-color:var(--nr-line);background:rgba(212,183,127,.045)}
+body.nocturne-ritual-v1 .battle-next-step>i{background:var(--nr-violet-soft);color:var(--nr-violet-bright)}
+body.nocturne-ritual-v1 .battle-next-step b{font-size:11px;color:#ead9b9}
+body.nocturne-ritual-v1 .battle-next-step small{font-size:11px;line-height:1.4}
+
+body.nocturne-ritual-v1 .battle-intent-card{
+  padding:12px 13px!important;
+  border:1px solid rgba(183,123,228,.28)!important;
+  border-radius:8px!important;
+  background:linear-gradient(90deg,rgba(48,25,62,.74),rgba(14,11,18,.98))!important;
+  box-shadow:inset 3px 0 0 rgba(183,123,228,.7)!important;
+}
+body.nocturne-ritual-v1 .battle-intent-card>span{font-size:9px!important;letter-spacing:.14em;text-transform:uppercase;color:var(--nr-violet-bright)!important}
+body.nocturne-ritual-v1 .battle-intent-card>b{font-family:var(--nr-font-display);font-size:18px!important;color:#ead9b9}
+body.nocturne-ritual-v1 .battle-intent-card>small{font-size:11px!important;line-height:1.45!important}
+body.nocturne-ritual-v1 .battle-enemy-card{
+  min-height:auto!important;
+  padding:12px!important;
+  border-radius:9px!important;
+  border-color:var(--nr-line)!important;
+  background:linear-gradient(145deg,rgba(22,17,27,.97),rgba(8,7,11,.99))!important;
+}
+body.nocturne-ritual-v1 .battle-enemy-card h2{font-size:22px;color:#ead9b9}
+body.nocturne-ritual-v1 .battle-status-chip{min-height:42px!important;border:1px solid rgba(212,183,127,.13)!important;border-radius:6px!important;font-size:9px!important}
+body.nocturne-ritual-v1 .battle-status-chip b{font-family:var(--nr-font-display);font-size:16px!important;color:#ead9b9}
+body.nocturne-ritual-v1 .c2-ivy,
+body.nocturne-ritual-v1 .inc-flower,
+body.nocturne-ritual-v1 .c4-enemy-mark{font-size:0!important;background:url("../assets/icons/icon-192.png") center/cover no-repeat!important}
+
+body.nocturne-ritual-v1 .battle-actor-tabs{
+  gap:7px!important;
+  padding:6px!important;
+  border-color:var(--nr-line-strong)!important;
+  border-radius:10px!important;
+  background:#09070c!important;
+}
+body.nocturne-ritual-v1 .battle-actor-tab{
+  min-height:78px!important;
+  display:grid!important;
+  grid-template-columns:48px minmax(0,1fr)!important;
+  align-items:center!important;
+  gap:9px!important;
+  padding:7px!important;
+  border-radius:7px!important;
+  background:linear-gradient(145deg,rgba(26,20,31,.9),rgba(12,10,15,.96))!important;
+  color:#a9a1ad!important;
+  text-align:left!important;
+}
+body.nocturne-ritual-v1 .battle-actor-tab.active,
+body.nocturne-ritual-v1 .battle-actor-tab[aria-selected="true"]{
+  border-color:var(--nr-violet)!important;
+  background:linear-gradient(145deg,rgba(69,37,86,.78),rgba(24,14,31,.98))!important;
+  color:#f4eaf7!important;
+  box-shadow:inset 0 0 26px rgba(183,123,228,.1),var(--nr-glow)!important;
+}
+body.nocturne-ritual-v1 .nr-actor-portrait{
+  grid-row:1/4;
+  width:48px;
+  height:60px;
+  border:1px solid var(--nr-line-strong);
+  border-radius:6px;
+  object-fit:cover;
+  object-position:center 22%;
+  background:#08070b;
+}
+body.nocturne-ritual-v1 .battle-actor-tab b,
+body.nocturne-ritual-v1 .battle-actor-tab strong{font-family:var(--nr-font-display);font-size:16px!important;color:inherit}
+body.nocturne-ritual-v1 .battle-actor-tab span,
+body.nocturne-ritual-v1 .battle-actor-tab small{font-size:9px!important;line-height:1.3!important}
+body.nocturne-ritual-v1 .battle-actor-tabs:not(.c2-battle-tabs) .battle-actor-tab{
+  min-height:108px!important;
+  grid-template-columns:1fr!important;
+  grid-template-rows:50px auto auto!important;
+  justify-items:center!important;
+  align-content:center!important;
+  gap:3px!important;
+  text-align:center!important;
+}
+body.nocturne-ritual-v1 .battle-actor-tabs:not(.c2-battle-tabs) .nr-actor-portrait{
+  grid-row:auto;
+  width:44px;
+  height:50px;
+}
+body.nocturne-ritual-v1 .battle-actor-tabs:not(.c2-battle-tabs) .battle-actor-tab b,
+body.nocturne-ritual-v1 .battle-actor-tabs:not(.c2-battle-tabs) .battle-actor-tab strong{
+  max-width:100%;
+  font-size:13px!important;
+  line-height:1!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+}
+body.nocturne-ritual-v1 .battle-actor-tabs:not(.c2-battle-tabs) .battle-actor-tab span,
+body.nocturne-ritual-v1 .battle-actor-tabs:not(.c2-battle-tabs) .battle-actor-tab small{
+  font-size:8px!important;
+  line-height:1.2!important;
+}
+
+body.nocturne-ritual-v1 .battle-action-panel{padding:0!important;border:0!important;background:transparent!important}
+body.nocturne-ritual-v1 .battle-actions-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:8px!important;
+}
+body.nocturne-ritual-v1 .battle-action-card{
+  min-height:112px!important;
+  display:grid!important;
+  grid-template-columns:46px minmax(0,1fr)!important;
+  grid-template-areas:"icon title" "icon copy"!important;
+  align-content:center!important;
+  column-gap:8px!important;
+  padding:10px!important;
+  border-color:var(--nr-line)!important;
+  border-radius:9px!important;
+  background:linear-gradient(145deg,rgba(24,19,29,.98),rgba(9,8,12,.99))!important;
+}
+body.nocturne-ritual-v1 .battle-action-card:not(:disabled):active,
+body.nocturne-ritual-v1 .battle-action-card:not(:disabled):focus-visible{border-color:var(--nr-violet)!important;background:linear-gradient(145deg,rgba(56,31,70,.96),rgba(18,11,24,.99))!important}
+body.nocturne-ritual-v1 .nr-spell-icon{
+  grid-area:icon;
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  object-fit:cover;
+  box-shadow:0 0 22px rgba(183,123,228,.14);
+}
+body.nocturne-ritual-v1 .battle-action-card b{grid-area:title;padding-right:0!important;font-family:var(--nr-font-display);font-size:15px!important;line-height:1.05!important;color:#ead9b9}
+body.nocturne-ritual-v1 .battle-action-card span{grid-area:copy;margin-top:4px!important;font-size:10px!important;line-height:1.35!important;color:#b7aebc!important}
+body.nocturne-ritual-v1 .battle-action-card small{grid-column:1/-1;font-size:10px!important;line-height:1.35!important}
+body.nocturne-ritual-v1 .battle-cost-badge{right:7px!important;top:7px!important;border-color:var(--nr-line)!important;border-radius:5px!important;color:var(--nr-gold-bright)!important;background:#08070b!important;font-size:8px!important}
+body.nocturne-ritual-v1 .battle-action-card:disabled{opacity:.48!important}
+body.nocturne-ritual-v1 .battle-finish-action{border-color:rgba(145,200,168,.42)!important;background:linear-gradient(145deg,rgba(26,55,40,.92),rgba(10,21,15,.99))!important}
+body.nocturne-ritual-v1 .battle-footer-v1{
+  padding:9px 10px max(10px,env(safe-area-inset-bottom))!important;
+  border-top:1px solid var(--nr-line)!important;
+  background:rgba(6,5,8,.97)!important;
+}
+body.nocturne-ritual-v1 .battle-end-turn{
+  min-height:56px!important;
+  border-color:var(--nr-line-strong)!important;
+  color:#ead9b9!important;
+  background:linear-gradient(180deg,#211725,#0e0b12)!important;
+  font-family:var(--nr-font-display)!important;
+  font-size:20px!important;
+  letter-spacing:.05em!important;
+}
+
+/* Replace legacy emoji-based scene markers with authored scene art */
+body.nocturne-ritual-v1 .c3-scene,
+body.nocturne-ritual-v1 .c3-fall-scene,
+body.nocturne-ritual-v1 .ux6-training-scene,
+body.nocturne-ritual-v1 .ux6-danger-scene,
+body.nocturne-ritual-v1 .c3-arena{
+  background:
+    linear-gradient(180deg,rgba(5,4,8,.08),rgba(5,4,8,.72)),
+    url("../assets/backgrounds/ritualist.svg") center/cover no-repeat!important;
+  border-color:var(--nr-line)!important;
+}
+body.nocturne-ritual-v1 .c3-liora,
+body.nocturne-ritual-v1 .c3-cat,
+body.nocturne-ritual-v1 .c3-sigil,
+body.nocturne-ritual-v1 .c3-child,
+body.nocturne-ritual-v1 .c3-enemy,
+body.nocturne-ritual-v1 .c3-tech,
+body.nocturne-ritual-v1 .c3-beacon,
+body.nocturne-ritual-v1 .ux6-training-sign,
+body.nocturne-ritual-v1 .ux6-training-child,
+body.nocturne-ritual-v1 .ux6-training-beacon{font-size:0!important;color:transparent!important}
+
+/* Modals */
+body.nocturne-ritual-v1 .modal{
+  border:1px solid var(--nr-line-strong);
+  border-radius:14px 14px 0 0;
+  background:linear-gradient(180deg,#17111c,#09080c);
+  box-shadow:0 -24px 70px rgba(0,0,0,.62);
+}
+body.nocturne-ritual-v1 .modal-header{border-bottom-color:var(--nr-line)}
+body.nocturne-ritual-v1 .modal-close{border-color:var(--nr-line);background:#0b0910}
+
+@media(max-width:370px){
+  body.nocturne-ritual-v1 .battle-actions-grid{grid-template-columns:1fr!important}
+  body.nocturne-ritual-v1 .battle-action-card{min-height:88px!important;grid-template-columns:52px minmax(0,1fr)!important}
+  body.nocturne-ritual-v1 .nr-spell-icon{width:52px;height:52px}
+  body.nocturne-ritual-v1 .nr-battle-art{height:220px}
+  body.nocturne-ritual-v1 .c2-top h1,
+  body.nocturne-ritual-v1 .c3-top h1,
+  body.nocturne-ritual-v1 .c4-top h1,
+  body.nocturne-ritual-v1 .inc-top h1{font-size:23px}
+}
+
+@media(max-width:430px){
+  body.nocturne-ritual-v1 .c2-top h1{
+    font-size:20px!important;
+    overflow-wrap:normal;
+    word-break:normal;
+  }
+  body.nocturne-ritual-v1 .c2-top .eyebrow{font-size:9px;letter-spacing:.13em}
+  body.nocturne-ritual-v1 .home-scene .scene-copy h1{font-size:28px}
+}
+
+@media(max-height:700px){
+  body.nocturne-ritual-v1 .nr-battle-art{height:200px}
+  body.nocturne-ritual-v1 .battle-objective-card{padding:11px!important}
+  body.nocturne-ritual-v1 .battle-check{min-height:36px;padding-block:7px!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  body.nocturne-ritual-v1 *,body.nocturne-ritual-v1 *::before,body.nocturne-ritual-v1 *::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+
+/* Consolidated source: css/nocturne-scenes-v2.css */
+/* Authored scene atlas for the Nocturne Ritual theme. */
+body.nocturne-scenes-v2 .nr-v2-scene-art{
+  position:relative;
+  isolation:isolate;
+  width:100%;
+  height:228px;
+  margin:0 0 12px;
+  overflow:hidden;
+  border:1px solid rgba(212,183,127,.26);
+  border-radius:13px;
+  background:#09070c;
+  box-shadow:0 18px 42px rgba(0,0,0,.42),inset 0 0 0 1px rgba(255,255,255,.025);
+}
+body.nocturne-scenes-v2 .nr-v2-scene-art::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:linear-gradient(180deg,rgba(5,4,8,.02) 38%,rgba(7,5,10,.86) 100%),linear-gradient(90deg,rgba(5,4,8,.2),transparent 44%);
+}
+body.nocturne-scenes-v2 .nr-v2-scene-image{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  object-position:center;
+  filter:saturate(.88) contrast(1.06) brightness(.86);
+}
+body.nocturne-scenes-v2 .nr-v2-scene-art figcaption{
+  position:absolute;
+  z-index:2;
+  left:13px;
+  bottom:11px;
+  max-width:calc(100% - 26px);
+  color:#ead8b7;
+  font:700 10px/1.2 var(--nr-font-body,system-ui,sans-serif);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  text-shadow:0 2px 12px #000;
+}
+body.nocturne-scenes-v2 .nr-v2-scene-meta{height:152px}
+body.nocturne-scenes-v2 .nr-v2-scene-modal{height:144px;margin-top:0}
+body.nocturne-scenes-v2 .nr-v2-scene-portrait{height:248px}
+body.nocturne-scenes-v2 .nr-v2-scene-portrait .nr-v2-scene-image{object-position:center 24%}
+
+body.nocturne-scenes-v2 .nr-v2-authored-canvas{
+  position:relative!important;
+  isolation:isolate;
+  overflow:hidden;
+  background:#09070c!important;
+}
+body.nocturne-scenes-v2 .nr-v2-canvas-art{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  object-position:center;
+  filter:saturate(.88) contrast(1.05) brightness(.78);
+}
+body.nocturne-scenes-v2 .nr-v2-authored-canvas::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:linear-gradient(180deg,rgba(6,4,9,.04),rgba(6,4,9,.72));
+}
+body.nocturne-scenes-v2 .nr-v2-authored-canvas>.nr-v2-legacy-art{opacity:0!important;pointer-events:none!important}
+body.nocturne-scenes-v2 .nr-v2-authored-canvas>*:not(.nr-v2-canvas-art):not(.nr-v2-legacy-art){position:relative;z-index:2}
+body.nocturne-scenes-v2 .nr-v2-authored-canvas button{z-index:4!important}
+
+body.nocturne-scenes-v2 .home-scene>.nr-v2-canvas-art{filter:saturate(.84) contrast(1.08) brightness(.68)}
+body.nocturne-scenes-v2 .home-scene::before{
+  background:linear-gradient(90deg,rgba(7,5,10,.96) 0%,rgba(7,5,10,.69) 48%,rgba(7,5,10,.08) 82%)!important;
+}
+body.nocturne-scenes-v2 .home-scene .scene-copy,
+body.nocturne-scenes-v2 .home-scene .morwen-bubble,
+body.nocturne-scenes-v2 .home-scene .cat{z-index:3!important}
+
+body.nocturne-scenes-v2 .rx-room-hero>.nr-v2-canvas-art{filter:saturate(.82) contrast(1.08) brightness(.56)}
+body.nocturne-scenes-v2 .rx-room-hero::before{
+  z-index:1!important;
+  background:linear-gradient(90deg,rgba(7,5,10,.96),rgba(7,5,10,.65) 58%,rgba(7,5,10,.24))!important;
+}
+body.nocturne-scenes-v2 .rx-room-hero::after{display:none!important}
+body.nocturne-scenes-v2 .rx-room-hero-copy{position:relative;z-index:3!important}
+
+body.nocturne-scenes-v2 .hero-choice{
+  overflow:hidden;
+  align-items:stretch!important;
+  padding:0 0 12px!important;
+  text-align:left;
+}
+body.nocturne-scenes-v2 .nr-v2-hero-choice-art{
+  width:100%;
+  height:122px;
+  margin:0 0 11px;
+  display:block;
+  object-fit:cover;
+  object-position:center 24%;
+  border-bottom:1px solid rgba(212,183,127,.2);
+  filter:saturate(.84) contrast(1.06) brightness(.8);
+}
+body.nocturne-scenes-v2 .hero-choice strong,
+body.nocturne-scenes-v2 .hero-choice span{margin-inline:12px}
+body.nocturne-scenes-v2 .hero-choice.active .nr-v2-hero-choice-art{filter:saturate(.98) contrast(1.07) brightness(.92)}
+
+body.nocturne-scenes-v2 .ux-scene.nr-v2-authored-canvas,
+body.nocturne-scenes-v2 .ux6-scene.nr-v2-authored-canvas,
+body.nocturne-scenes-v2 .c4-invest-scene.nr-v2-authored-canvas{min-height:255px}
+body.nocturne-scenes-v2 .c3-scene.nr-v2-authored-canvas,
+body.nocturne-scenes-v2 .ux6-training-scene.nr-v2-authored-canvas,
+body.nocturne-scenes-v2 .ux6-danger-scene.nr-v2-authored-canvas{min-height:228px}
+body.nocturne-scenes-v2 .c3-scene.nr-v2-authored-canvas>.nr-v2-canvas-art,
+body.nocturne-scenes-v2 .ux6-training-scene.nr-v2-authored-canvas>.nr-v2-canvas-art,
+body.nocturne-scenes-v2 .ux6-danger-scene.nr-v2-authored-canvas>.nr-v2-canvas-art{object-position:center 55%}
+body.nocturne-scenes-v2 .c4-invest-scene.nr-v2-authored-canvas>.nr-v2-canvas-art{object-position:center 52%}
+
+body.nocturne-scenes-v2 .nr-battle-art.nr-chapter4 img{object-position:center 42%;filter:saturate(.9) contrast(1.08) brightness(.82)}
+body.nocturne-scenes-v2 .nr-battle-art.nr-incident img{object-position:center 58%}
+
+@media (max-width:430px){
+  body.nocturne-scenes-v2 .nr-v2-scene-art{height:204px;border-radius:11px}
+  body.nocturne-scenes-v2 .nr-v2-scene-meta{height:140px}
+  body.nocturne-scenes-v2 .nr-v2-scene-modal{height:132px}
+  body.nocturne-scenes-v2 .nr-v2-scene-portrait{height:220px}
+  body.nocturne-scenes-v2 .hero-choice{min-width:0}
+  body.nocturne-scenes-v2 .nr-v2-hero-choice-art{height:108px}
+}
+
+@media (max-height:640px){
+  body.nocturne-scenes-v2 .nr-v2-scene-art{height:154px}
+  body.nocturne-scenes-v2 .nr-v2-scene-meta{height:116px}
+  body.nocturne-scenes-v2 .nr-v2-scene-portrait{height:176px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  body.nocturne-scenes-v2 .nr-v2-scene-image,
+  body.nocturne-scenes-v2 .nr-v2-canvas-art,
+  body.nocturne-scenes-v2 .nr-v2-hero-choice-art{transition:none!important}
+}
+
+/* Consolidated source: css/chapter2-home-v3.css */
+/* Chapter 2 · Parents' home v3
+   Focused presentation repair for the four-point opening investigation. */
+
+body.c2-home-v3-active .c2-shell{
+  --c2h3-gold:#d8bc82;
+  --c2h3-line:rgba(216,188,130,.28);
+  --c2h3-panel:#15111b;
+}
+
+body.c2-home-v3-active .c2-top{
+  min-height:70px!important;
+  padding:8px 12px!important;
+  grid-template-columns:44px minmax(0,1fr) auto!important;
+  gap:10px!important;
+}
+body.c2-home-v3-active .c2-top h1{
+  margin:1px 0 0!important;
+  max-width:100%;
+  color:#efe0c2!important;
+  font-size:clamp(25px,7vw,31px)!important;
+  line-height:.96!important;
+  overflow:hidden!important;
+  overflow-wrap:normal!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+}
+body.c2-home-v3-active .c2-top small{
+  margin-top:4px!important;
+  font-size:10px!important;
+  line-height:1.25!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
+body.c2-home-v3-active .c2-top .eyebrow{
+  font-size:9px!important;
+  line-height:1.1!important;
+  letter-spacing:.15em!important;
+}
+body.c2-home-v3-active .c2-back,
+body.c2-home-v3-active .c2-help{
+  width:44px!important;
+  height:44px!important;
+  min-width:44px!important;
+  min-height:44px!important;
+  border-radius:12px!important;
+}
+body.c2-home-v3-active .c2-hud{gap:7px!important}
+body.c2-home-v3-active .c2-hud span{
+  min-width:48px;
+  min-height:44px!important;
+  padding:5px 8px!important;
+  border-radius:12px!important;
+  color:#ead19f!important;
+  font-size:11px!important;
+}
+
+body.c2-home-v3-active .c2-main{
+  min-height:0!important;
+  padding:12px!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  scrollbar-width:none!important;
+  overscroll-behavior-y:contain;
+  contain:inline-size layout paint;
+}
+body.c2-home-v3-active .c2-main::-webkit-scrollbar{display:none!important}
+body.c2-home-v3-active .c2-scene-layout{
+  height:auto!important;
+  min-height:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:12px!important;
+}
+
+body.c2-home-v3-active .c2-home-hero{
+  position:relative!important;
+  isolation:isolate;
+  flex:0 0 auto;
+  width:100%;
+  min-height:260px!important;
+  height:clamp(240px,37dvh,300px)!important;
+  padding:0!important;
+  overflow:hidden!important;
+  border:1px solid var(--c2h3-line)!important;
+  border-radius:14px!important;
+  background:#09070c!important;
+  box-shadow:0 18px 42px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.025)!important;
+}
+body.c2-home-v3-active .c2-home-hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+  background:linear-gradient(180deg,rgba(5,4,8,.03) 38%,rgba(5,4,8,.58) 100%),linear-gradient(90deg,rgba(5,4,8,.28),transparent 48%);
+}
+body.c2-home-v3-active .c2-home-hero::after{display:none!important}
+body.c2-home-v3-active .c2-home-hero>.vp-art,
+body.c2-home-v3-active .c2-home-hero>.vp-art-v2,
+body.c2-home-v3-active .c2-home-hero>.vp-dust,
+body.c2-home-v3-active .c2-home-hero>.direct-art-bg{
+  display:none!important;
+}
+body.c2-home-v3-active .c2h3-scene-image{
+  position:absolute!important;
+  inset:0!important;
+  z-index:1!important;
+  width:100%!important;
+  height:100%!important;
+  display:block!important;
+  object-fit:cover!important;
+  object-position:center 50%!important;
+  opacity:1!important;
+  filter:saturate(.86) contrast(1.08) brightness(.76);
+  pointer-events:none!important;
+}
+body.c2-home-v3-active .c2-home-copy{display:none!important}
+body.c2-home-v3-active .c2-scene-label{
+  position:absolute!important;
+  left:12px!important;
+  top:12px!important;
+  z-index:6!important;
+  width:auto!important;
+  height:auto!important;
+  padding:7px 9px!important;
+  border:1px solid rgba(216,188,130,.25)!important;
+  border-radius:7px!important;
+  background:rgba(7,5,10,.78)!important;
+  color:#ead7b3!important;
+  font-size:9px!important;
+  letter-spacing:.12em!important;
+  backdrop-filter:blur(8px);
+}
+body.c2-home-v3-active .c2h3-scene-hint{
+  position:absolute!important;
+  top:12px!important;
+  right:12px!important;
+  z-index:6!important;
+  max-width:48%;
+  padding:7px 9px;
+  border:1px solid rgba(183,123,228,.3);
+  border-radius:7px;
+  background:rgba(13,8,17,.78);
+  color:#d6c9da;
+  font-size:9px;
+  line-height:1.25;
+  text-align:right;
+  backdrop-filter:blur(8px);
+}
+
+body.c2-home-v3-active .c2-home-hero .c2-hotspot{
+  position:absolute!important;
+  z-index:8!important;
+  width:auto!important;
+  min-width:76px!important;
+  height:44px!important;
+  min-height:44px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:7px!important;
+  padding:4px 10px 4px 5px!important;
+  border:1px solid rgba(216,188,130,.78)!important;
+  border-radius:999px!important;
+  background:rgba(12,9,17,.9)!important;
+  color:#efe3cc!important;
+  box-shadow:0 0 0 4px rgba(216,188,130,.08),0 10px 24px rgba(0,0,0,.42)!important;
+  animation:none!important;
+  transform:none!important;
+  text-align:left!important;
+}
+body.c2-home-v3-active .c2-home-hero .c2-hotspot:focus-visible{
+  outline:2px solid #d6a4ee!important;
+  outline-offset:3px!important;
+}
+body.c2-home-v3-active .c2h3-point-index{
+  flex:0 0 27px;
+  width:27px;
+  height:27px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:rgba(216,188,130,.14);
+  color:#e9ca8c;
+  font-size:9px;
+  font-weight:900;
+}
+body.c2-home-v3-active .c2h3-point-name{
+  color:inherit;
+  font-size:10px;
+  font-weight:800;
+  white-space:nowrap;
+}
+body.c2-home-v3-active .c2-home-hero .c2-hotspot.done{
+  border-color:rgba(145,200,168,.72)!important;
+  background:rgba(12,29,21,.92)!important;
+  color:#c7e6d3!important;
+  box-shadow:0 0 0 4px rgba(145,200,168,.07),0 10px 22px rgba(0,0,0,.38)!important;
+}
+body.c2-home-v3-active .c2-home-hero .c2-hotspot.done .c2h3-point-index{
+  background:rgba(145,200,168,.16);
+  color:#aedaBE;
+}
+body.c2-home-v3-active .c2-hotspot[data-key="wreath"]{left:5%!important;right:auto!important;top:auto!important;bottom:12%!important}
+body.c2-home-v3-active .c2-hotspot[data-key="photo"]{left:35%!important;right:auto!important;top:25%!important;bottom:auto!important}
+body.c2-home-v3-active .c2-hotspot[data-key="phone"]{left:auto!important;right:5%!important;top:28%!important;bottom:auto!important}
+body.c2-home-v3-active .c2-hotspot[data-key="door"]{left:auto!important;right:27%!important;top:auto!important;bottom:12%!important}
+
+body.c2-home-v3-active .c2-story{
+  flex:0 0 auto;
+  height:auto!important;
+  min-height:0!important;
+  padding:14px!important;
+  overflow:hidden!important;
+  border-radius:13px!important;
+}
+body.c2-home-v3-active .c2-story>.speaker,
+body.c2-home-v3-active .c2-story>.c2-check{display:none!important}
+body.c2-home-v3-active .c2-story>p{
+  margin:10px 0 0!important;
+  color:#d1c6d5!important;
+  font-size:11px!important;
+  line-height:1.45!important;
+}
+body.c2-home-v3-active .c2-morwen-quote{
+  grid-template-columns:44px minmax(0,1fr)!important;
+  gap:10px!important;
+  margin-top:11px!important;
+  padding:10px!important;
+  border-radius:11px!important;
+}
+body.c2-home-v3-active .c2-morwen-portrait{
+  width:44px!important;
+  height:44px!important;
+  border-radius:10px!important;
+}
+body.c2-home-v3-active .c2-morwen-quote b{font-size:12px!important}
+body.c2-home-v3-active .c2-morwen-quote p{font-size:10px!important;line-height:1.4!important}
+body.c2-home-v3-active .c2h3-task-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:7px;
+  margin-top:11px;
+}
+body.c2-home-v3-active .c2h3-task{
+  min-height:52px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:2px 8px;
+  align-items:center;
+  padding:9px 10px;
+  border:1px solid rgba(216,188,130,.14);
+  border-radius:9px;
+  background:rgba(255,255,255,.025);
+  color:#ddd3df;
+  text-align:left;
+}
+body.c2-home-v3-active .c2h3-task-name{font-size:10px;font-weight:750}
+body.c2-home-v3-active .c2h3-task-status{
+  grid-column:2;
+  grid-row:1 / span 2;
+  color:#ad9fb2;
+  font-size:8px;
+  font-style:normal;
+  text-align:right;
+}
+body.c2-home-v3-active .c2h3-task small{color:#877b8c;font-size:8px}
+body.c2-home-v3-active .c2h3-task:not(:disabled):active,
+body.c2-home-v3-active .c2h3-task:not(:disabled):focus-visible{
+  border-color:rgba(183,123,228,.58);
+  background:rgba(183,123,228,.1);
+}
+body.c2-home-v3-active .c2h3-task.is-done{
+  border-color:rgba(145,200,168,.22);
+  background:rgba(145,200,168,.045);
+  color:#bcdcca;
+}
+body.c2-home-v3-active .c2h3-task.is-done .c2h3-task-status{color:#91c8a8}
+
+body.c2-home-v3-active .c2-main>.ux-coach-card.ux-coach-card-inline{
+  display:grid!important;
+  grid-template-columns:38px minmax(0,1fr)!important;
+  gap:5px 10px!important;
+  margin:0 0 10px!important;
+  padding:10px 11px!important;
+  border-radius:11px!important;
+  overflow:hidden!important;
+}
+body.c2-home-v3-active .c2-main>.ux-coach-card.ux-coach-card-inline::before{
+  width:36px!important;
+  height:36px!important;
+  grid-column:1!important;
+  grid-row:1 / span 3!important;
+  border-radius:9px!important;
+}
+body.c2-home-v3-active .c2-main>.ux-coach-card.ux-coach-card-inline>b,
+body.c2-home-v3-active .c2-main>.ux-coach-card.ux-coach-card-inline>p,
+body.c2-home-v3-active .c2-main>.ux-coach-card.ux-coach-card-inline>.ux-coach-actions{grid-column:2!important}
+body.c2-home-v3-active .c2-main>.ux-coach-card.ux-coach-card-inline>b{font-size:12px!important}
+body.c2-home-v3-active .c2-main>.ux-coach-card.ux-coach-card-inline>p{font-size:9px!important;line-height:1.35!important}
+body.c2-home-v3-active .c2-main>.ux-coach-card.ux-coach-card-inline>.ux-coach-actions{
+  display:flex!important;
+  justify-content:flex-end!important;
+  gap:6px!important;
+}
+body.c2-home-v3-active .c2-main>.ux-coach-card.ux-coach-card-inline .ux-coach-actions button{
+  width:auto!important;
+  min-height:34px!important;
+  padding:0 10px!important;
+  font-size:9px!important;
+}
+
+body.c2-home-v3-active .c2-footer{
+  min-height:68px;
+  padding:8px 12px max(9px,env(safe-area-inset-bottom))!important;
+  display:block!important;
+}
+body.c2-home-v3-active .c2-footer .c2h3-next-button{
+  width:100%!important;
+  min-height:50px!important;
+  border-radius:11px!important;
+  font-size:12px!important;
+}
+body.c2-home-v3-active .c2-footer .c2h3-next-button:disabled{
+  opacity:.62!important;
+  color:#a89dad!important;
+}
+
+@media(max-width:430px){
+  body.c2-home-v3-active .c2-top{min-height:66px!important;padding-inline:9px!important;grid-template-columns:42px minmax(0,1fr) auto!important;gap:8px!important}
+  body.c2-home-v3-active .c2-top h1{font-size:21px!important}
+  body.c2-home-v3-active .c2-top small{font-size:9px!important}
+  body.c2-home-v3-active .c2-main{padding:9px!important}
+  body.c2-home-v3-active .c2-home-hero{height:242px!important;min-height:242px!important}
+  body.c2-home-v3-active .c2-home-hero .c2-hotspot{min-width:68px!important;height:44px!important;min-height:44px!important;padding-right:8px!important;gap:5px!important}
+  body.c2-home-v3-active .c2h3-point-index{flex-basis:25px;width:25px;height:25px}
+  body.c2-home-v3-active .c2h3-point-name{font-size:9px}
+  body.c2-home-v3-active .c2-hotspot[data-key="photo"]{left:29%!important}
+  body.c2-home-v3-active .c2-hotspot[data-key="door"]{right:24%!important}
+  body.c2-home-v3-active .c2h3-task-grid{grid-template-columns:1fr 1fr}
+}
+
+@media(max-width:350px){
+  body.c2-home-v3-active .c2-top h1{font-size:20px!important}
+  body.c2-home-v3-active .c2-top .eyebrow{font-size:8px!important}
+  body.c2-home-v3-active .c2-home-hero{height:215px!important;min-height:215px!important}
+  body.c2-home-v3-active .c2-scene-label{font-size:8px!important}
+  body.c2-home-v3-active .c2h3-scene-hint{display:none}
+  body.c2-home-v3-active .c2-home-hero .c2-hotspot{min-width:62px!important;height:44px!important;min-height:44px!important}
+  body.c2-home-v3-active .c2h3-point-name{font-size:8px}
+  body.c2-home-v3-active .c2-hotspot[data-key="photo"]{left:24%!important;top:27%!important}
+  body.c2-home-v3-active .c2-hotspot[data-key="phone"]{right:3%!important;top:31%!important}
+  body.c2-home-v3-active .c2-hotspot[data-key="door"]{right:17%!important}
+  body.c2-home-v3-active .c2h3-task-grid{grid-template-columns:1fr}
+}
+
+@media(max-height:680px){
+  body.c2-home-v3-active .c2-home-hero{height:190px!important;min-height:190px!important}
+  body.c2-home-v3-active .c2-story{padding:11px!important}
+  body.c2-home-v3-active .c2-morwen-quote{margin-top:8px!important}
+  body.c2-home-v3-active .c2h3-task-grid{margin-top:8px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  body.c2-home-v3-active .c2-home-hero .c2-hotspot{transition:none!important}
+}
+
+/* =========================================================
+   NOCTURNE CLEAN — canonical responsive and battle layer
+   ========================================================= */
+body.nocturne-clean{
+  --nc-bg:#07060a;
+  --nc-panel:#15111b;
+  --nc-panel-2:#1d1725;
+  --nc-line:rgba(216,188,130,.24);
+  --nc-gold:#d8bc82;
+  --nc-violet:#b77be4;
+  --nc-text:#eee5ef;
+  --nc-muted:#a99ead;
+  background:#050408!important;
+}
+body.nocturne-clean *,body.nocturne-clean *::before,body.nocturne-clean *::after{box-sizing:border-box;min-width:0}
+body.nocturne-clean #app{background:linear-gradient(180deg,#08060c,#050408 76%)!important}
+
+/* One predictable scroll region per game screen. */
+body.nocturne-clean .main-content,
+body.nocturne-clean .c2-main,
+body.nocturne-clean .c3-main,
+body.nocturne-clean .c4-main,
+body.nocturne-clean .inc-main{
+  min-height:0!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  overscroll-behavior-y:contain;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+}
+body.nocturne-clean .main-content::-webkit-scrollbar,
+body.nocturne-clean .c2-main::-webkit-scrollbar,
+body.nocturne-clean .c3-main::-webkit-scrollbar,
+body.nocturne-clean .c4-main::-webkit-scrollbar,
+body.nocturne-clean .inc-main::-webkit-scrollbar{display:none}
+
+body.nocturne-clean .c2-shell,
+body.nocturne-clean .c3-shell,
+body.nocturne-clean .c4-shell,
+body.nocturne-clean .inc-shell{grid-template-rows:auto minmax(0,1fr) auto!important}
+body.nocturne-clean .c2-footer,
+body.nocturne-clean .c3-footer,
+body.nocturne-clean .c4-footer,
+body.nocturne-clean .inc-footer{
+  position:relative!important;
+  z-index:40;
+  background:linear-gradient(180deg,rgba(10,8,14,.97),#060509)!important;
+  border-top:1px solid rgba(216,188,130,.18)!important;
+  box-shadow:0 -14px 32px rgba(0,0,0,.42);
+}
+
+/* Accessible navigation and interaction sizes. */
+body.nocturne-clean .modal-close,
+body.nocturne-clean .c2-back,
+body.nocturne-clean .c2-help,
+body.nocturne-clean .c3-back,
+body.nocturne-clean .c3-help,
+body.nocturne-clean .c4-back,
+body.nocturne-clean .c4-help,
+body.nocturne-clean .inc-back,
+body.nocturne-clean .inc-help{
+  width:44px!important;
+  height:44px!important;
+  min-width:44px!important;
+  min-height:44px!important;
+  display:grid!important;
+  place-items:center!important;
+}
+body.nocturne-clean .c2-tabs button,
+body.nocturne-clean .c2-location-tabs button,
+body.nocturne-clean .ux-location-tabs button,
+body.nocturne-clean .ux6-tabs button,
+body.nocturne-clean .c3-tabs button,
+body.nocturne-clean .c4-locations button,
+body.nocturne-clean .c2-battle-tabs button,
+body.nocturne-clean .c3-battle-tab,
+body.nocturne-clean .c4-team button,
+body.nocturne-clean .inc-party>*,
+body.nocturne-clean .filter-chip,
+body.nocturne-clean .c2-root,
+body.nocturne-clean .c2-team button,
+body.nocturne-clean .ux-hotspot,
+body.nocturne-clean .ux6-hotspot{
+  min-height:44px!important;
+}
+body.nocturne-clean .filter-chip,
+body.nocturne-clean .ux-hotspot,
+body.nocturne-clean .ux6-hotspot{min-width:44px!important}
+body.nocturne-clean .c2-text-button,
+body.nocturne-clean .c2-alchemy-reset,
+body.nocturne-clean [data-action="chapter2-reset-alchemy"]{min-height:44px!important;padding:9px 12px!important}
+body.nocturne-clean .modal-close svg{width:19px;height:19px}
+
+/* Compact chapter headers that keep every control visible. */
+body.nocturne-clean .c2-top,
+body.nocturne-clean .c3-top,
+body.nocturne-clean .c4-top,
+body.nocturne-clean .inc-top{
+  min-height:66px!important;
+  padding:8px 10px!important;
+  grid-template-columns:44px minmax(0,1fr) auto!important;
+  gap:8px!important;
+}
+body.nocturne-clean .inc-top>button:first-child,
+body.nocturne-clean .c3-top>button:first-child,
+body.nocturne-clean .ux6-help{
+  width:44px!important;
+  height:44px!important;
+  min-width:44px!important;
+  min-height:44px!important;
+}
+body.nocturne-clean .c2-top h1,
+body.nocturne-clean .c3-top h1,
+body.nocturne-clean .c4-top h1,
+body.nocturne-clean .inc-top h1{
+  font-size:clamp(20px,5.6vw,28px)!important;
+  line-height:1!important;
+  overflow-wrap:normal!important;
+}
+body.nocturne-clean .c2-top small,
+body.nocturne-clean .c3-top small,
+body.nocturne-clean .c4-top small,
+body.nocturne-clean .inc-top small{font-size:9px!important;line-height:1.25!important}
+
+@media (max-width:430px){
+  body.nocturne-clean .c4-top h1{font-size:18px!important;letter-spacing:-.01em}
+  body.nocturne-clean .c4-hud{gap:4px}
+  body.nocturne-clean .c4-hud span{padding-inline:6px}
+}
+
+@media (max-width:340px){
+  body.nocturne-clean .c2-top,
+  body.nocturne-clean .c3-top,
+  body.nocturne-clean .c4-top,
+  body.nocturne-clean .inc-top{min-height:70px!important}
+  body.nocturne-clean .c2-top h1,
+  body.nocturne-clean .c3-top h1,
+  body.nocturne-clean .c4-top h1,
+  body.nocturne-clean .inc-top h1{
+    max-height:2em;
+    font-size:16px!important;
+    line-height:1!important;
+    overflow:hidden!important;
+    text-overflow:clip!important;
+    white-space:normal!important;
+  }
+  body.nocturne-clean .c2-top small,
+  body.nocturne-clean .c3-top small,
+  body.nocturne-clean .c4-top small,
+  body.nocturne-clean .inc-top small{font-size:7px!important}
+}
+
+/* Authored battle art replaces symbolic enemy drawings. */
+body.nocturne-clean .nr-clean-battle-art{
+  position:relative;
+  isolation:isolate;
+  width:100%;
+  height:clamp(168px,25dvh,220px);
+  margin:0;
+  overflow:hidden;
+  border:1px solid var(--nc-line);
+  border-radius:14px;
+  background:#09070c;
+  box-shadow:0 16px 36px rgba(0,0,0,.4);
+}
+body.nocturne-clean .nr-clean-battle-art::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(180deg,transparent 45%,rgba(5,4,8,.48));
+}
+body.nocturne-clean .nr-clean-battle-art img{width:100%;height:100%;display:block;object-fit:cover;object-position:center 48%;filter:saturate(.88) contrast(1.06) brightness(.82)}
+body.nocturne-clean .nr-clean-chapter4 img{object-position:center 58%}
+
+body.nocturne-clean .c2-battle,
+body.nocturne-clean .inc-battle,
+body.nocturne-clean .ux6-battle-layout,
+body.nocturne-clean .c4-battle{height:auto!important;min-height:0!important;display:flex!important;flex-direction:column!important;gap:10px!important}
+body.nocturne-clean .c2-battle>*,
+body.nocturne-clean .inc-battle>*,
+body.nocturne-clean .ux6-battle-layout>*,
+body.nocturne-clean .c4-battle>*{flex:0 0 auto}
+
+body.nocturne-clean .c2-enemy,
+body.nocturne-clean .inc-enemy,
+body.nocturne-clean .c4-enemy{grid-template-columns:minmax(0,1fr)!important;min-height:0!important}
+body.nocturne-clean .c2-ivy,
+body.nocturne-clean .c2-enemy>.vp-ivy-portrait,
+body.nocturne-clean .inc-flower,
+body.nocturne-clean .c4-enemy-mark{display:none!important}
+body.nocturne-clean .c2-root{padding-block:7px!important}
+body.nocturne-clean .c2-team>div,
+body.nocturne-clean .c2-team>button{min-height:44px!important}
+body.nocturne-clean .c3-arena{min-height:88px!important;height:88px!important;background:linear-gradient(145deg,#121522,#0a0b12)!important}
+body.nocturne-clean .c3-arena>.c3-enemy,
+body.nocturne-clean .c3-arena>.c3-tech,
+body.nocturne-clean .c3-arena>.c3-beacon{display:none!important}
+
+/* Portrait-based actor selectors. */
+body.nocturne-clean .nr-clean-actor{
+  width:30px;
+  height:30px;
+  display:block;
+  object-fit:cover;
+  border:1px solid rgba(216,188,130,.35);
+  border-radius:9px;
+  background:#0c0911;
+}
+body.nocturne-clean .c2-battle-tabs button,
+body.nocturne-clean .c3-battle-tab,
+body.nocturne-clean .c4-team button,
+body.nocturne-clean .inc-party>*{
+  display:grid!important;
+  grid-template-columns:30px minmax(0,1fr)!important;
+  align-items:center!important;
+  gap:7px!important;
+  text-align:left!important;
+}
+body.nocturne-clean .c2-battle-tabs button{grid-template-columns:30px auto!important;justify-content:center!important}
+
+/* Two-column spell deck with real generated spell assets. */
+body.nocturne-clean .c2-actions,
+body.nocturne-clean .inc-actions,
+body.nocturne-clean .c3-actions,
+body.nocturne-clean .c4-actions{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:8px!important;
+}
+body.nocturne-clean .c2-action,
+body.nocturne-clean .inc-action,
+body.nocturne-clean .c3-action,
+body.nocturne-clean .c4-action{
+  min-height:92px!important;
+  display:grid!important;
+  grid-template-columns:38px minmax(0,1fr)!important;
+  grid-template-rows:auto auto 1fr!important;
+  gap:2px 8px!important;
+  align-content:start!important;
+  padding:9px!important;
+  overflow:hidden!important;
+  border-color:rgba(216,188,130,.18)!important;
+  border-radius:11px!important;
+  background:linear-gradient(145deg,rgba(29,23,39,.98),rgba(12,10,17,.99))!important;
+  text-align:left!important;
+}
+body.nocturne-clean .nr-clean-spell{
+  grid-column:1!important;
+  grid-row:1 / span 3!important;
+  width:38px;
+  height:38px;
+  object-fit:cover;
+  border:1px solid rgba(216,188,130,.24);
+  border-radius:9px;
+}
+body.nocturne-clean .c2-action>b,
+body.nocturne-clean .inc-action>b,
+body.nocturne-clean .c3-action>b,
+body.nocturne-clean .c4-action>b{grid-column:2;font-size:10px!important}
+body.nocturne-clean .c2-action>span,
+body.nocturne-clean .inc-action>span,
+body.nocturne-clean .c3-action>span,
+body.nocturne-clean .c4-action>span{grid-column:2;font-size:8px!important;line-height:1.35!important}
+body.nocturne-clean .c2-action>em,
+body.nocturne-clean .inc-action>em,
+body.nocturne-clean .c4-action>em{position:absolute!important;top:6px!important;right:6px!important;font-size:7px!important}
+body.nocturne-clean .c2-action:disabled,
+body.nocturne-clean .inc-action:disabled,
+body.nocturne-clean .c3-action:disabled,
+body.nocturne-clean .c4-action:disabled{opacity:.5!important}
+
+/* Keep compact cards readable without reintroducing nested scrolling. */
+body.nocturne-clean .card,
+body.nocturne-clean .ux6-stage-card,
+body.nocturne-clean .ux-board-summary,
+body.nocturne-clean .ux-invest-panel{border-radius:13px!important}
+body.nocturne-clean .c2-story,
+body.nocturne-clean .c3-story{overflow:hidden!important}
+body.nocturne-clean .nui-dialogue::after{right:-76px!important}
+
+@media(max-width:350px){
+  body.nocturne-clean .c2-top h1,
+  body.nocturne-clean .c3-top h1,
+  body.nocturne-clean .c4-top h1,
+  body.nocturne-clean .inc-top h1{font-size:19px!important}
+  body.nocturne-clean .nr-clean-battle-art{height:150px}
+  body.nocturne-clean .c2-action,
+  body.nocturne-clean .inc-action,
+  body.nocturne-clean .c3-action,
+  body.nocturne-clean .c4-action{min-height:86px!important;grid-template-columns:32px minmax(0,1fr)!important;padding:7px!important}
+  body.nocturne-clean .nr-clean-spell{width:32px;height:32px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  body.nocturne-clean *,body.nocturne-clean *::before,body.nocturne-clean *::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
 }
