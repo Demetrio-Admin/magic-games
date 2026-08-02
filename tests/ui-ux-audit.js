@@ -377,6 +377,76 @@ function collectAssets() {
   });
 }
 
+function visualAudit(scope) {
+  const findings = [];
+  const label = node => (node.innerText || node.getAttribute('aria-label') || node.className || node.tagName)
+    .replace(/\s+/g, ' ').trim().slice(0, 72);
+  const inViewport = node => {
+    const rect = node.getBoundingClientRect();
+    return rect.bottom > 0 && rect.top < innerHeight && rect.right > 0 && rect.left < innerWidth;
+  };
+
+  scope.querySelectorAll('h1,h2,h3,.primary-button,.secondary-button,.c2-action,.c3-action,.c4-action,.inc-action,.screen-header p,.c2-top small,.c3-top small,.c4-top small,.inc-top small').forEach(node => {
+    if (!visible(node)) return;
+    const style = getComputedStyle(node);
+    const actionCard = node.matches('.c2-action,.c3-action,.c4-action,.inc-action');
+    const rect = node.getBoundingClientRect();
+    const textChildren = actionCard ? [...node.querySelectorAll('b,span,small')] : [];
+    const childOutsideX = child => {
+      const childRect = child.getBoundingClientRect();
+      return childRect.left < rect.left - 1 || childRect.right > rect.right + 1;
+    };
+    const childOutsideY = child => {
+      const childRect = child.getBoundingClientRect();
+      return childRect.top < rect.top - 1 || childRect.bottom > rect.bottom + 1;
+    };
+    const clippedX = actionCard ? textChildren.some(childOutsideX) : node.scrollWidth > node.clientWidth + 2;
+    const clippedY = actionCard ? textChildren.some(childOutsideY) : node.scrollHeight > node.clientHeight + 2;
+    const clips = /(hidden|clip)/.test(`${style.overflow} ${style.overflowX} ${style.overflowY}`) || style.textOverflow === 'ellipsis';
+    if (clips && (clippedX || clippedY)) {
+      findings.push(`Обрезан текст ${Math.round(node.clientWidth)}×${Math.round(node.clientHeight)}: ${label(node)}`);
+    }
+  });
+
+  scope.querySelectorAll('button,small,.eyebrow,.tag,.progress-caption,.c2-chip,.c3-chip,.c4-chip').forEach(node => {
+    if (!visible(node) || !inViewport(node)) return;
+    const size = Number.parseFloat(getComputedStyle(node).fontSize);
+    if (size > 0 && size < 9) findings.push(`Слишком мелкий текст ${size.toFixed(1)}px: ${label(node)}`);
+  });
+
+  const scrollRegions = [...scope.querySelectorAll('*')].filter(node => {
+    if (!visible(node) || node.scrollHeight <= node.clientHeight + 8) return false;
+    return /(auto|scroll)/.test(getComputedStyle(node).overflowY);
+  });
+  const allowedRoots = new Set(['screen','main-content','c2-main','c3-main','c4-main','inc-main','modal-body','screen-scroll']);
+  const nested = scrollRegions.filter(node => ![...allowedRoots].some(name => node.classList.contains(name)));
+  nested.forEach(node => findings.push(`Вложенная прокрутка ${node.clientHeight}/${node.scrollHeight}px: ${label(node)}`));
+
+  scope.querySelectorAll('img').forEach(image => {
+    if (!visible(image) || !image.complete || !image.naturalWidth) return;
+    const rect = image.getBoundingClientRect();
+    if (rect.width < 80 || rect.height < 60) return;
+    const naturalRatio = image.naturalWidth / image.naturalHeight;
+    const displayRatio = rect.width / rect.height;
+    const distortion = Math.max(naturalRatio / displayRatio, displayRatio / naturalRatio);
+    if (distortion > 1.45 && getComputedStyle(image).objectFit === 'fill') {
+      findings.push(`Искажено изображение ×${distortion.toFixed(2)}: ${image.alt || image.currentSrc || image.src}`);
+    }
+  });
+
+  scope.querySelectorAll('article,section,.card,.panel').forEach(node => {
+    if (!visible(node) || !inViewport(node)) return;
+    const rect = node.getBoundingClientRect();
+    if (rect.height < 220 || rect.width < 180) return;
+    const style = getComputedStyle(node);
+    const hasArtwork = node.querySelector('img,svg,canvas,video') || /url\(/.test(style.backgroundImage);
+    const textLength = (node.innerText || '').replace(/\s+/g, '').length;
+    if (!hasArtwork && textLength < 45) findings.push(`Крупный почти пустой блок ${Math.round(rect.width)}×${Math.round(rect.height)}: ${label(node)}`);
+  });
+
+  return [...new Set(findings)].slice(0, 30);
+}
+
 function auditCurrentScenario(scenario) {
   const failures = [];
   const warnings = [];
@@ -494,12 +564,14 @@ function auditCurrentScenario(scenario) {
   }
 
   collectAssets();
+  const visualWarnings = visualAudit(scope);
   return {
     id:scenario.id,
     label:scenario.label,
     viewport:`${innerWidth}x${innerHeight}`,
     failures:[...new Set(failures)],
     warnings:[...new Set(warnings)].slice(0, 12),
+    visualWarnings,
     actions:scope.querySelectorAll('[data-action]').length,
     images:document.querySelectorAll('img').length
   };
@@ -565,6 +637,7 @@ async function runAll(options = {}) {
     passed:results.filter(result => result.failures.length === 0).length,
     failed:results.filter(result => result.failures.length > 0).length,
     warnings:results.reduce((sum, result) => sum + result.warnings.length, 0),
+    visualWarnings:results.reduce((sum, result) => sum + (result.visualWarnings?.length || 0), 0),
     assetsChecked:assetResults.length,
     brokenAssets,
     results
@@ -581,6 +654,11 @@ async function runAll(options = {}) {
 
 globalThis.__uiAudit = Object.freeze({
   scenarios:scenarios.map(({id, label, screen}) => ({id, label, screen})),
+  auditCurrent(id) {
+    const scenario = scenarioMap.get(id);
+    if (!scenario) throw new Error(`Unknown UI audit scenario: ${id}`);
+    return auditCurrentScenario(scenario);
+  },
   runScenario,
   runAll
 });
