@@ -1,19 +1,30 @@
-# Responsive game screens — design QA
+# Contextual hints and responsive game screens — design QA
 
 ## Comparison target
 
-- Source visual truth: released responsive baseline at commit `f814997`.
-- Browser-rendered implementation: current responsive remediation in
-  `css/nocturne-game.css`.
+- Source visual truth: the five customer screenshots supplied on 2026-08-02.
+- Browser-rendered implementation: current hint-placement remediation in
+  `js/app.js`, `js/nocturne-ui.js` and `css/nocturne-game.css`.
 - Combined evidence: `tests/screenshots/design-qa/before-after.jpg`, with the
   baseline on the left and the corrected screen on the right.
+- Customer screenshot comparison:
+  `tests/screenshots/design-qa/hint-overlay-before-after.jpg`, with each supplied
+  screenshot on the left and the corrected 738 × 886 render on the right.
 - Viewports: 320 × 568, 360 × 640, 390 × 844 and 430 × 932.
-- States compared directly: Chapter 2 investigation, Chapter 2 battle, Chapter
-  3 battle and Chapter 4 battle. The automated pass covers all 61 states.
+- Reported viewport replay: 738 × 886.
+- States compared directly: investigation coach, alchemy coach and home coach.
+  The automated pass covers all 66 states.
 
 ## Findings
 
 - No actionable P0, P1 or P2 visual differences remain.
+- Contextual hints use a single predictable banner position at the beginning of
+  the screen content; none overlap the footer, navigation, target controls or
+  authored text.
+- Showing a hint no longer scrolls the page or elevates its target above other
+  interface layers.
+- The home dialogue card is in normal flow below the scene artwork and remains
+  readable without covering the introduction.
 - Typography: complete titles, readable metadata and stable line wrapping are
   preserved across all tested widths.
 - Spacing and layout: panels grow with content, the investigation empty state is
@@ -36,7 +47,9 @@
    card clipping detection.
 4. Pass three: repaired Chapter 3 actor navigation, Chapter 4 party tabs and the
    390px header wrap.
-5. Final pass: 244/244 combinations passed with 0 structural failures, 0 visual
+5. Contextual-hint pass: replaced target-relative insertion and automatic
+   scrolling with one in-flow banner pattern; moved home dialogue below artwork.
+6. Final pass: 264/264 combinations passed with 0 structural failures, 0 visual
    warnings, 0 console errors and 0 broken HTTP responses.
 
 ## Primary interactions tested
@@ -45,6 +58,8 @@
 - Open cases, codex, inventory, journal, laboratory and companion views.
 - Navigate every Chapter 2, district incident, Chapter 3 and Chapter 4 state.
 - Switch battle actors, inspect help states and render scroll-bottom states.
+- Render five coach states, verify safe parent placement and check that no coach
+  intersects a fixed footer.
 - Verify visible controls, touch targets, asset responses and console output.
 
 ## Remaining manual checks

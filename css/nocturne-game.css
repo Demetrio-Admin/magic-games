@@ -3778,3 +3778,124 @@ body.nocturne-clean .inc-top .eyebrow{font-size:10px!important;line-height:1.25!
   body.nocturne-clean .c4-hud,
   body.nocturne-clean .inc-hud{grid-column:2!important;grid-row:2!important;justify-self:start!important}
 }
+
+/* =========================================================
+   CONTEXT HELP REMEDIATION — predictable, non-covering hints
+   ========================================================= */
+body.nocturne-clean .ux-coach-card.ux-coach-card-inline.ux-coach-card-banner{
+  position:relative!important;
+  inset:auto!important;
+  width:100%!important;
+  max-width:none!important;
+  max-height:none!important;
+  display:grid!important;
+  grid-template-columns:40px minmax(0,1fr)!important;
+  gap:6px 10px!important;
+  align-items:start!important;
+  margin:0 0 10px!important;
+  padding:11px 12px!important;
+  overflow:visible!important;
+  border:1px solid rgba(216,188,130,.3)!important;
+  border-radius:12px!important;
+  background:linear-gradient(145deg,rgba(35,27,43,.99),rgba(14,11,18,.99))!important;
+  box-shadow:0 10px 28px rgba(0,0,0,.3)!important;
+  transform:none!important;
+}
+body.nocturne-clean .ux-coach-card.ux-coach-card-inline.ux-coach-card-banner::before{
+  grid-column:1!important;
+  grid-row:1 / span 3!important;
+  width:38px!important;
+  height:38px!important;
+  margin:0!important;
+  float:none!important;
+  border-radius:10px!important;
+}
+body.nocturne-clean .ux-coach-card-banner>b,
+body.nocturne-clean .ux-coach-card-banner>p,
+body.nocturne-clean .ux-coach-card-banner>.ux-coach-actions{
+  grid-column:2!important;
+  min-width:0!important;
+}
+body.nocturne-clean .ux-coach-card-banner>b{
+  margin:0!important;
+  color:var(--nc-gold)!important;
+  font-size:13px!important;
+  line-height:1.25!important;
+}
+body.nocturne-clean .ux-coach-card-banner>p{
+  margin:0!important;
+  color:#d4cad8!important;
+  font-size:11px!important;
+  line-height:1.42!important;
+  overflow-wrap:break-word!important;
+  word-break:normal!important;
+}
+body.nocturne-clean .ux-coach-card-banner>.ux-coach-actions{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:7px!important;
+  margin-top:3px!important;
+}
+body.nocturne-clean .ux-coach-card-banner .ux-coach-actions button{
+  width:100%!important;
+  min-width:0!important;
+  min-height:42px!important;
+  padding:7px 9px!important;
+  font-size:10px!important;
+  white-space:normal!important;
+}
+body.nocturne-clean .ux-coach-target{
+  z-index:auto!important;
+  outline-width:2px!important;
+  outline-offset:2px!important;
+}
+body.nocturne-clean .c2-footer>.ux-coach-card,
+body.nocturne-clean .c3-footer>.ux-coach-card,
+body.nocturne-clean .c4-footer>.ux-coach-card,
+body.nocturne-clean .inc-footer>.ux-coach-card{display:none!important}
+
+/* Morven's rotating line belongs below the artwork, not over story copy. */
+body.nocturne-clean .morwen-bubble.morwen-bubble-flow{
+  position:relative!important;
+  inset:auto!important;
+  width:100%!important;
+  display:block!important;
+  margin:10px 0 18px!important;
+  padding:13px 15px!important;
+  border:1px solid rgba(216,188,130,.24)!important;
+  border-radius:12px!important;
+  background:linear-gradient(145deg,rgba(30,23,37,.98),rgba(13,10,17,.99))!important;
+  box-shadow:0 10px 24px rgba(0,0,0,.28)!important;
+  color:var(--nc-text)!important;
+  font-size:12px!important;
+  line-height:1.45!important;
+  text-align:left!important;
+}
+
+/* Keep the first actionable alchemy controls visibly above the fold while the
+   remainder stays available through the screen's single vertical scroller. */
+body.nocturne-clean .c2-alchemy-hero{min-height:clamp(176px,25dvh,220px)!important}
+body.nocturne-clean .c2-main{scroll-padding-block:10px 18px}
+
+@media(max-width:360px){
+  body.nocturne-clean .ux-coach-card.ux-coach-card-inline.ux-coach-card-banner{
+    grid-template-columns:36px minmax(0,1fr)!important;
+    gap:6px 8px!important;
+    padding:10px!important;
+  }
+  body.nocturne-clean .ux-coach-card.ux-coach-card-inline.ux-coach-card-banner::before{
+    grid-column:1!important;
+    grid-row:1 / span 3!important;
+    width:34px!important;
+    height:34px!important;
+  }
+  body.nocturne-clean .ux-coach-card-banner>b,
+  body.nocturne-clean .ux-coach-card-banner>p,
+  body.nocturne-clean .ux-coach-card-banner>.ux-coach-actions{grid-column:2!important}
+  body.nocturne-clean .ux-coach-card-banner>.ux-coach-actions{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  body.nocturne-clean .ux-coach-card-banner .ux-coach-actions button{
+    min-height:44px!important;
+    padding-inline:6px!important;
+    font-size:9px!important;
+  }
+}

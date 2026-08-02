@@ -1875,47 +1875,29 @@ const ART_V3_PORTRAITS={
     const target=document.querySelector(config.selector);
     if(!target)return;
 
-    /* The hint must stay in the scroll flow, but never be inserted inside strict
-       gameplay grids such as scene-layout, alchemy, or battle panels, otherwise it
-       can overlap content or block precise interactions like the alchemy charge bar. */
-    const layoutAnchorSelectors=[
-      '.c2-scene-layout',
-      '.c2-invest',
-      '.c2-alchemy',
-      '.c2-battle',
-      '.c2-intro',
-      '.c3-tutorial',
-      '.c3-invest-list',
-      '.c3-progress-card',
-      '.home-scene',
-      '.quest-card',
-      '.case-card',
-      '.card'
-    ];
-    const layoutAnchor=layoutAnchorSelectors.map(sel=>target.closest(sel)).find(Boolean)||target.closest('.screen,.c2-scroll,.c3-scroll')||target;
-    const host=target.closest('.c2-scroll,.c3-scroll,.screen,.modal-body,.game-shell')||layoutAnchor.parentElement;
+    /* Coach cards always use the screen's primary content region. Inserting a
+       card next to its target is unsafe: targets may live in strict grids or in
+       the persistent footer, which previously turned the hint into an extra
+       grid column and covered the controls it was meant to explain. */
+    const shell=target.closest('.c2-shell,.c3-shell,.c4-shell,.inc-shell');
+    const host=shell?.querySelector('.c2-main,.c3-main,.c4-main,.inc-main')
+      ||target.closest('.screen,.modal-body,.main-content');
     if(!host)return;
-    target.classList.add('ux-coach-target');
 
     const card=document.createElement('div');
-    card.className='ux-coach-card ux-coach-card-inline';
+    card.className='ux-coach-card ux-coach-card-inline ux-coach-card-banner';
     card.dataset.coachKey=config.key;
+    card.setAttribute('role','status');
     card.innerHTML=`<b>${config.title}</b><p>${config.text}</p><div class="ux-coach-actions"><button data-action="ux-skip-all">Отключить подсказки</button><button data-action="ux-dismiss-coach">Понятно</button></div>`;
+    host.prepend(card);
 
-    /* Prefer placing the coach immediately before the relevant gameplay block.
-       This keeps the explanation visible without covering the block itself. */
-    if(layoutAnchor!==host && layoutAnchor.parentElement===host){
-      host.insertBefore(card,layoutAnchor);
-    }else if(layoutAnchor.parentElement){
-      layoutAnchor.parentElement.insertBefore(card,layoutAnchor);
-    }else{
-      host.prepend(card);
-    }
-
-    requestAnimationFrame(()=>{
-      card.scrollIntoView({block:'nearest',inline:'nearest',behavior:'auto'});
-      target.scrollIntoView({block:'nearest',inline:'nearest',behavior:'auto'});
-    });
+    /* Highlight only a target that is already visible. Never move the player's
+       scroll position just because a one-time explanation appeared. */
+    const targetRect=target.getBoundingClientRect();
+    const hostRect=host.getBoundingClientRect();
+    const targetVisible=targetRect.bottom>hostRect.top&&targetRect.top<hostRect.bottom
+      &&targetRect.right>hostRect.left&&targetRect.left<hostRect.right;
+    if(targetVisible)target.classList.add('ux-coach-target');
 
     /* Mark as shown immediately so a rerender cannot trap the player in the same hint. */
     save.ux.dismissed[config.key]=true;

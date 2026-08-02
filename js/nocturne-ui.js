@@ -254,6 +254,15 @@
     document.querySelectorAll('.c2-help,.c3-help,.c4-help,.inc-help').forEach(button=>button.setAttribute('aria-label','Помощь'));
   }
 
+  function normalizeHomeDialogue(){
+    document.querySelectorAll('.home-scene').forEach(scene=>{
+      const bubble=scene.querySelector(':scope > .morwen-bubble');
+      if(!bubble)return;
+      bubble.classList.add('morwen-bubble-flow');
+      scene.insertAdjacentElement('afterend',bubble);
+    });
+  }
+
   function apply(){
     queued=false;
     document.body.classList.add('nocturne-clean');
@@ -262,6 +271,7 @@
     decorateActions();
     decorateActors();
     repairAccessibility();
+    normalizeHomeDialogue();
   }
 
   function schedule(){
