@@ -1,0 +1,10 @@
+{
+  "name": "magic-games",
+  "private": true,
+  "scripts": {
+    "test:visual": "node tests/visual-regression.cjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.62.1"
+  }
+}

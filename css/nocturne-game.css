@@ -3515,3 +3515,266 @@ body.nocturne-clean .nui-dialogue::after{right:-76px!important}
 @media(prefers-reduced-motion:reduce){
   body.nocturne-clean *,body.nocturne-clean *::before,body.nocturne-clean *::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
 }
+
+/* =========================================================
+   VISUAL AUDIT REMEDIATION — readable compact layouts
+   ========================================================= */
+body.nocturne-clean .c2-top,
+body.nocturne-clean .c3-top,
+body.nocturne-clean .c4-top,
+body.nocturne-clean .inc-top{
+  min-height:78px!important;
+  height:auto!important;
+  align-items:center!important;
+}
+body.nocturne-clean .c2-top h1,
+body.nocturne-clean .c3-top h1,
+body.nocturne-clean .c4-top h1,
+body.nocturne-clean .inc-top h1{
+  max-width:100%!important;
+  max-height:none!important;
+  font-size:clamp(18px,5vw,23px)!important;
+  line-height:1.04!important;
+  white-space:normal!important;
+  overflow:hidden!important;
+  overflow-wrap:anywhere!important;
+  word-break:normal!important;
+  text-overflow:clip!important;
+}
+body.nocturne-clean .c2-top small,
+body.nocturne-clean .c3-top small,
+body.nocturne-clean .c4-top small,
+body.nocturne-clean .inc-top small{
+  font-size:10px!important;
+  line-height:1.3!important;
+  white-space:normal!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+}
+
+/* Keep secondary information legible on real phones. */
+body.nocturne-clean button{font-size:11px!important;line-height:1.28!important}
+body.nocturne-clean small,
+body.nocturne-clean .eyebrow,
+body.nocturne-clean .tag,
+body.nocturne-clean .progress-caption,
+body.nocturne-clean .c2-chip,
+body.nocturne-clean .c3-chip,
+body.nocturne-clean .c4-chip{
+  font-size:10px!important;
+  line-height:1.35!important;
+}
+body.nocturne-clean .ux-risk-meter span,
+body.nocturne-clean .ux-invest-head span,
+body.nocturne-clean .ux-method strong em,
+body.nocturne-clean .ux-method span,
+body.nocturne-clean .ux-evidence-chip b,
+body.nocturne-clean .ux-evidence-chip span,
+body.nocturne-clean .ux-clue-card b,
+body.nocturne-clean .ux-clue-card em,
+body.nocturne-clean .ux-hypothesis span,
+body.nocturne-clean .ux-hypothesis em,
+body.nocturne-clean .ux-danger-title span,
+body.nocturne-clean .ux-danger-panel>header span,
+body.nocturne-clean .ux-danger-action b,
+body.nocturne-clean .ux-danger-action span,
+body.nocturne-clean .ux-prep-row b,
+body.nocturne-clean .ux-invest-bonuses span,
+body.nocturne-clean .ux6-stage-card p,
+body.nocturne-clean .ux6-status-strip span,
+body.nocturne-clean .ux6-point-panel>p,
+body.nocturne-clean .ux6-method span,
+body.nocturne-clean .ux6-method em,
+body.nocturne-clean .ux6-evidence-box summary span,
+body.nocturne-clean .ux6-evidence-chip b,
+body.nocturne-clean .ux6-evidence-chip span,
+body.nocturne-clean .ux6-hypothesis span,
+body.nocturne-clean .ux6-support i,
+body.nocturne-clean .ux6-danger-choice span,
+body.nocturne-clean .inc-party small,
+body.nocturne-clean .c4-objective-head span,
+body.nocturne-clean .c4-objective-grid div,
+body.nocturne-clean .c4-intent b,
+body.nocturne-clean .c4-intent span,
+body.nocturne-clean .c4-statuses span,
+body.nocturne-clean .c4-target b,
+body.nocturne-clean .c4-team b,
+body.nocturne-clean .c4-team span,
+body.nocturne-clean .c4-ingredient span,
+body.nocturne-clean .c4-order span,
+body.nocturne-clean .c4-order em,
+body.nocturne-clean .v112-team-note{
+  font-size:10px!important;
+  line-height:1.35!important;
+}
+
+/* Content grows with copy instead of clipping inside fixed cards. */
+body.nocturne-clean .c2-action,
+body.nocturne-clean .inc-action,
+body.nocturne-clean .c3-action,
+body.nocturne-clean .c4-action{
+  height:auto!important;
+  min-height:108px!important;
+  grid-template-rows:auto auto auto!important;
+  overflow:hidden!important;
+}
+body.nocturne-clean .c2-action>b,
+body.nocturne-clean .inc-action>b,
+body.nocturne-clean .c3-action>b,
+body.nocturne-clean .c4-action>b{font-size:12px!important;line-height:1.18!important}
+body.nocturne-clean .c2-action>span,
+body.nocturne-clean .inc-action>span,
+body.nocturne-clean .c3-action>span,
+body.nocturne-clean .c4-action>span{font-size:11px!important;line-height:1.38!important}
+body.nocturne-clean .c2-action>em,
+body.nocturne-clean .inc-action>em,
+body.nocturne-clean .c4-action>em{font-size:10px!important}
+body.nocturne-clean .c2-action:disabled,
+body.nocturne-clean .inc-action:disabled,
+body.nocturne-clean .c3-action:disabled,
+body.nocturne-clean .c4-action:disabled,
+body.nocturne-clean .primary-button:disabled,
+body.nocturne-clean .secondary-button:disabled{
+  opacity:.64!important;
+  color:#a99ead!important;
+}
+
+/* The screen owns vertical scrolling; inner panels expand naturally. */
+body.nocturne-clean .c2-scroll,
+body.nocturne-clean .c3-scroll,
+body.nocturne-clean .inc-scroll,
+body.nocturne-clean .c4-scroll,
+body.nocturne-clean .ux-point-body,
+body.nocturne-clean .ux-board-scroll,
+body.nocturne-clean .ux-danger-actions,
+body.nocturne-clean .c4-alchemy-body{
+  height:auto!important;
+  max-height:none!important;
+  overflow-y:visible!important;
+}
+body.nocturne-clean .ux-investigation,
+body.nocturne-clean .ux-deduction,
+body.nocturne-clean .ux-danger,
+body.nocturne-clean .c4-alchemy{
+  height:auto!important;
+  min-height:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:10px!important;
+}
+body.nocturne-clean .ux-invest-panel,
+body.nocturne-clean .ux-danger-panel{display:block!important;overflow:visible!important}
+body.nocturne-clean .ux-scene-wrap{display:flex!important;flex-direction:column!important;gap:7px!important}
+body.nocturne-clean .ux-scene{height:190px!important;min-height:190px!important}
+body.nocturne-clean .ux-empty-point{height:auto!important;min-height:128px!important;padding:20px!important}
+body.nocturne-clean .ux-danger-scene{height:190px!important;min-height:190px!important}
+
+body.nocturne-clean .c2-footer,
+body.nocturne-clean .c3-footer,
+body.nocturne-clean .c4-footer,
+body.nocturne-clean .inc-footer{
+  min-height:64px!important;
+  padding-top:9px!important;
+  padding-bottom:max(10px,env(safe-area-inset-bottom))!important;
+}
+body.nocturne-clean .c3-battle-tabs{position:relative!important;bottom:auto!important}
+body.nocturne-clean .c4-team button{
+  grid-template-columns:30px minmax(0,1fr)!important;
+  grid-template-rows:auto auto!important;
+  align-content:center!important;
+  min-height:76px!important;
+}
+body.nocturne-clean .c4-team b{
+  grid-column:2!important;
+  grid-row:1!important;
+  white-space:normal!important;
+  overflow:visible!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  text-overflow:clip!important;
+}
+body.nocturne-clean .c4-team span{
+  grid-column:1 / -1!important;
+  grid-row:2!important;
+  margin-top:4px!important;
+  white-space:normal!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+}
+
+@media(max-width:360px){
+  body.nocturne-clean .c2-top,
+  body.nocturne-clean .c3-top,
+  body.nocturne-clean .c4-top,
+  body.nocturne-clean .inc-top{
+    min-height:96px!important;
+    padding-inline:8px!important;
+    grid-template-columns:44px minmax(0,1fr)!important;
+    grid-template-rows:auto auto!important;
+    gap:4px 8px!important;
+  }
+  body.nocturne-clean .c2-top>div:nth-child(2),
+  body.nocturne-clean .c3-top>div:nth-child(2),
+  body.nocturne-clean .c4-top>div:nth-child(2),
+  body.nocturne-clean .inc-top>div:nth-child(2){grid-column:2!important;grid-row:1!important}
+  body.nocturne-clean .c2-back,
+  body.nocturne-clean .c3-back,
+  body.nocturne-clean .c4-back,
+  body.nocturne-clean .inc-back,
+  body.nocturne-clean .c2-top>button:first-child,
+  body.nocturne-clean .c3-top>button:first-child,
+  body.nocturne-clean .c4-top>button:first-child,
+  body.nocturne-clean .inc-top>button:first-child{grid-column:1!important;grid-row:1 / span 2!important}
+  body.nocturne-clean .c2-hud,
+  body.nocturne-clean .c3-hud,
+  body.nocturne-clean .c4-hud,
+  body.nocturne-clean .inc-hud{grid-column:2!important;grid-row:2!important;justify-self:start!important}
+  body.nocturne-clean .c2-top h1,
+  body.nocturne-clean .c3-top h1,
+  body.nocturne-clean .c4-top h1,
+  body.nocturne-clean .inc-top h1{font-size:18px!important;line-height:1.06!important}
+  body.nocturne-clean .c2-actions,
+  body.nocturne-clean .inc-actions,
+  body.nocturne-clean .c3-actions,
+  body.nocturne-clean .c4-actions{grid-template-columns:1fr!important}
+  body.nocturne-clean .c2-action,
+  body.nocturne-clean .inc-action,
+  body.nocturne-clean .c3-action,
+  body.nocturne-clean .c4-action{min-height:88px!important;grid-template-columns:42px minmax(0,1fr)!important;padding:10px!important}
+  body.nocturne-clean .nr-clean-spell{width:42px;height:42px}
+  body.nocturne-clean .nr-clean-battle-art{height:160px!important}
+  body.nocturne-clean .ux-scene{height:160px!important;min-height:160px!important}
+}
+
+body.nocturne-clean .c2-top .eyebrow,
+body.nocturne-clean .c3-top .eyebrow,
+body.nocturne-clean .c4-top .eyebrow,
+body.nocturne-clean .inc-top .eyebrow{font-size:10px!important;line-height:1.25!important}
+
+@media(max-width:430px){
+  body.nocturne-clean .c2-top,
+  body.nocturne-clean .c3-top,
+  body.nocturne-clean .c4-top,
+  body.nocturne-clean .inc-top{
+    min-height:96px!important;
+    grid-template-columns:44px minmax(0,1fr)!important;
+    grid-template-rows:auto auto!important;
+    gap:4px 8px!important;
+  }
+  body.nocturne-clean .c2-top>div:nth-child(2),
+  body.nocturne-clean .c3-top>div:nth-child(2),
+  body.nocturne-clean .c4-top>div:nth-child(2),
+  body.nocturne-clean .inc-top>div:nth-child(2){grid-column:2!important;grid-row:1!important}
+  body.nocturne-clean .c2-back,
+  body.nocturne-clean .c3-back,
+  body.nocturne-clean .c4-back,
+  body.nocturne-clean .inc-back,
+  body.nocturne-clean .c2-top>button:first-child,
+  body.nocturne-clean .c3-top>button:first-child,
+  body.nocturne-clean .c4-top>button:first-child,
+  body.nocturne-clean .inc-top>button:first-child{grid-column:1!important;grid-row:1 / span 2!important}
+  body.nocturne-clean .c2-hud,
+  body.nocturne-clean .c3-hud,
+  body.nocturne-clean .c4-hud,
+  body.nocturne-clean .inc-hud{grid-column:2!important;grid-row:2!important;justify-self:start!important}
+}
