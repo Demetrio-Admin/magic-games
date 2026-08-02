@@ -25,6 +25,13 @@ function baseSave() {
   return save;
 }
 
+function enableCoach(save) {
+  save.settings.reducedMotion = false;
+  save.ux ||= {dismissed:{}};
+  save.ux.dismissed = {};
+  return save;
+}
+
 function unlockChapter3(save) {
   save.progression.chapters.chapter_02_roots_of_memory = {status:'completed', progress:100};
   save.story.flags['chapter_02.complete'] = true;
@@ -126,6 +133,7 @@ const scenarios = [
   {id:'home-chapter4', label:'Дом перед главой 4', screen:'home', build:() => unlockChapter4(baseSave())},
   {id:'home-settings', label:'Настройки и сохранение', screen:'home', build:baseSave, action:'[data-action="open-debug"]', expectModal:true},
   {id:'home-room', label:'Комната дома', screen:'home', build:baseSave, action:'[data-action="open-room"][data-room="living_room"]', expectModal:true},
+  {id:'home-coach', label:'Дом · подсказка Морвена', screen:'home', build:() => enableCoach(baseSave()), expectCoach:true, expectMorwenInFlow:true},
   {id:'cases', label:'Доска дел', screen:'cases', build:() => unlockChapter4(baseSave())},
   {id:'inventory', label:'Инвентарь', screen:'inventory', build:() => unlockChapter4(baseSave())},
   {id:'inventory-item', label:'Карточка предмета', screen:'inventory', build:baseSave, action:'[data-action="item-details"]', expectModal:true},
@@ -141,6 +149,13 @@ const scenarios = [
   {id:'c2-home', label:'Глава 2 · дом родителей', screen:'chapter2', build:() => chapter2Save('home')},
   {id:'c2-home-help', label:'Глава 2 · подсказка', screen:'chapter2', build:() => chapter2Save('home'), action:'[data-action="ux-help"]', expectModal:true},
   {id:'c2-investigation', label:'Глава 2 · расследование', screen:'chapter2', build:() => chapter2Save('investigation')},
+  {id:'c2-investigation-coach-point', label:'Глава 2 · подсказка выбора объекта', screen:'chapter2', build:() => enableCoach(chapter2Save('investigation')), expectCoach:true},
+  {id:'c2-investigation-coach-method', label:'Глава 2 · подсказка выбора метода', screen:'chapter2', build:() => {
+    const save = enableCoach(chapter2Save('investigation'));
+    save.chapter2.rework.selectedPoint = 'witness';
+    return save;
+  }, expectCoach:true},
+  {id:'c2-investigation-coach-ready', label:'Глава 2 · подсказка готовности вывода', screen:'chapter2', build:() => enableCoach(fillChapter2Evidence(chapter2Save('investigation'))), expectCoach:true},
   {id:'c2-deduction', label:'Глава 2 · доска выводов', screen:'chapter2', build:() => fillChapter2Evidence(chapter2Save('deduction'))},
   {id:'c2-danger', label:'Глава 2 · опасная сцена', screen:'chapter2', build:() => {
     const save = fillChapter2Evidence(chapter2Save('danger'));
@@ -148,6 +163,7 @@ const scenarios = [
     return save;
   }},
   {id:'c2-alchemy', label:'Глава 2 · алхимия', screen:'chapter2', build:() => chapter2Save('alchemy')},
+  {id:'c2-alchemy-coach', label:'Глава 2 · подсказка алхимии', screen:'chapter2', build:() => enableCoach(chapter2Save('alchemy')), expectCoach:true},
   {id:'c2-alchemy-result', label:'Глава 2 · результат алхимии', screen:'chapter2', build:() => {
     const save = fillChapter2Evidence(chapter2Save('alchemy_result'));
     save.chapter2.alchemy = {order:['water','salt','lavender'], temp:'mid', stopped:true, charge:64, quality:'excellent', score:6};
@@ -560,6 +576,35 @@ function auditCurrentScenario(scenario) {
         failures.push(`Модальное окно выходит за viewport: ${Math.round(rect.width)}×${Math.round(rect.height)}`);
       }
       if (!modal.querySelector('[data-action="close-modal"]')) failures.push('У модального окна нет доступной кнопки закрытия');
+    }
+  }
+
+  if (scenario.expectCoach) {
+    const coach = document.querySelector('.ux-coach-card-banner');
+    if (!coach || !visible(coach)) {
+      failures.push('Ожидаемая контекстная подсказка не показана');
+    } else {
+      const parent = coach.parentElement;
+      if (!parent?.matches('.c2-main,.c3-main,.c4-main,.inc-main,.screen,.modal-body,.main-content')) {
+        failures.push(`Подсказка вставлена в небезопасный контейнер: ${parent?.className || parent?.tagName}`);
+      }
+      const coachRect = coach.getBoundingClientRect();
+      const footer = document.querySelector('.c2-footer,.c3-footer,.c4-footer,.inc-footer,.bottom-nav');
+      if (footer && visible(footer)) {
+        const footerRect = footer.getBoundingClientRect();
+        const overlap = coachRect.left < footerRect.right && coachRect.right > footerRect.left
+          && coachRect.top < footerRect.bottom && coachRect.bottom > footerRect.top;
+        if (overlap) failures.push('Контекстная подсказка перекрывает постоянный футер');
+      }
+    }
+  }
+
+  if (scenario.expectMorwenInFlow) {
+    const bubble = document.querySelector('.morwen-bubble');
+    if (!bubble || !visible(bubble)) {
+      failures.push('Реплика Морвена не показана');
+    } else if (bubble.closest('.home-scene') || ['absolute','fixed'].includes(getComputedStyle(bubble).position)) {
+      failures.push('Реплика Морвена остаётся поверх домашней сцены');
     }
   }
 

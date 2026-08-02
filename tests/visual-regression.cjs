@@ -17,12 +17,18 @@ try {
 
 const ROOT = path.resolve(__dirname, '..');
 const OUTPUT = path.resolve(ROOT, process.env.VISUAL_AUDIT_OUTPUT || 'tests/screenshots/visual-audit');
-const VIEWPORTS = [
+const DEFAULT_VIEWPORTS = [
   {width:320, height:568},
   {width:360, height:640},
   {width:390, height:844},
   {width:430, height:932}
 ];
+const VIEWPORTS = (process.env.VISUAL_AUDIT_VIEWPORTS || '')
+  .split(',')
+  .map(value => value.trim().match(/^(\d+)x(\d+)$/))
+  .filter(Boolean)
+  .map(([, width, height]) => ({width:Number(width), height:Number(height)}));
+if (!VIEWPORTS.length) VIEWPORTS.push(...DEFAULT_VIEWPORTS);
 
 const wait = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
 

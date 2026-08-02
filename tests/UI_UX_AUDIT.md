@@ -22,6 +22,8 @@ The returned report checks:
 - controls covered by another layer;
 - accessible control labels and undersized touch targets;
 - contextual help/modal visibility, viewport containment and close action;
+- coach-card placement in the primary content flow, clear of fixed footers;
+- in-flow story dialogue placement so authored copy remains readable;
 - release UI accidentally showing technical build or test copy.
 
 Use at least these mobile viewports before release:
@@ -42,7 +44,7 @@ npm install
 npm run test:visual
 ```
 
-The runner captures all 61 deterministic states at 320×568, 360×640,
+The runner captures all 66 deterministic states at 320×568, 360×640,
 390×844 and 430×932. Scrollable chapter screens also receive a bottom-state
 capture. Results are written to `tests/screenshots/visual-audit/` as a JSON
 report and an HTML gallery. In addition to the structural checks above, this
@@ -55,12 +57,19 @@ For a faster focused rerun, pass comma-separated scenario ids, for example:
 VISUAL_AUDIT_IDS=c2-home,c4-battle-hero npm run test:visual
 ```
 
+Exact customer-reported viewports can also be checked without changing the
+baseline matrix:
+
+```bash
+VISUAL_AUDIT_VIEWPORTS=738x886 VISUAL_AUDIT_IDS=home-coach npm run test:visual
+```
+
 ## Current baseline
 
 Validated on 2026-08-02:
 
-- 61 deterministic UI states;
+- 66 deterministic UI states, including five contextual-coach states;
 - 4 mobile viewports: 320 × 568, 360 × 640, 390 × 844 and 430 × 932;
-- 244 of 244 structural scenario/viewport combinations passed;
+- 264 of 264 structural scenario/viewport combinations passed;
 - 0 structural failures, console errors or broken HTTP responses;
 - 0 visual warnings after responsive remediation.
