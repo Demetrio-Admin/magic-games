@@ -1,4 +1,4 @@
-const VERSION='5.0.0-nocturne-clean';
+const VERSION='5.0.1-hint-flow';
 const STATIC_CACHE=`magic-rpg-static-${VERSION}`;
 const RUNTIME_CACHE=`magic-rpg-runtime-${VERSION}`;
 
