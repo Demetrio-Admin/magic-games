@@ -5,6 +5,7 @@ const fs = require('node:fs/promises');
 const path = require('node:path');
 const {spawn} = require('node:child_process');
 let chromium;
+let packagedChromium;
 try {
   ({chromium} = require('playwright'));
 } catch {
@@ -13,6 +14,11 @@ try {
   } catch {
     throw new Error('Install Playwright first: npm install');
   }
+}
+try {
+  packagedChromium = require('@sparticuz/chromium').default;
+} catch {
+  packagedChromium = null;
 }
 
 const ROOT = path.resolve(__dirname, '..');
@@ -163,6 +169,15 @@ function galleryHtml(report) {
     const launchOptions = {headless:true};
     if (process.env.PLAYWRIGHT_EXECUTABLE_PATH) {
       launchOptions.executablePath = process.env.PLAYWRIGHT_EXECUTABLE_PATH;
+    } else if (packagedChromium) {
+      const originalGetuid = process.getuid;
+      try {
+        if (originalGetuid?.() === 0) process.getuid = () => 1000;
+        launchOptions.executablePath = await packagedChromium.executablePath();
+        launchOptions.args = packagedChromium.args;
+      } finally {
+        if (originalGetuid) process.getuid = originalGetuid;
+      }
     }
     browser = await chromium.launch(launchOptions);
     await fs.rm(OUTPUT, {recursive:true, force:true});

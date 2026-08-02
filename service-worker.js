@@ -1,4 +1,4 @@
-const VERSION='5.0.1-hint-flow';
+const VERSION='6.0.0-screen-system';
 const STATIC_CACHE=`magic-rpg-static-${VERSION}`;
 const RUNTIME_CACHE=`magic-rpg-runtime-${VERSION}`;
 
@@ -17,12 +17,14 @@ const CORE_ASSETS=[
   './assets/nocturne/memory-apartment.webp','./assets/nocturne/memory-pact.webp',
   './assets/nocturne/bus-stop-flowers.webp','./assets/nocturne/first-light-square.webp',
   './assets/nocturne/memory-warehouse.webp','./assets/nocturne/mirror-sediment.webp',
-  './assets/backgrounds/apartment.svg','./assets/backgrounds/c2home.svg','./assets/backgrounds/c4hero.svg',
-  './assets/backgrounds/greenhouse.svg','./assets/backgrounds/home.svg','./assets/backgrounds/hunger.svg',
-  './assets/backgrounds/lab.svg','./assets/backgrounds/ritualist.svg','./assets/backgrounds/roof.svg',
-  './assets/backgrounds/root.svg','./assets/backgrounds/shop.svg','./assets/backgrounds/warehouse.svg','./assets/backgrounds/yard.svg',
-  './assets/characters/celeste.svg','./assets/characters/eren.svg','./assets/characters/liora.svg',
-  './assets/characters/morven.svg','./assets/characters/nika.svg'
+  './assets/art-v4/first-light-rooftop.webp','./assets/art-v4/flower-shop.webp','./assets/art-v4/occult-greenhouse.webp',
+  './assets/icons/ui/arrow-left.svg','./assets/icons/ui/backpack.svg','./assets/icons/ui/book-2.svg',
+  './assets/icons/ui/check.svg','./assets/icons/ui/chevron-right.svg','./assets/icons/ui/clipboard-list.svg',
+  './assets/icons/ui/flask.svg','./assets/icons/ui/help-circle.svg','./assets/icons/ui/home.svg',
+  './assets/icons/ui/leaf.svg','./assets/icons/ui/lock.svg','./assets/icons/ui/notebook.svg',
+  './assets/icons/ui/refresh.svg','./assets/icons/ui/search.svg','./assets/icons/ui/settings.svg',
+  './assets/icons/ui/shield.svg','./assets/icons/ui/sparkles.svg','./assets/icons/ui/sword.svg',
+  './assets/icons/ui/user-circle.svg','./assets/icons/ui/users-group.svg','./assets/icons/ui/wand.svg','./assets/icons/ui/x.svg'
 ];
 
 self.addEventListener('install',event=>{

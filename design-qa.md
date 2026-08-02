@@ -1,71 +1,56 @@
-# Contextual hints and responsive game screens — design QA
+# Nocturne full-screen rebuild — design QA
 
 ## Comparison target
 
 - Source visual truth: the five customer screenshots supplied on 2026-08-02.
-- Browser-rendered implementation: current hint-placement remediation in
-  `js/app.js`, `js/nocturne-ui.js` and `css/nocturne-game.css`.
-- Combined evidence: `tests/screenshots/design-qa/before-after.jpg`, with the
-  baseline on the left and the corrected screen on the right.
-- Customer screenshot comparison:
-  `tests/screenshots/design-qa/hint-overlay-before-after.jpg`, with each supplied
-  screenshot on the left and the corrected 738 × 886 render on the right.
-- Viewports: 320 × 568, 360 × 640, 390 × 844 and 430 × 932.
-- Reported viewport replay: 738 × 886.
-- States compared directly: investigation coach, alchemy coach and home coach.
-  The automated pass covers all 66 states.
+- Browser-rendered implementation: the unified screen system in
+  `css/nocturne-game.css` and `js/nocturne-ui.js`, with game state and rules in
+  `js/app.js`.
+- Direct comparison size: 778 × 892, matching the supplied investigation,
+  deduction, alchemy and home captures.
+- Responsive test widths: 320 × 568, 360 × 640, 390 × 844 and 430 × 932.
+- Automated coverage: all 66 deterministic game and modal states.
 
-## Findings
+## Rebuild findings
 
-- No actionable P0, P1 or P2 visual differences remain.
-- Contextual hints use a single predictable banner position at the beginning of
-  the screen content; none overlap the footer, navigation, target controls or
-  authored text.
-- Showing a hint no longer scrolls the page or elevates its target above other
-  interface layers.
-- The home dialogue card is in normal flow below the scene artwork and remains
-  readable without covering the introduction.
-- Typography: complete titles, readable metadata and stable line wrapping are
-  preserved across all tested widths.
-- Spacing and layout: panels grow with content, the investigation empty state is
-  compact and fixed action bars retain safe content clearance.
-- Scrolling: each chapter flow has one primary vertical scrolling region; no
-  trapped nested scrolling was detected.
-- Battle cards: labels and descriptions remain readable, disabled actions stay
-  recognizable and narrow screens use a single-column action layout.
-- Chapter 4 party tabs: names and statuses wrap in dedicated rows without
-  ellipsis or mid-word breaks.
-- Colors, authored scene art, character assets and existing story copy are
-  unchanged.
+- Removed the legacy inline-SVG visual pass, embedded art pass and presentation
+  hotfix layer. No old renderer can repaint the new interface after load.
+- Replaced legacy scene SVGs, emoji art and text-glyph art with authored raster
+  scenes and Tabler interface icons.
+- Rebuilt the start, home, meta, investigation, deduction, preparation,
+  alchemy, battle, result, settings and companion surfaces around one token set.
+- Contextual hints are normal-flow content. They do not cover authored copy,
+  hotspots, action cards, fixed footers or bottom navigation.
+- Every chapter shell has one primary vertical scroller and a dedicated fixed
+  action region. No nested or inaccessible scrolling remains.
+- Investigation hotspots have accessible names, minimum touch sizes and stable
+  positions over real scene art.
+- Battle actors and shared companion actions retain their game logic while using
+  the new visual system and real portraits/spell artwork.
+- Modal headings, close controls, debug/settings cards and narrow-screen reward
+  rows remain readable without clipping or overlap.
+- The direct before/after review found no remaining P0, P1 or P2 visual defects.
 
-## Comparison history
+## Automated result
 
-1. Baseline: 365 visual warnings across 244 scenario/viewport combinations.
-2. Pass one: responsive headers, compact type, growing cards and single-scroll
-   flows reduced the result to 59 warnings.
-3. Pass two: removed remaining Chapter 2 nested scrolling and corrected action
-   card clipping detection.
-4. Pass three: repaired Chapter 3 actor navigation, Chapter 4 party tabs and the
-   390px header wrap.
-5. Contextual-hint pass: replaced target-relative insertion and automatic
-   scrolling with one in-flow banner pattern; moved home dialogue below artwork.
-6. Final pass: 264/264 combinations passed with 0 structural failures, 0 visual
-   warnings, 0 console errors and 0 broken HTTP responses.
+- 66/66 states passed at 320 × 568.
+- 66/66 states passed at 360 × 640.
+- 66/66 states passed at 390 × 844.
+- 66/66 states passed at 430 × 932.
+- 0 structural failures.
+- 0 touch-target or accessibility warnings.
+- 0 visual warnings.
+- 0 console errors.
+- 0 broken asset responses.
 
-## Primary interactions tested
+## Primary interactions verified
 
-- Create a hero and render the initial home states.
-- Open cases, codex, inventory, journal, laboratory and companion views.
-- Navigate every Chapter 2, district incident, Chapter 3 and Chapter 4 state.
-- Switch battle actors, inspect help states and render scroll-bottom states.
-- Render five coach states, verify safe parent placement and check that no coach
-  intersects a fixed footer.
-- Verify visible controls, touch targets, asset responses and console output.
-
-## Remaining manual checks
-
-- Screen-reader announcements and focus order.
-- Keyboard-only navigation on desktop.
-- Formal WCAG contrast measurement and player usability sessions.
+- Hero creation, continue/new-game flow and autosave-compatible home states.
+- Cases, inventory, companions, journal, codex, laboratory and hero progression.
+- Every Chapter 2, district incident, Chapter 3 and Chapter 4 state.
+- Investigation point selection, method selection, deduction and reset flows.
+- Alchemy ordering, temperature, charge and result states.
+- Battle actor switching, shared companion actions, help modals and round actions.
+- In-flow coach states, settings, item/companion details and party selection.
 
 final result: passed
