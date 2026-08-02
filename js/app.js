@@ -1,22 +1,9 @@
-const EXTERNAL_ASSETS={"c4hero": "assets/backgrounds/c4hero.svg", "warehouse": "assets/backgrounds/warehouse.svg", "lab": "assets/backgrounds/lab.svg", "greenhouse": "assets/backgrounds/greenhouse.svg", "hunger": "assets/backgrounds/hunger.svg", "root": "assets/backgrounds/root.svg", "ritualist": "assets/backgrounds/ritualist.svg", "apartment": "assets/backgrounds/apartment.svg", "shop": "assets/backgrounds/shop.svg", "yard": "assets/backgrounds/yard.svg", "roof": "assets/backgrounds/roof.svg", "home": "assets/backgrounds/home.svg", "c2home": "assets/backgrounds/c2home.svg", "morven": "assets/characters/morven.svg", "liora": "assets/characters/liora.svg", "celeste": "assets/characters/celeste.svg", "eren": "assets/characters/eren.svg", "nika": "assets/characters/nika.svg", "selesta": "assets/characters/celeste.svg"};
-const ART_V3_SCENES={
-  c2home:"assets/art-v3/parents-home.webp",
-  apartment:"assets/art-v3/parents-home.webp",
-  shop:"assets/art-v3/alchemy-lab.webp",
-  yard:"assets/art-v3/neighbor-yard.webp",
-  c2alchemy:"assets/art-v3/alchemy-lab.webp",
-  c4hero:"assets/art-v3/alchemy-lab.webp",
-  warehouse:"assets/art-v3/neighbor-yard.webp",
-  lab:"assets/art-v3/alchemy-lab.webp",
-  greenhouse:"assets/art-v3/neighbor-yard.webp"
-};
-const ART_V3_PORTRAITS={
-  morven:"assets/art-v3/morven.webp",
-  liora:"assets/art-v3/liora.webp",
-  celeste:"assets/art-v3/celeste.webp",
-  selesta:"assets/art-v3/celeste.webp",
-  nika:"assets/art-v3/nika.webp"
-};
+const SCENE_ASSETS=Object.freeze({
+  c2home:'assets/art-v3/parents-home.webp', apartment:'assets/nocturne/memory-apartment.webp',
+  shop:'assets/art-v4/flower-shop.webp', yard:'assets/art-v3/neighbor-yard.webp',
+  c2alchemy:'assets/art-v3/alchemy-lab.webp'
+});
+const PORTRAIT_ASSETS=Object.freeze({morven:'assets/art-v3/morven.webp'});
 
 (function () {
   'use strict';
@@ -51,24 +38,15 @@ const ART_V3_PORTRAITS={
     trail_hound: { id:'trail_hound', name:'Следовой фамильяр', subtitle:'Магический помощник', initials:'Ф', rarity:'Редкий', direction:'Мирской путь', roles:'Исследователь · Контроль', unlock:'Договор новичка', group:'contract', note:'Демонстрационная боевая версия.' }
   };
 
-  const icons = {
-    home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10M9.5 20v-6h5v6"/></svg>',
-    cases: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 5h10l2 3v11H5V8l2-3Z"/><path d="M5 9h14M9 5V3h6v2"/></svg>',
-    bag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 8h12l1 12H5L6 8Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg>',
-    companions: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="8" r="3"/><circle cx="16.5" cy="9.5" r="2.5"/><path d="M3.5 20c.5-4 2.3-6 5.5-6s5 2 5.5 6M13 15c3.8-.7 6.3 1.2 7 5"/></svg>',
-    journal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 4h12a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2V4Z"/><path d="M7 20a2 2 0 0 1 0-4h12M9 8h6M9 11h5"/></svg>',
-    gear: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3"/><path d="M19 13.5v-3l-2-.6a7 7 0 0 0-.7-1.7l1-1.8-2.1-2.1-1.8 1a7 7 0 0 0-1.7-.7L11 2.5H8l-.6 2.1a7 7 0 0 0-1.7.7l-1.8-1-2.1 2.1 1 1.8a7 7 0 0 0-.7 1.7l-2.1.6v3l2.1.6c.2.6.4 1.2.7 1.7l-1 1.8 2.1 2.1 1.8-1c.5.3 1.1.5 1.7.7l.6 2.1h3l.6-2.1c.6-.2 1.2-.4 1.7-.7l1.8 1 2.1-2.1-1-1.8c.3-.5.5-1.1.7-1.7l2.1-.6Z" transform="translate(2 0) scale(.83)"/></svg>',
-    book: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5.5A3.5 3.5 0 0 1 7.5 2H12v18H7.5A3.5 3.5 0 0 0 4 23V5.5ZM20 5.5A3.5 3.5 0 0 0 16.5 2H12v18h4.5A3.5 3.5 0 0 1 20 23V5.5Z"/></svg>',
-    flask: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4A2 2 0 0 0 19 18l-5-9V3"/><path d="M7.5 15h9"/></svg>',
-    leaf: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 4C10 4 5 8 5 15c0 3 2 5 5 5 7 0 10-7 10-16Z"/><path d="M4 21c4-6 8-9 14-13"/></svg>',
-    circle: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="m12 5 2 5 5 2-5 2-2 5-2-5-5-2 5-2 2-5Z"/></svg>',
-    lock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>',
-    chevron: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m9 5 7 7-7 7"/></svg>',
-    medallion: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 3h8l-1 4a7 7 0 1 1-6 0L8 3Z"/><circle cx="12" cy="14" r="3"/><path d="m10 3 2 4 2-4"/></svg>',
-    crystal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m12 2 6 6-2 12H8L6 8l6-6Z"/><path d="m6 8 6 4 6-4M12 12v8"/></svg>',
-    page: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2h9l4 4v16H6V2Z"/><path d="M15 2v5h4M9 11h7M9 15h7M9 19h4"/></svg>',
-    close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m6 6 12 12M18 6 6 18"/></svg>'
-  };
+  const iconMarkup = name => `<img class="engine-icon" src="assets/icons/ui/${name}.svg" alt="" aria-hidden="true">`;
+  const icons = Object.freeze({
+    home:iconMarkup('home'), cases:iconMarkup('clipboard-list'), bag:iconMarkup('backpack'),
+    companions:iconMarkup('users-group'), journal:iconMarkup('notebook'), gear:iconMarkup('settings'),
+    book:iconMarkup('book-2'), flask:iconMarkup('flask'), leaf:iconMarkup('leaf'),
+    circle:iconMarkup('sparkles'), lock:iconMarkup('lock'), chevron:iconMarkup('chevron-right'),
+    medallion:iconMarkup('sparkles'), crystal:iconMarkup('wand'), page:iconMarkup('book-2'),
+    close:iconMarkup('x')
+  });
 
   let save = null;
   let currentScreen = 'home';
@@ -514,7 +492,7 @@ const ART_V3_PORTRAITS={
 
   function c2DirectSceneArt(scene){
     const key=scene==='apartment'?'apartment':scene==='shop'?'shop':scene==='yard'?'yard':'c2home';
-    const src=EXTERNAL_ASSETS[key];
+    const src=SCENE_ASSETS[key];
     return src?`<div class="direct-art-bg"><img src="${src}" alt="" loading="eager"></div>`:'';
   }
 
@@ -523,7 +501,7 @@ const ART_V3_PORTRAITS={
     const text=!h.wreath?'Из-за двери тянется запах сырой земли.':!h.phone?'Лунные цветы раскрываются без света. На телефоне мигает сообщение Ники.':!h.door?'Замок покрыт зелёными прожилками. За дверью что-то царапает дерево изнутри.':'Телекинез срывает заражённую защёлку. В комнате шевелятся побеги из похоронного венка.';
     chapter2Shell('Дом родителей','Осмотрите источник аномалии',`<div class="c2-scene-layout"><section class="c2-visual c2-room direct-art-block c2-home-hero">${c2DirectSceneArt('c2home')}<div class="c2-scene-label">Кабинет</div><div class="c2-home-copy"><div class="eyebrow">Семейный дом</div><h3>Кабинет семьи Вейн</h3><p>Цветы из венка тянутся к запертой двери. Телефон Ники мигает рядом со старой фотографией.</p></div>
       ${[['wreath','✿','12%','68%'],['photo','▧','43%','26%'],['phone','▣','72%','23%'],['door','✦','53%','64%']].map(([key,icon,left,top])=>`<button class="c2-hotspot ${h[key]?'done':''}" style="left:${left};top:${top}" data-action="chapter2-home-point" data-key="${key}">${h[key]?'✓':icon}</button>`).join('')}</section>
-      <section class="card c2-story"><div class="speaker">Морвен</div><p>${text}</p><div class="c2-morwen-quote"><div class="c2-morwen-portrait"><img src="${EXTERNAL_ASSETS.morven}" alt="Морвен"></div><div><b>Морвен предупреждает</b><p>«Лунный плакун не прорастает из мёртвых цветов. Обычно. Но твоя мать редко уважала слово “обычно”.»</p></div></div><div class="c2-check ${h.wreath?'done':''}">Изучить цветы из венка</div><div class="c2-check ${h.phone?'done':''}">Прочитать сообщение Ники</div><div class="c2-check ${h.door?'done':''}">Открыть дверь телекинезом</div></section></div>`,`<button class="primary-button" data-action="chapter2-to-investigation" ${ready?'':'disabled'}>Отправиться к соседнему дому</button>`,`<span>${done}/4</span>`);
+      <section class="card c2-story"><div class="speaker">Морвен</div><p>${text}</p><div class="c2-morwen-quote"><div class="c2-morwen-portrait"><img src="${PORTRAIT_ASSETS.morven}" alt="Морвен"></div><div><b>Морвен предупреждает</b><p>«Лунный плакун не прорастает из мёртвых цветов. Обычно. Но твоя мать редко уважала слово “обычно”.»</p></div></div><div class="c2-check ${h.wreath?'done':''}">Изучить цветы из венка</div><div class="c2-check ${h.phone?'done':''}">Прочитать сообщение Ники</div><div class="c2-check ${h.door?'done':''}">Открыть дверь телекинезом</div></section></div>`,`<button class="primary-button" data-action="chapter2-to-investigation" ${ready?'':'disabled'}>Отправиться к соседнему дому</button>`,`<span>${done}/4</span>`);
   }
 
   function missingRequiredClues() { const c=save.chapter2; return ['photo','soil','hairpin'].filter(k=>!c.clues[k]).length; }
@@ -542,7 +520,7 @@ const ART_V3_PORTRAITS={
     const c=save.chapter2, a=c.alchemy; const available=['water','salt','lavender'].concat(c.clues.dew?['dew']:[]); const need=available.length;
     const ingredients=available.map(id=>{const x=c2Ingredients[id],used=a.order.includes(id);return `<button class="c2-ingredient ${used?'used':''}" data-action="chapter2-add-ingredient" data-ingredient="${id}" ${used?'disabled':''}><strong>${x[0]} ${x[1]}</strong><span>${x[2]}</span></button>`}).join('');
     const charge=a.charge===null?50:a.charge;
-    chapter2Shell('Очищающая смесь','Алхимическая подготовка',`<div class="c2-alchemy"><section class="c2-alchemy-hero c2-alchemy-hero-strong direct-art-block">${EXTERNAL_ASSETS.c2alchemy?`<div class="direct-art-bg"><img src="${EXTERNAL_ASSETS.c2alchemy}" alt="Алхимическая лаборатория" loading="eager"></div>`:''}<div class="c2-alchemy-hero-copy"><div class="eyebrow">Лаборатория</div><h2>Соберите очищающую смесь</h2><p>Сначала выберите ингредиенты, затем температуру и только после этого зафиксируйте наполнение Искры.</p><div class="c2-alchemy-meter-note">✦ Оптимальное наполнение: 55–74%</div></div></section><section class="card c2-recipe"><div class="eyebrow">Рецепт</div><h2>Слабое Очищение</h2><p>Порядок, температура и наполнение определят безопасность ритуала.</p></section><section class="card c2-alchemy-body"><h3>1. Добавьте ингредиенты по порядку</h3><div class="c2-ingredient-grid">${ingredients}</div><div class="c2-order">${a.order.length?a.order.map((id,i)=>`<span>${i+1}. ${c2Ingredients[id][1]}</span>`).join(''):'<em>Чаша пуста</em>'}</div><button class="c2-text-button" data-action="chapter2-reset-order">Очистить чашу</button><h3>2. Выберите температуру</h3><div class="c2-temp">${[['low','Холодная'],['mid','Умеренная'],['high','Высокая']].map(([id,n])=>`<button class="${a.temp===id?'active':''}" data-action="chapter2-temperature" data-temp="${id}">${n}</button>`).join('')}</div><h3>3. Зафиксируйте магическое наполнение</h3><div class="c2-charge ${a.stopped?'stopped':''}" id="c2-charge"><div class="sweet"></div><div class="c2-charge-marker" id="c2-charge-marker" style="${a.stopped?`left:${charge}%`:''}"></div></div><button class="secondary-button" data-action="chapter2-stop-charge">${a.stopped?`Зафиксировано: ${charge}%`:'Зафиксировать Искру'}</button></section></div>`,`<button class="primary-button" data-action="chapter2-brew" ${a.order.length===need&&a.temp&&a.stopped?'':'disabled'}>Завершить смесь</button>`);
+    chapter2Shell('Очищающая смесь','Алхимическая подготовка',`<div class="c2-alchemy"><section class="c2-alchemy-hero c2-alchemy-hero-strong direct-art-block">${SCENE_ASSETS.c2alchemy?`<div class="direct-art-bg"><img src="${SCENE_ASSETS.c2alchemy}" alt="Алхимическая лаборатория" loading="eager"></div>`:''}<div class="c2-alchemy-hero-copy"><div class="eyebrow">Лаборатория</div><h2>Соберите очищающую смесь</h2><p>Сначала выберите ингредиенты, затем температуру и только после этого зафиксируйте наполнение Искры.</p><div class="c2-alchemy-meter-note">✦ Оптимальное наполнение: 55–74%</div></div></section><section class="card c2-recipe"><div class="eyebrow">Рецепт</div><h2>Слабое Очищение</h2><p>Порядок, температура и наполнение определят безопасность ритуала.</p></section><section class="card c2-alchemy-body"><h3>1. Добавьте ингредиенты по порядку</h3><div class="c2-ingredient-grid">${ingredients}</div><div class="c2-order">${a.order.length?a.order.map((id,i)=>`<span>${i+1}. ${c2Ingredients[id][1]}</span>`).join(''):'<em>Чаша пуста</em>'}</div><button class="c2-text-button" data-action="chapter2-reset-order">Очистить чашу</button><h3>2. Выберите температуру</h3><div class="c2-temp">${[['low','Холодная'],['mid','Умеренная'],['high','Высокая']].map(([id,n])=>`<button class="${a.temp===id?'active':''}" data-action="chapter2-temperature" data-temp="${id}">${n}</button>`).join('')}</div><h3>3. Зафиксируйте магическое наполнение</h3><div class="c2-charge ${a.stopped?'stopped':''}" id="c2-charge"><div class="sweet"></div><div class="c2-charge-marker" id="c2-charge-marker" style="${a.stopped?`left:${charge}%`:''}"></div></div><button class="secondary-button" data-action="chapter2-stop-charge">${a.stopped?`Зафиксировано: ${charge}%`:'Зафиксировать Искру'}</button></section></div>`,`<button class="primary-button" data-action="chapter2-brew" ${a.order.length===need&&a.temp&&a.stopped?'':'disabled'}>Завершить смесь</button>`);
   }
 
   function calculateC2Potion() {
@@ -2375,101 +2353,6 @@ const ART_V3_PORTRAITS={
   }});
 
 
-  /* =========================================================
-     VISUAL PASS v1.1 — INLINE SVG SCENE DECORATION
-     ========================================================= */
-  const VISUAL_PASS_VERSION='1.1.1';
-  const vpSvg=(body,view='0 0 520 300')=>`<svg viewBox="${view}" preserveAspectRatio="xMidYMid slice" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">${body}</svg>`;
-  const vpDust=()=>'<div class="vp-dust"><i></i><i></i><i></i><i></i><i></i></div>';
-  const VP_ART={
-    home:vpSvg(`
-      <defs><linearGradient id="hbg" x2="0" y2="1"><stop stop-color="#30203a"/><stop offset=".55" stop-color="#15131d"/><stop offset="1" stop-color="#09080d"/></linearGradient><radialGradient id="moon"><stop stop-color="#eee8ef"/><stop offset=".22" stop-color="#b8afc1"/><stop offset=".23" stop-color="#6b5874" stop-opacity=".25"/><stop offset="1" stop-color="#2f203a" stop-opacity="0"/></radialGradient><linearGradient id="fire" x2="0" y2="1"><stop stop-color="#f4d08a"/><stop offset=".5" stop-color="#b05e45"/><stop offset="1" stop-color="#421e28"/></linearGradient></defs>
-      <rect width="520" height="300" fill="url(#hbg)"/><rect y="215" width="520" height="85" fill="#0b090e"/>
-      <path d="M349 20h124v184H349z" fill="#17131d" stroke="#5d4569" stroke-width="3"/><path d="M359 30h104v151H359z" fill="#181d2d"/><circle cx="412" cy="80" r="53" fill="url(#moon)"/><path d="M411 29v152M359 104h104" stroke="#493853" stroke-width="3"/>
-      <path d="M340 15q35 40 6 191M476 14q-33 42-5 192" fill="#3c2744" stroke="#5c3a62" stroke-width="5" opacity=".75"/>
-      <rect x="31" y="70" width="113" height="145" rx="5" fill="#100d13" stroke="#382b3e"/><path d="M42 82h91M42 120h91M42 158h91M42 196h91" stroke="#59425c" stroke-width="4"/><g fill="#84627e"><rect x="47" y="88" width="10" height="26"/><rect x="60" y="91" width="14" height="23"/><rect x="79" y="86" width="8" height="28"/><rect x="94" y="89" width="18" height="25"/><rect x="48" y="126" width="16" height="26"/><rect x="69" y="128" width="9" height="24"/><rect x="84" y="124" width="13" height="28"/><rect x="102" y="129" width="23" height="23"/></g>
-      <path d="M168 155h124v68H168z" fill="#1a1318" stroke="#4a363f"/><path d="M182 166h96v44H182z" fill="#311b23"/><path d="M230 203c-21-8-20-31-2-37 2 11 14 12 18 0 14 10 8 31-16 37z" fill="url(#fire)"/><rect x="154" y="143" width="152" height="15" rx="4" fill="#34232b"/>
-      <ellipse cx="252" cy="250" rx="153" ry="24" fill="#201522"/><ellipse cx="250" cy="247" rx="111" ry="13" fill="#5a355d" opacity=".25"/>
-      <path d="M83 237c21-25 60-26 81 0" fill="none" stroke="#2b1c2d" stroke-width="15"/><circle cx="64" cy="219" r="13" fill="#211522"/>
-      <g opacity=".5"><circle cx="292" cy="118" r="2" fill="#e4d4e9"/><circle cx="318" cy="77" r="1.5" fill="#e4d4e9"/><circle cx="161" cy="101" r="1.5" fill="#d8b8e5"/></g>`),
-    apartment:vpSvg(`<defs><linearGradient id="ab" x2="0" y2="1"><stop stop-color="#493044"/><stop offset=".6" stop-color="#21151f"/><stop offset="1" stop-color="#0d0b0f"/></linearGradient><radialGradient id="ag"><stop stop-color="#b9679b" stop-opacity=".38"/><stop offset="1" stop-color="#4e2446" stop-opacity="0"/></radialGradient></defs><rect width="520" height="280" fill="url(#ab)"/><rect y="184" width="520" height="96" fill="#100c11"/><path d="M42 70h168v116H42z" fill="#261820" stroke="#5a3a4d"/><path d="M55 82h142v91H55z" fill="#34212c"/><rect x="303" y="40" width="98" height="124" fill="#171118" stroke="#634657" stroke-width="5"/><path d="M318 55h68v88h-68z" fill="#291a27"/><circle cx="352" cy="82" r="17" fill="#b8a8b8" opacity=".45"/><path d="M338 106q14-18 28 0v30h-28z" fill="#503749"/><path d="M12 278c58-105 120-73 174-154M115 280c47-74 104-69 163-155M244 280c-12-69 78-104 140-129M509 280c-31-71-77-81-131-128" fill="none" stroke="#315337" stroke-width="9" opacity=".7"/><path d="M13 278c58-105 120-73 174-154M115 280c47-74 104-69 163-155" fill="none" stroke="#75a071" stroke-width="2" opacity=".5"/><circle cx="269" cy="145" r="73" fill="url(#ag)"/><path d="M233 181q36-69 72 0q-36 35-72 0z" fill="#6a4160" opacity=".7"/>`,'0 0 520 280'),
-    shop:vpSvg(`<defs><linearGradient id="sb" x2="0" y2="1"><stop stop-color="#284046"/><stop offset=".6" stop-color="#162526"/><stop offset="1" stop-color="#0b1111"/></linearGradient><radialGradient id="sg"><stop stop-color="#7bc08e" stop-opacity=".32"/><stop offset="1" stop-color="#7bc08e" stop-opacity="0"/></radialGradient></defs><rect width="520" height="280" fill="url(#sb)"/><rect y="202" width="520" height="78" fill="#0b1010"/><path d="M20 64h480v143H20z" fill="#171b1a" stroke="#4e5b4f"/><path d="M32 84h456M32 127h456M32 170h456" stroke="#605449" stroke-width="5"/><g fill="#739c7b"><circle cx="70" cy="69" r="25"/><circle cx="440" cy="72" r="30"/><circle cx="274" cy="51" r="22"/></g><g fill="#925e69"><path d="M67 91h21v32H67z"/><path d="M105 96h17v27h-17z"/><path d="M151 88h24v35h-24z"/><path d="M211 95h18v28h-18z"/></g><g fill="#6f8eb2"><path d="M314 91h19v32h-19z"/><path d="M354 86h25v37h-25z"/><path d="M404 94h18v29h-18z"/></g><circle cx="258" cy="143" r="74" fill="url(#sg)"/><path d="M252 93q23 25 0 58q-23-33 0-58zM252 151q-28-6-37 23q30 13 37-23zM252 151q28-6 37 23q-30 13-37-23z" fill="#77b47c" opacity=".75"/>`,'0 0 520 280'),
-    yard:vpSvg(`<defs><linearGradient id="yb" x2="0" y2="1"><stop stop-color="#1d3147"/><stop offset=".55" stop-color="#101b27"/><stop offset=".56" stop-color="#16251b"/><stop offset="1" stop-color="#090e0b"/></linearGradient><radialGradient id="ym"><stop stop-color="#d8d7dc"/><stop offset=".25" stop-color="#9aa7bc" stop-opacity=".45"/><stop offset="1" stop-color="#9aa7bc" stop-opacity="0"/></radialGradient></defs><rect width="520" height="280" fill="url(#yb)"/><circle cx="414" cy="53" r="53" fill="url(#ym)"/><path d="M0 135h62V74h54v61h48V47h64v88h52V84h49v51h49V59h70v76h73v65H0z" fill="#11151d"/><g fill="#a79a66" opacity=".5"><rect x="77" y="91" width="7" height="12"/><rect x="94" y="91" width="7" height="12"/><rect x="184" y="69" width="8" height="13"/><rect x="207" y="68" width="8" height="13"/><rect x="396" y="82" width="8" height="13"/></g><path d="M158 245h220v-46H158z" fill="#202629" stroke="#5b6468" stroke-width="5"/><path d="M175 210h186M194 200v45M226 200v45M258 200v45M290 200v45M322 200v45" stroke="#101416" stroke-width="6"/><path d="M12 280c34-84 74-86 125-125M85 280c22-54 68-68 127-81M510 280c-38-85-89-83-148-121" fill="none" stroke="#385f3c" stroke-width="12"/><path d="M239 275q11-53 60-83" fill="none" stroke="#79a66e" stroke-width="4"/>`,'0 0 520 280'),
-    square:vpSvg(`<defs><linearGradient id="qb" x2="0" y2="1"><stop stop-color="#344c70"/><stop offset=".58" stop-color="#182235"/><stop offset="1" stop-color="#090d14"/></linearGradient><radialGradient id="ql"><stop stop-color="#e5d5ae"/><stop offset=".16" stop-color="#b58f65" stop-opacity=".42"/><stop offset="1" stop-color="#8b6d55" stop-opacity="0"/></radialGradient></defs><rect width="520" height="300" fill="url(#qb)"/><circle cx="417" cy="55" r="60" fill="url(#ql)"/><path d="M0 170h91v-69h55v69h56V72h91v98h48v-53h53v53h126v130H0z" fill="#111722"/><path d="M202 170V72l45-35 46 35v98z" fill="#1c2534" stroke="#536581"/><path d="M216 86h64M216 112h64M216 138h64" stroke="#384a65" stroke-width="6"/><path d="M372 249h42V113h-42z" fill="#172030" stroke="#6881a4"/><path d="M393 94l27 36h-54z" fill="#98744b"/><circle cx="393" cy="157" r="26" fill="none" stroke="#c5a268" stroke-width="3"/><circle cx="393" cy="157" r="9" fill="#d8bd7c" opacity=".75"/><path d="M74 251h361" stroke="#526174" stroke-width="4"/><path d="M0 255h520v45H0z" fill="#0a0d13"/>`),
-    archive:vpSvg(`<defs><linearGradient id="rb" x2="0" y2="1"><stop stop-color="#2b3548"/><stop offset=".55" stop-color="#171d29"/><stop offset="1" stop-color="#090b11"/></linearGradient><radialGradient id="rg"><stop stop-color="#a9c4e8" stop-opacity=".28"/><stop offset="1" stop-color="#a9c4e8" stop-opacity="0"/></radialGradient></defs><rect width="520" height="300" fill="url(#rb)"/><rect x="24" y="40" width="132" height="230" fill="#11151d" stroke="#465269"/><rect x="364" y="40" width="132" height="230" fill="#11151d" stroke="#465269"/><g stroke="#37445a" stroke-width="5"><path d="M35 82h110M35 126h110M35 170h110M35 214h110M375 82h110M375 126h110M375 170h110M375 214h110"/></g><g fill="#617291"><rect x="43" y="52" width="15" height="24"/><rect x="64" y="55" width="19" height="21"/><rect x="90" y="50" width="12" height="26"/><rect x="112" y="54" width="23" height="22"/><rect x="384" y="52" width="16" height="24"/><rect x="408" y="56" width="11" height="20"/><rect x="425" y="51" width="24" height="25"/></g><circle cx="260" cy="123" r="94" fill="url(#rg)"/><path d="M207 221h106v45H207z" fill="#2d2730" stroke="#7c6b82"/><path d="M255 221v45" stroke="#7c6b82"/><circle cx="260" cy="244" r="13" fill="#b9a574"/><g fill="#d4d8e2" opacity=".55"><path d="M207 104l55-20 11 34-55 20z"/><path d="M303 81l43 20-13 28-43-20z"/><path d="M242 45l35 10-8 27-35-10z"/></g>`),
-    roof:vpSvg(`<defs><linearGradient id="tb" x2="0" y2="1"><stop stop-color="#182944"/><stop offset=".62" stop-color="#101927"/><stop offset="1" stop-color="#070a10"/></linearGradient><radialGradient id="tm"><stop stop-color="#e9e5e9"/><stop offset=".18" stop-color="#b8c4d6" stop-opacity=".5"/><stop offset="1" stop-color="#b8c4d6" stop-opacity="0"/></radialGradient><radialGradient id="tear"><stop stop-color="#af74d4" stop-opacity=".9"/><stop offset=".25" stop-color="#70519c" stop-opacity=".48"/><stop offset="1" stop-color="#70519c" stop-opacity="0"/></radialGradient></defs><rect width="520" height="300" fill="url(#tb)"/><circle cx="84" cy="57" r="59" fill="url(#tm)"/><path d="M0 210h50v-69h48v69h31v-104h58v104h47v-65h53v65h38v-116h67v116h36v-76h50v76h42v90H0z" fill="#080c13"/><g fill="#a99e6c" opacity=".45"><rect x="66" y="160" width="7" height="11"/><rect x="149" y="129" width="8" height="12"/><rect x="355" y="118" width="8" height="12"/><rect x="449" y="154" width="8" height="12"/></g><path d="M296 255h119V211H296z" fill="#181d25" stroke="#4c5969"/><path d="M348 211v-91M348 139l-38 38M348 139l41 31" stroke="#74839a" stroke-width="5"/><ellipse cx="187" cy="124" rx="84" ry="71" fill="url(#tear)"/><path d="M189 57c-24 29 14 47-11 75s14 41-8 66" fill="none" stroke="#d8a5ee" stroke-width="4" opacity=".8"/>`),
-    c2danger:vpSvg(`<defs><linearGradient id="db" x2="0" y2="1"><stop stop-color="#28192a"/><stop offset=".55" stop-color="#17111b"/><stop offset="1" stop-color="#09080c"/></linearGradient><radialGradient id="dg"><stop stop-color="#9c446f" stop-opacity=".55"/><stop offset="1" stop-color="#9c446f" stop-opacity="0"/></radialGradient></defs><rect width="520" height="250" fill="url(#db)"/><circle cx="260" cy="91" r="115" fill="url(#dg)"/><path d="M0 250c75-142 133-89 203-175M78 250c74-100 136-89 206-177M520 250c-71-138-143-103-222-184" fill="none" stroke="#3f6d45" stroke-width="15"/><path d="M0 250c75-142 133-89 203-175M520 250c-71-138-143-103-222-184" fill="none" stroke="#83ad72" stroke-width="3" opacity=".52"/><path d="M252 192q22-34 45 0v55h-45z" fill="#91828c"/><circle cx="274" cy="173" r="17" fill="#bdaeb8"/>`,'0 0 520 250'),
-    training:vpSvg(`<defs><linearGradient id="tr" x2="0" y2="1"><stop stop-color="#3a506e"/><stop offset=".62" stop-color="#1c283b"/><stop offset="1" stop-color="#0c1119"/></linearGradient></defs><rect width="520" height="280" fill="url(#tr)"/><path d="M0 185h111v-70h63v70h49v-103h85v103h52v-55h54v55h106v95H0z" fill="#121a25"/><path d="M96 250h42v-57H96z" fill="#3a2d2c" transform="rotate(-12 117 221)"/><circle cx="368" cy="203" r="19" fill="#ccb8a8"/><path d="M347 250q20-46 42 0" fill="#6b748b"/><path d="M159 248h42V139h-42z" fill="#182237" stroke="#7893bb"/><path d="M180 124l26 29h-52z" fill="#b38b52"/><circle cx="180" cy="184" r="25" fill="none" stroke="#b9d7ff" stroke-width="3"/><circle cx="368" cy="213" r="56" fill="none" stroke="#a9ccff" stroke-width="4" opacity=".65"/>`,'0 0 520 280'),
-    c3danger:vpSvg(`<defs><linearGradient id="cd" x2="0" y2="1"><stop stop-color="#26344a"/><stop offset=".55" stop-color="#161c29"/><stop offset="1" stop-color="#080b11"/></linearGradient><radialGradient id="cg"><stop stop-color="#b35b9b" stop-opacity=".58"/><stop offset="1" stop-color="#b35b9b" stop-opacity="0"/></radialGradient></defs><rect width="520" height="250" fill="url(#cd)"/><circle cx="260" cy="91" r="115" fill="url(#cg)"/><path d="M215 174c-45-32-36-96 2-111 12 22 30 30 43 3 16 23 29 20 46-1 38 25 38 86-1 111-24 15-66 15-90-2z" fill="#19121f" stroke="#9d6bb0"/><path d="M230 115l21 13-25 8M289 115l-21 13 25 8" fill="none" stroke="#e0afd8" stroke-width="4"/><path d="M70 245q21-44 43 0" fill="#69778b"/><circle cx="91" cy="203" r="17" fill="#c0b1a9"/><path d="M407 245h39V133h-39z" fill="#172135" stroke="#8097b8"/><path d="M426 117l25 30h-50z" fill="#b58b4f"/>`,'0 0 520 250'),
-    c3battle:vpSvg(`<defs><linearGradient id="bb" x2="0" y2="1"><stop stop-color="#243653"/><stop offset=".57" stop-color="#121b2c"/><stop offset="1" stop-color="#070a10"/></linearGradient><radialGradient id="ba"><stop stop-color="#b167c0" stop-opacity=".62"/><stop offset="1" stop-color="#b167c0" stop-opacity="0"/></radialGradient></defs><rect width="520" height="250" fill="url(#bb)"/><circle cx="260" cy="86" r="116" fill="url(#ba)"/><path d="M211 167c-42-43-19-109 25-117 9 24 23 29 32 2 19 29 33 27 49 3 43 26 39 93-3 116-28 16-78 14-103-4z" fill="#15101c" stroke="#8d63a5" stroke-width="2"/><path d="M229 105l23 15-28 9M292 105l-23 15 29 9" fill="none" stroke="#dba4d9" stroke-width="4"/><path d="M245 151q15 13 30 0" fill="none" stroke="#b47cae" stroke-width="3"/><path d="M56 244q23-48 47 0" fill="#6b788a"/><circle cx="79" cy="199" r="18" fill="#c2b2aa"/><path d="M413 244h42V126h-42z" fill="#18233a" stroke="#8199bd"/><path d="M434 109l27 31h-54z" fill="#bc9356"/><circle cx="434" cy="174" r="25" fill="none" stroke="#d2b270" stroke-width="3"/><path d="M21 245h478" stroke="#56677e" stroke-width="4"/>`,'0 0 520 250'),
-    c2battle:vpSvg(`<defs><radialGradient id="ig"><stop stop-color="#719d70" stop-opacity=".64"/><stop offset="1" stop-color="#719d70" stop-opacity="0"/></radialGradient></defs><rect width="110" height="130" fill="transparent"/><circle cx="56" cy="60" r="55" fill="url(#ig)"/><path d="M55 115C15 93 11 43 42 23c8 17 19 18 25-2 25 15 32 58 5 88-5 5-11 8-17 6z" fill="#1d3020" stroke="#6a986c" stroke-width="3"/><path d="M53 26c-12 25 15 29-4 48 23-7 21 20 40 17" fill="none" stroke="#8ebb7e" stroke-width="4"/><circle cx="43" cy="58" r="4" fill="#d3abc7"/><circle cx="66" cy="55" r="4" fill="#d3abc7"/>`,'0 0 110 130')
-  };
-
-  VP_ART.c2home=vpSvg(`
-    <defs>
-      <linearGradient id="c2hb" x2="0" y2="1"><stop stop-color="#39283d"/><stop offset=".58" stop-color="#1a141f"/><stop offset="1" stop-color="#09080d"/></linearGradient>
-      <radialGradient id="c2moon"><stop stop-color="#c990e2" stop-opacity=".72"/><stop offset="1" stop-color="#713d87" stop-opacity="0"/></radialGradient>
-      <linearGradient id="c2door" x2="1"><stop stop-color="#2d202d"/><stop offset="1" stop-color="#17121b"/></linearGradient>
-    </defs>
-    <rect width="520" height="300" fill="url(#c2hb)"/>
-    <rect y="230" width="520" height="70" fill="#0b090e"/>
-    <path d="M24 50h160v181H24z" fill="#171119" stroke="#5a405a" stroke-width="3"/>
-    <path d="M38 68h132M38 108h132M38 148h132M38 188h132" stroke="#4e384e" stroke-width="5"/>
-    <g fill="#8a6689"><rect x="43" y="75" width="13" height="27"/><rect x="61" y="73" width="19" height="29"/><rect x="86" y="78" width="10" height="24"/><rect x="102" y="70" width="18" height="32"/><rect x="126" y="75" width="28" height="27"/><rect x="44" y="116" width="23" height="26"/><rect x="73" y="120" width="13" height="22"/><rect x="93" y="113" width="20" height="29"/><rect x="121" y="118" width="31" height="24"/></g>
-    <path d="M348 39h135v192H348z" fill="url(#c2door)" stroke="#72516f" stroke-width="4"/>
-    <path d="M366 56h99v158h-99z" fill="#201720" stroke="#4e394d" stroke-width="2"/>
-    <circle cx="454" cy="137" r="5" fill="#c8a86d"/>
-    <path d="M348 231q42-31 135 0" fill="#111015" opacity=".9"/>
-    <rect x="205" y="154" width="105" height="77" rx="5" fill="#211722" stroke="#63465f" stroke-width="3"/>
-    <rect x="217" y="166" width="81" height="50" fill="#120f15"/>
-    <circle cx="257" cy="188" r="13" fill="#ad9caf"/><path d="M241 210q16-16 32 0" fill="#68516b"/>
-    <rect x="286" y="202" width="34" height="22" rx="4" fill="#14151b" stroke="#767d91"/>
-    <circle cx="303" cy="213" r="5" fill="#9472c0"/>
-    <circle cx="92" cy="224" r="58" fill="url(#c2moon)"/>
-    <g transform="translate(88 207)"><path d="M0 25C-38 13-37-25-8-34c6 19 20 20 28 0 28 14 31 51 4 63-9 4-17 3-24-4z" fill="#713985" stroke="#c98ee2" stroke-width="3"/><circle cx="-15" cy="-8" r="14" fill="#c08ade"/><circle cx="14" cy="-11" r="15" fill="#b878d3"/><circle cx="0" cy="10" r="16" fill="#cf9ae4"/><circle cx="0" cy="-4" r="7" fill="#4a2d52"/></g>
-    <g transform="translate(421 208)"><ellipse cx="0" cy="28" rx="28" ry="17" fill="#0b0a0e"/><circle cx="-4" cy="2" r="18" fill="#0b0a0e"/><path d="M-17-8l5-23 14 19M9-9l13-21 2 26" fill="#0b0a0e"/><path d="M-10 1l7 2M5 1l-6 2" stroke="#e2bd71" stroke-width="3"/><path d="M25 25q28-20 35-2" fill="none" stroke="#0b0a0e" stroke-width="9" stroke-linecap="round"/></g>
-    <path d="M318 225c25-34 38-69 22-102M333 225c-4-49 5-78 25-111" fill="none" stroke="#426845" stroke-width="6" opacity=".78"/>
-    <g fill="#d9c9df" opacity=".6"><circle cx="191" cy="52" r="2"/><circle cx="327" cy="78" r="1.5"/><circle cx="469" cy="27" r="1.5"/><circle cx="285" cy="118" r="1.4"/></g>
-  `);
-
-  const VP_PORTRAITS={
-    morven:vpSvg(`<defs><linearGradient id="p" x2="0" y2="1"><stop stop-color="#48334f"/><stop offset="1" stop-color="#0b090e"/></linearGradient></defs><rect width="80" height="96" rx="14" fill="url(#p)"/><circle cx="40" cy="49" r="26" fill="#09090c"/><path d="M20 32L27 9l14 19M60 32L53 9 40 28" fill="#09090c"/><path d="M28 47l9 3M52 47l-9 3" stroke="#ddb46c" stroke-width="3"/><circle cx="33" cy="46" r="2" fill="#f2d894"/><circle cx="47" cy="46" r="2" fill="#f2d894"/><path d="M40 51l-3 4h6z" fill="#94717d"/><path d="M27 60q13 11 26 0" fill="none" stroke="#25232c"/><circle cx="40" cy="48" r="34" fill="none" stroke="#9c73ad" opacity=".28"/>`,'0 0 80 96'),
-    liora:vpSvg(`<defs><linearGradient id="l" x2="0" y2="1"><stop stop-color="#536b91"/><stop offset="1" stop-color="#11131a"/></linearGradient></defs><rect width="80" height="96" rx="14" fill="url(#l)"/><circle cx="40" cy="35" r="18" fill="#d7b5a7"/><path d="M21 38q1-30 22-28 22 2 18 34l-8-11-27 8z" fill="#252433"/><path d="M18 96q4-39 22-39t22 39" fill="#263a5c"/><path d="M29 63l11 13 11-13" fill="none" stroke="#d5bb73" stroke-width="3"/><circle cx="40" cy="35" r="29" fill="none" stroke="#aac7ef" opacity=".2"/>`,'0 0 80 96'),
-    selesta:vpSvg(`<defs><linearGradient id="s" x2="0" y2="1"><stop stop-color="#486a59"/><stop offset="1" stop-color="#101512"/></linearGradient></defs><rect width="80" height="96" rx="14" fill="url(#s)"/><circle cx="40" cy="35" r="18" fill="#d2aa9c"/><path d="M20 39q0-31 20-31 24 0 21 35l-10-16-26 17z" fill="#342722"/><path d="M17 96q5-40 23-40t23 40" fill="#314d3e"/><path d="M40 61v24M28 73h24" stroke="#90c59f" stroke-width="3" opacity=".7"/>`,'0 0 80 96'),
-    eren:vpSvg(`<defs><linearGradient id="e" x2="0" y2="1"><stop stop-color="#5a334c"/><stop offset="1" stop-color="#110b11"/></linearGradient></defs><rect width="80" height="96" rx="14" fill="url(#e)"/><circle cx="40" cy="35" r="18" fill="#c7a393"/><path d="M18 35q5-29 25-27 22 3 20 30l-13-12-27 15z" fill="#19151b"/><path d="M16 96q6-40 24-40t24 40" fill="#392234"/><path d="M39 63l-8 15 12-3-2 14 10-22-10 4z" fill="#b66b9a"/>`,'0 0 80 96'),
-    nika:vpSvg(`<defs><linearGradient id="n" x2="0" y2="1"><stop stop-color="#5b526b"/><stop offset="1" stop-color="#121018"/></linearGradient></defs><rect width="80" height="96" rx="14" fill="url(#n)"/><circle cx="40" cy="35" r="18" fill="#d5ad9b"/><path d="M20 39q1-31 22-30 22 1 19 34l-9-14-28 15z" fill="#3f2d36"/><path d="M17 96q5-40 23-40t23 40" fill="#454052"/><circle cx="40" cy="73" r="8" fill="none" stroke="#b2a8c5" stroke-width="3"/>`,'0 0 80 96')
-  };
-  function vpInsertArt(node,kind){if(!node||node.querySelector(':scope > .vp-art')||!VP_ART[kind])return;node.insertAdjacentHTML('afterbegin',`<div class="vp-art">${VP_ART[kind]}</div>${vpDust()}`);}
-  function vpMorwenMark(){return `<div class="vp-morwen-mark">${VP_PORTRAITS.morven}</div>`;}
-  function visualPassDecorate(){
-    document.body.classList.add('visual-pass-v11');
-    document.querySelectorAll('.home-scene').forEach(n=>{vpInsertArt(n,'home');if(!n.querySelector('.vp-morwen-mark'))n.insertAdjacentHTML('beforeend',vpMorwenMark());});
-    document.querySelectorAll('.c2-visual.c2-room').forEach(n=>vpInsertArt(n,'c2home'));
-    document.querySelectorAll('.ux-scene.apartment,.c2-location-scene.apartment').forEach(n=>vpInsertArt(n,'apartment'));
-    document.querySelectorAll('.ux-scene.shop,.c2-location-scene.shop').forEach(n=>vpInsertArt(n,'shop'));
-    document.querySelectorAll('.ux-scene.yard,.c2-location-scene.yard').forEach(n=>vpInsertArt(n,'yard'));
-    document.querySelectorAll('.ux6-scene.square').forEach(n=>vpInsertArt(n,'square'));
-    document.querySelectorAll('.ux6-scene.archive').forEach(n=>vpInsertArt(n,'archive'));
-    document.querySelectorAll('.ux6-scene.roof').forEach(n=>vpInsertArt(n,'roof'));
-    document.querySelectorAll('.ux-danger-scene').forEach(n=>vpInsertArt(n,'c2danger'));
-    document.querySelectorAll('.ux6-training-scene').forEach(n=>vpInsertArt(n,'training'));
-    document.querySelectorAll('.ux6-danger-scene').forEach(n=>vpInsertArt(n,'c3danger'));
-    document.querySelectorAll('.c3-arena').forEach(n=>vpInsertArt(n,'c3battle'));
-    document.querySelectorAll('.c3-scene').forEach(n=>vpInsertArt(n,'square'));
-    document.querySelectorAll('.c2-enemy').forEach(n=>{if(!n.querySelector('.vp-ivy-portrait'))n.insertAdjacentHTML('afterbegin',`<div class="vp-ivy-portrait">${VP_ART.c2battle}</div>`)});
-    document.querySelectorAll('.companion-card').forEach(card=>{const p=card.querySelector('.companion-portrait');if(!p||p.dataset.vpDone)return;const t=(card.textContent||'').toLowerCase();const key=t.includes('морвен')?'morven':t.includes('лиора')?'liora':t.includes('селеста')?'selesta':t.includes('эрен')?'eren':t.includes('ника')?'nika':null;if(key){p.innerHTML=VP_PORTRAITS[key];p.dataset.vpDone='1';}});
-  }
-  const renderStartVisualPrev=renderStart;
-  renderStart=function(){
-    removeUX5Coach?.();ux5UpdateAppHeight?.();
-    document.body.classList.remove('ux5-game-mode');document.body.classList.add('ux5-start-mode','visual-pass-v11');
-    const existing=readSave();
-    const preview=existing?`<div class="save-preview"><strong>${escapeHtml(existing.profile.heroName)} · уровень ${existing.profile.heroLevel}</strong><span>${existing.progression.chapters.chapter_04_bitter_recipe?.status==='completed'?'Уровни 2–4 завершены':existing.progression.chapters.chapter_03_first_light?.status==='completed'?'Уровни 2–3 завершены':'Прогресс сохранён'} · ${formatDate(existing.updatedAt)}</span></div>`:'';
-    app.innerHTML=`<section class="start-screen"><div class="vp-start-art">${VP_ART.roof}<div class="vp-start-runes"></div></div><div class="brand-kicker">Magic RPG · urban dark fantasy</div><div class="start-copy"><span class="release-badge">Главы 2–4</span><h1 class="start-title">Между светом<br>и тьмой</h1><p class="start-subtitle">Расследуйте магические происшествия, готовьте ритуалы и решайте, кем станут ваши союзники в истории дома между мирами.</p><div class="start-actions">${preview}${existing?'<button class="primary-button" data-action="continue-game">Продолжить</button>':''}<button class="${existing?'secondary-button':'primary-button'}" data-action="new-game">${existing?'Начать заново':'Создать героя'}</button></div><p class="release-notes">Прогресс сохраняется после каждого решения. Незавершённую сцену можно продолжить с того же места.</p></div></section>`;
-  };
-  const renderGameVisualPrev=renderGame;
-  renderGame=function(){renderGameVisualPrev();requestAnimationFrame(visualPassDecorate);};
-
   if (globalThis.__MAGIC_RPG_TEST__) {
     globalThis.__magicTest={
       createDefaultSave,migrateSave,createChapter2State,createC2BattleState,normalizeC2Battle,renderGame,renderChapter2,calculateC2Potion,initC2Battle,
@@ -2484,74 +2367,10 @@ const ART_V3_PORTRAITS={
     };
   }
 
-
-  /* =========================================================
-     ART PASS v2 — embedded illustration pack
-     ========================================================= */
-  const ART_V2_VERSION='2.0';
-  const artV2Svg=(body,view='0 0 520 300')=>`<svg viewBox="${view}" preserveAspectRatio="xMidYMid slice" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">${body}</svg>`;
-  const ART_V2={
-    c4hero:artV2Svg(`<defs><linearGradient id="a" x2="0" y2="1"><stop stop-color="#30483f"/><stop offset=".62" stop-color="#17231f"/><stop offset="1" stop-color="#090d0c"/></linearGradient><radialGradient id="g"><stop stop-color="#8fdbb0" stop-opacity=".42"/><stop offset="1" stop-color="#8fdbb0" stop-opacity="0"/></radialGradient></defs><rect width="520" height="300" fill="url(#a)"/><rect y="218" width="520" height="82" fill="#090d0c"/><path d="M26 64h210v157H26z" fill="#171c19" stroke="#5c7668"/><path d="M42 84h177M42 126h177M42 168h177" stroke="#45594f" stroke-width="5"/><g fill="#7ea68c"><circle cx="66" cy="76" r="20"/><circle cx="176" cy="73" r="23"/></g><g fill="#84607f"><rect x="50" y="92" width="20" height="28"/><rect x="78" y="95" width="15" height="25"/><rect x="112" y="89" width="23" height="31"/></g><circle cx="348" cy="130" r="105" fill="url(#g)"/><path d="M290 230h140v-82H290z" fill="#1d2521" stroke="#6d8c7c"/><path d="M322 148q30-45 60 0v82h-60z" fill="#26342e"/><circle cx="352" cy="121" r="25" fill="#c6a79a"/><path d="M326 122q4-41 31-38 28 4 24 43l-14-18-34 19z" fill="#352821"/><path d="M349 153v58M327 178h44" stroke="#94cfaa" stroke-width="4" opacity=".72"/><g fill="#b391d0" opacity=".6"><circle cx="270" cy="66" r="3"/><circle cx="451" cy="84" r="2"/><circle cx="404" cy="45" r="2"/></g>`),
-    warehouse:artV2Svg(`<defs><linearGradient id="w" x2="0" y2="1"><stop stop-color="#31433e"/><stop offset=".65" stop-color="#17221f"/><stop offset="1" stop-color="#090d0c"/></linearGradient><radialGradient id="wg"><stop stop-color="#d3a975" stop-opacity=".35"/><stop offset="1" stop-color="#d3a975" stop-opacity="0"/></radialGradient></defs><rect width="520" height="260" fill="url(#w)"/><rect y="201" width="520" height="59" fill="#080b0a"/><path d="M28 43h464v165H28z" fill="#151b18" stroke="#5c6a63"/><path d="M46 64h140v119H46zM208 64h125v119H208zM355 64h116v119H355z" fill="#202923" stroke="#4d5b53"/><g fill="#5f4737"><rect x="61" y="104" width="48" height="63"/><rect x="115" y="116" width="51" height="51"/><rect x="224" y="91" width="49" height="76"/><rect x="281" y="116" width="36" height="51"/></g><circle cx="410" cy="126" r="72" fill="url(#wg)"/><path d="M390 94h38v58h-38z" fill="#40352a" stroke="#cfaa72"/><path d="M399 83h20v16h-20z" fill="#6a5540"/><path d="M397 121q12-17 24 0q-12 17-24 0z" fill="#a84f67"/>`,'0 0 520 260'),
-    lab:artV2Svg(`<defs><linearGradient id="l" x2="0" y2="1"><stop stop-color="#2b3e37"/><stop offset=".6" stop-color="#17241f"/><stop offset="1" stop-color="#080c0a"/></linearGradient><radialGradient id="lg"><stop stop-color="#b76ce0" stop-opacity=".6"/><stop offset="1" stop-color="#b76ce0" stop-opacity="0"/></radialGradient></defs><rect width="520" height="260" fill="url(#l)"/><rect y="205" width="520" height="55" fill="#090d0b"/><path d="M30 49h460v160H30z" fill="#161d19" stroke="#547060"/><path d="M44 72h172M44 119h172M304 72h172M304 119h172" stroke="#485b50" stroke-width="5"/><g fill="#806071"><rect x="60" y="82" width="18" height="30"/><rect x="86" y="88" width="22" height="24"/><rect x="126" y="79" width="16" height="33"/></g><circle cx="258" cy="139" r="90" fill="url(#lg)"/><path d="M216 202h84l-13-78h-58z" fill="#2a1d31" stroke="#b880dc" stroke-width="3"/><ellipse cx="258" cy="124" rx="29" ry="10" fill="#d69cf0" opacity=".72"/><path d="M241 91h34l-6 34h-22z" fill="#44304f" stroke="#b77ad7"/>`,'0 0 520 260'),
-    greenhouse:artV2Svg(`<defs><linearGradient id="q" x2="0" y2="1"><stop stop-color="#29423a"/><stop offset=".58" stop-color="#172b22"/><stop offset="1" stop-color="#090f0c"/></linearGradient><radialGradient id="m"><stop stop-color="#dce8dc" stop-opacity=".5"/><stop offset="1" stop-color="#dce8dc" stop-opacity="0"/></radialGradient></defs><rect width="520" height="260" fill="url(#q)"/><circle cx="430" cy="52" r="55" fill="url(#m)"/><path d="M44 198V58h432v140" fill="none" stroke="#6a8072" stroke-width="5"/><path d="M98 198V58M175 198V58M252 198V58M329 198V58M406 198V58" stroke="#455d50" stroke-width="3"/><path d="M0 260c42-104 95-96 145-166M88 260c44-91 105-95 159-174M220 260c37-90 88-88 139-168M520 260c-49-99-112-89-165-164" fill="none" stroke="#46794c" stroke-width="14"/><g fill="#a06a99"><circle cx="122" cy="156" r="18"/><circle cx="284" cy="128" r="20"/><circle cx="397" cy="165" r="17"/></g>`,'0 0 520 260'),
-    hunger:artV2Svg(`<defs><radialGradient id="h"><stop stop-color="#b16ed0" stop-opacity=".7"/><stop offset="1" stop-color="#b16ed0" stop-opacity="0"/></radialGradient></defs><rect width="150" height="150" fill="transparent"/><circle cx="75" cy="75" r="72" fill="url(#h)"/><path d="M75 132C25 117 20 65 48 34c8 18 19 20 28 1 14 18 27 18 39 0 29 29 21 82-40 97z" fill="#17111c" stroke="#9d65b5" stroke-width="3"/><path d="M47 58q28 24 56 0M52 93q23-20 46 0" fill="none" stroke="#cf94df" stroke-width="4"/><g fill="#dba9e6"><circle cx="53" cy="75" r="5"/><circle cx="97" cy="75" r="5"/></g>`,'0 0 150 150'),
-    root:artV2Svg(`<defs><radialGradient id="r"><stop stop-color="#7eb07f" stop-opacity=".62"/><stop offset="1" stop-color="#7eb07f" stop-opacity="0"/></radialGradient></defs><rect width="120" height="140" fill="transparent"/><circle cx="60" cy="68" r="58" fill="url(#r)"/><path d="M61 131C15 104 19 43 44 19c6 17 17 22 25 2 25 16 34 71 8 104-6 7-11 9-16 6z" fill="#18281a" stroke="#67976a" stroke-width="3"/><path d="M57 25c-9 29 17 32-5 55 25-8 24 20 42 17M50 78c-23 9-21 31-32 43" fill="none" stroke="#8db784" stroke-width="4"/>`,'0 0 120 140'),
-    ritualist:artV2Svg(`<defs><radialGradient id="z"><stop stop-color="#bc75dc" stop-opacity=".65"/><stop offset="1" stop-color="#bc75dc" stop-opacity="0"/></radialGradient></defs><rect width="150" height="150" fill="transparent"/><circle cx="75" cy="72" r="70" fill="url(#z)"/><path d="M37 137q10-82 38-101 30 20 39 101z" fill="#17101c" stroke="#9361aa" stroke-width="3"/><path d="M50 61l25-35 25 35-25 21z" fill="#26172f" stroke="#b578cf"/><circle cx="75" cy="57" r="11" fill="#1a111e"/><path d="M69 56h12" stroke="#e2a8ed" stroke-width="3"/><path d="M44 108h62M52 94h46" stroke="#805292" stroke-width="3"/>`,'0 0 150 150')
-  };
-  ART_V2.c2home=VP_ART.c2home;
-  ART_V2.apartment=VP_ART.apartment;
-  ART_V2.shop=VP_ART.shop;
-  ART_V2.yard=VP_ART.yard;
-  ART_V2.c2alchemy=artV2Svg(`<defs><linearGradient id="ca" x2="0" y2="1"><stop stop-color="#332444"/><stop offset=".58" stop-color="#17111f"/><stop offset="1" stop-color="#09070c"/></linearGradient><radialGradient id="cg"><stop stop-color="#bf77ed" stop-opacity=".6"/><stop offset="1" stop-color="#bf77ed" stop-opacity="0"/></radialGradient></defs><rect width="520" height="260" fill="url(#ca)"/><rect y="204" width="520" height="56" fill="#08070b"/><path d="M34 53h452v154H34z" fill="#17141b" stroke="#5f4a69"/><path d="M53 76h132M53 121h132M336 76h132M336 121h132" stroke="#4f4156" stroke-width="5"/><g fill="#8d657d"><rect x="68" y="87" width="19" height="25"/><rect x="95" y="82" width="24" height="30"/><rect x="129" y="90" width="17" height="22"/></g><circle cx="262" cy="132" r="92" fill="url(#cg)"/><path d="M218 203h90l-15-88h-60z" fill="#24162b" stroke="#cf8cf0" stroke-width="3"/><ellipse cx="263" cy="113" rx="36" ry="12" fill="#dfa7ff" opacity=".78"/><path d="M242 74c9 16-8 22 0 36 15-10 28 11 35 24 7-14 18-27 31-26-11-17 4-24-3-38" fill="none" stroke="#efc9ff" stroke-width="4" stroke-linecap="round"/><g fill="#d7b46c"><circle cx="400" cy="171" r="8"/><circle cx="423" cy="153" r="6"/><circle cx="439" cy="181" r="5"/></g>`,'0 0 520 260');
-
-  const ART_V2_PORTRAITS={
-    morven:VP_PORTRAITS.morven,
-    liora:VP_PORTRAITS.liora,
-    celeste:VP_PORTRAITS.selesta,
-    selesta:VP_PORTRAITS.selesta,
-    eren:VP_PORTRAITS.eren,
-    nika:VP_PORTRAITS.nika
-  };
-  const artV2Data=(svg)=>`url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
-  function artV2Insert(node,key){
-    if(!node||node.querySelector(':scope > .vp-art-v2'))return;
-    const artV3=ART_V3_SCENES[key];
-    if(artV3){node.insertAdjacentHTML('afterbegin',`<div class="vp-art-v2 art-v3"><img src="${artV3}" alt="" loading="eager"></div>`);return;}
-    const src=EXTERNAL_ASSETS[key];
-    if(src){node.insertAdjacentHTML('afterbegin',`<div class="vp-art-v2"><img src="${src}" alt="" loading="lazy"></div>`);return;}
-    if(ART_V2[key])node.insertAdjacentHTML('afterbegin',`<div class="vp-art-v2">${ART_V2[key]}</div>`);
-  }
-  function artV2Decorate(){
-    document.body.classList.add('art-pass-v2');
-    const artUrl=path=>new URL(path,document.baseURI).href;
-    document.body.style.setProperty('--artv2-hunger',`url("${artUrl(EXTERNAL_ASSETS.hunger)}")`);
-    document.body.style.setProperty('--artv2-root',`url("${artUrl(EXTERNAL_ASSETS.root)}")`);
-    document.body.style.setProperty('--artv2-ritualist',`url("${artUrl(EXTERNAL_ASSETS.ritualist)}")`);
-    document.body.style.setProperty('--artv2-morven',`url("${artUrl(EXTERNAL_ASSETS.morven)}")`);
-    document.querySelectorAll('.c2-visual.c2-room').forEach(n=>artV2Insert(n,'c2home'));
-    document.querySelectorAll('.c2-location-scene.apartment').forEach(n=>artV2Insert(n,'apartment'));
-    document.querySelectorAll('.c2-location-scene.shop').forEach(n=>artV2Insert(n,'shop'));
-    document.querySelectorAll('.c2-location-scene.yard').forEach(n=>artV2Insert(n,'yard'));
-    document.querySelectorAll('.c2-alchemy-hero').forEach(n=>artV2Insert(n,'c2alchemy'));
-    document.querySelectorAll('.c4-hero').forEach(n=>artV2Insert(n,'c4hero'));
-    document.querySelectorAll('.c4-invest-scene.warehouse').forEach(n=>artV2Insert(n,'warehouse'));
-    document.querySelectorAll('.c4-invest-scene.lab').forEach(n=>artV2Insert(n,'lab'));
-    document.querySelectorAll('.c4-invest-scene.greenhouse').forEach(n=>artV2Insert(n,'greenhouse'));
-    document.querySelectorAll('.companion-card').forEach(card=>{const p=card.querySelector('.companion-portrait');if(!p||p.dataset.artv2)return;const t=(card.textContent||'').toLowerCase();const key=card.dataset.companion||(t.includes('морвен')?'morven':t.includes('лиора')?'liora':t.includes('селест')?'celeste':t.includes('эрен')?'eren':t.includes('ника')?'nika':null);if(key&&ART_V3_PORTRAITS[key]){p.innerHTML=`<img class="art-v3-portrait" src="${ART_V3_PORTRAITS[key]}" alt="">`;p.dataset.artv2='1';}else if(key&&ART_V2_PORTRAITS[key]){p.innerHTML=`<div class="artv2-portrait">${ART_V2_PORTRAITS[key]}</div>`;p.dataset.artv2='1';}});
-    document.querySelectorAll('.party-slot').forEach(slot=>{const p=slot.querySelector('.party-avatar');if(!p||p.dataset.artv2)return;const t=(slot.textContent||'').toLowerCase();const key=t.includes('морвен')?'morven':t.includes('лиора')?'liora':t.includes('селест')?'celeste':t.includes('эрен')?'eren':t.includes('ника')?'nika':null;if(key&&ART_V3_PORTRAITS[key]){p.innerHTML=`<img class="art-v3-portrait" src="${ART_V3_PORTRAITS[key]}" alt="">`;p.dataset.artv2='1';}else if(key&&ART_V2_PORTRAITS[key]){p.innerHTML=`<div class="artv2-portrait">${ART_V2_PORTRAITS[key]}</div>`;p.dataset.artv2='1';}});
-  }
-  const artV2RenderGame=renderGame;
-  renderGame=function(){artV2RenderGame();requestAnimationFrame(()=>requestAnimationFrame(artV2Decorate));};
-  const artV2RenderStart=renderStart;
-  renderStart=function(){artV2RenderStart();document.body.classList.add('art-pass-v2');};
-
   renderStart();
 
-  /* =========================================================
-     VISUAL HOTFIX v1.1.2 — interaction safety
-     ========================================================= */
-  function v112ApplyCompanionAction(actor){
+  /* Canonical interaction bridge for party tabs and shared actions. */
+  function applyIncidentCompanionAction(actor){
     const inc=save?.incidents?.bus_stop_flowers;
     const b=normalizeIncidentBattle(inc?.battle);
     if(!b||b.status!=='active'||b.teamUsed)return;
@@ -2572,7 +2391,7 @@ const ART_V3_PORTRAITS={
     inc.battle=b;incidentSave(null);
   }
 
-  function v112EnhanceBattleUI(){
+  function bindBattleInteractions(){
     try{
       const party=document.querySelector('.inc-party');
       if(party&&save?.incidents?.bus_stop_flowers?.stage==='battle'){
@@ -2581,9 +2400,9 @@ const ART_V3_PORTRAITS={
         const companion=selectedCompanion();
         [...party.children].forEach((node,index)=>{
           const tab=index===0?'hero':index===1?'morven':'companion';
-          node.dataset.v112Tab=tab;node.setAttribute('role','button');node.setAttribute('tabindex',tab==='companion'&&!companion?'-1':'0');
-          node.classList.toggle('v112-active',b.uiTab===tab);
-          node.classList.toggle('v112-disabled',tab==='companion'&&!companion);
+          node.dataset.actorTab=tab;node.setAttribute('role','button');node.setAttribute('tabindex',tab==='companion'&&!companion?'-1':'0');
+          node.classList.toggle('actor-tab-active',b.uiTab===tab);
+          node.classList.toggle('actor-tab-disabled',tab==='companion'&&!companion);
         });
         const wrap=document.querySelector('.inc-actions-wrap');
         const head=wrap?.querySelector('.inc-actions-head b');
@@ -2595,7 +2414,7 @@ const ART_V3_PORTRAITS={
         if(head)head.textContent=hero?'Действия героя':b.uiTab==='morven'?'Действие Морвена':`Действие ${companion?.name||'спутника'}`;
         const firstTeam=teamButtons[0];
         if(firstTeam&&!hero){
-          firstTeam.dataset.v112Actor=b.uiTab;
+          firstTeam.dataset.teamActor=b.uiTab;
           const name=firstTeam.querySelector('b'),desc=firstTeam.querySelector('span');
           if(b.uiTab==='morven'){
             if(name)name.textContent='Хищное внимание';
@@ -2605,35 +2424,35 @@ const ART_V3_PORTRAITS={
             if(desc)desc.textContent=companionBonuses[companion.id]?.short||'Поддержать ритуал.';
           }
         }
-        if(wrap&&!wrap.querySelector('.v112-team-note')&&!hero){
-          wrap.insertAdjacentHTML('afterbegin','<div class="v112-team-note">У спутников одно общее командное действие на раунд. Выберите, кто его использует.</div>');
+        if(wrap&&!wrap.querySelector('.team-action-note')&&!hero){
+          wrap.insertAdjacentHTML('afterbegin','<div class="team-action-note">У спутников одно общее командное действие на раунд. Выберите, кто его использует.</div>');
         }
       }
       document.querySelectorAll('.c3-units .c3-unit').forEach((node,index)=>{
-        node.dataset.v112C3Tab=['hero','liora','morven'][index]||'hero';node.setAttribute('role','button');node.setAttribute('tabindex','0');
+        node.dataset.chapter3Actor=['hero','liora','morven'][index]||'hero';node.setAttribute('role','button');node.setAttribute('tabindex','0');
       });
-    }catch(err){console.warn('v1.1.2 UI enhancer',err)}
+    }catch(err){console.warn('Battle interaction binding failed',err)}
   }
 
   document.addEventListener('click',function(event){
-    const incidentTab=event.target.closest?.('[data-v112-tab]');
+    const incidentTab=event.target.closest?.('[data-actor-tab]');
     if(incidentTab){
       event.preventDefault();event.stopImmediatePropagation();
-      const tab=incidentTab.dataset.v112Tab;
+      const tab=incidentTab.dataset.actorTab;
       if(tab==='companion'&&!selectedCompanion())return toast('Сначала добавьте второго спутника в отряд.');
       const b=save.incidents.bus_stop_flowers.battle=normalizeIncidentBattle(save.incidents.bus_stop_flowers.battle);b.uiTab=tab;incidentSave(null);return;
     }
-    const team=event.target.closest?.('[data-action="incident-team-action"][data-v112-actor]');
-    if(team){event.preventDefault();event.stopImmediatePropagation();v112ApplyCompanionAction(team.dataset.v112Actor);return;}
-    const c3unit=event.target.closest?.('[data-v112-c3-tab]');
+    const team=event.target.closest?.('[data-action="incident-team-action"][data-team-actor]');
+    if(team){event.preventDefault();event.stopImmediatePropagation();applyIncidentCompanionAction(team.dataset.teamActor);return;}
+    const c3unit=event.target.closest?.('[data-chapter3-actor]');
     if(c3unit&&save?.chapter3?.stage==='battle'){
       event.preventDefault();event.stopImmediatePropagation();
-      save.chapter3.battle=normalizeChapter3Battle(save.chapter3.battle);save.chapter3.battle.tab=c3unit.dataset.v112C3Tab;chapter3Save(null);return;
+      save.chapter3.battle=normalizeChapter3Battle(save.chapter3.battle);save.chapter3.battle.tab=c3unit.dataset.chapter3Actor;chapter3Save(null);return;
     }
   },true);
-  document.addEventListener('keydown',function(event){if((event.key==='Enter'||event.key===' ')){const t=event.target.closest?.('[data-v112-tab],[data-v112-c3-tab]');if(t){event.preventDefault();t.click();}}});
-  const v112Observer=new MutationObserver(()=>requestAnimationFrame(v112EnhanceBattleUI));
-  v112Observer.observe(document.getElementById('app'),{childList:true,subtree:true});
-  requestAnimationFrame(v112EnhanceBattleUI);
+  document.addEventListener('keydown',function(event){if((event.key==='Enter'||event.key===' ')){const t=event.target.closest?.('[data-actor-tab],[data-chapter3-actor]');if(t){event.preventDefault();t.click();}}});
+  const interactionObserver=new MutationObserver(()=>requestAnimationFrame(bindBattleInteractions));
+  interactionObserver.observe(document.getElementById('app'),{childList:true,subtree:true});
+  requestAnimationFrame(bindBattleInteractions);
 
 })();
