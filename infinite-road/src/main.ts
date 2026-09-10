@@ -6,7 +6,7 @@ import { BattleScene } from './scenes/BattleScene';
 import { RewardScene } from './scenes/RewardScene';
 
 const config: Phaser.Types.Core.GameConfig = {
-  type: Phaser.AUTO,
+  type: Phaser.CANVAS,
   parent: 'app',
   width: 390,
   height: 844,
