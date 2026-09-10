@@ -13,51 +13,60 @@
       body { font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
       canvas { display: block; margin: 0 auto; }
       #boot-status {
-        position: fixed;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 24px;
-        box-sizing: border-box;
-        color: #aab6af;
-        background: #071516;
-        font-size: 14px;
-        text-align: center;
-        z-index: 9999;
+        position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center;
+        box-sizing: border-box; padding: 24px; background: #071516; color: #aab6af; text-align: center; font-size: 14px;
       }
       #boot-status.error { color: #f0b3a3; white-space: pre-wrap; }
     </style>
     <script>
-      window.addEventListener('error', function (event) {
-        var status = document.getElementById('boot-status');
-        if (!status) return;
-        status.className = 'error';
-        status.textContent = 'Ошибка запуска Phaser:\n' + (event.message || 'неизвестная ошибка');
-      });
-      window.addEventListener('unhandledrejection', function (event) {
-        var status = document.getElementById('boot-status');
-        if (!status) return;
-        status.className = 'error';
-        status.textContent = 'Ошибка запуска Phaser:\n' + String(event.reason || 'неизвестная ошибка');
-      });
-      window.addEventListener('DOMContentLoaded', function () {
-        var app = document.getElementById('app');
-        var status = document.getElementById('boot-status');
-        if (!app || !status) return;
-        var observer = new MutationObserver(function () {
-          if (app.querySelector('canvas')) {
+      (function () {
+        function statusEl() { return document.getElementById('boot-status'); }
+        function hideStatusIfCanvasExists() {
+          var app = document.getElementById('app');
+          var status = statusEl();
+          if (app && status && app.querySelector('canvas')) {
             status.remove();
-            observer.disconnect();
+            return true;
           }
+          return false;
+        }
+
+        window.addEventListener('error', function (event) {
+          var status = statusEl();
+          if (!status) return;
+          status.className = 'error';
+          status.textContent = 'Ошибка запуска Phaser:\n' + (event.message || 'неизвестная ошибка');
         });
-        observer.observe(app, { childList: true, subtree: true });
-      });
+
+        window.addEventListener('unhandledrejection', function (event) {
+          var status = statusEl();
+          if (!status) return;
+          status.className = 'error';
+          status.textContent = 'Ошибка запуска Phaser:\n' + String(event.reason || 'неизвестная ошибка');
+        });
+
+        window.addEventListener('DOMContentLoaded', function () {
+          if (hideStatusIfCanvasExists()) return;
+
+          var app = document.getElementById('app');
+          if (!app) return;
+
+          var observer = new MutationObserver(function () {
+            if (hideStatusIfCanvasExists()) observer.disconnect();
+          });
+          observer.observe(app, { childList: true, subtree: true });
+
+          // Safety fallback in case Phaser inserted canvas before observer setup.
+          setTimeout(function () {
+            if (hideStatusIfCanvasExists()) observer.disconnect();
+          }, 50);
+        });
+      })();
     </script>
+    <script type="module" src="/src/main.ts"></script>
   </head>
   <body>
     <div id="app"></div>
     <div id="boot-status">Запускаю Phaser 4…</div>
-    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
