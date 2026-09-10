@@ -1,4 +1,4 @@
-import Phaser from 'phaser';
+import * as Phaser from 'phaser';
 
 export class BattleScene extends Phaser.Scene {
   private enemyHp = 100;
@@ -30,7 +30,6 @@ export class BattleScene extends Phaser.Scene {
     this.add.rectangle(width / 2, 302, width - 24, 510, 0x11161d, 1)
       .setStrokeStyle(1, 0x3f4855, 0.65);
 
-    // Enemy side — deliberately compact so enemies never dominate the screen.
     this.createWolf(132, 172, 'ВОЛК I');
     this.createWolf(258, 172, 'ВОЛК II');
 
@@ -38,7 +37,6 @@ export class BattleScene extends Phaser.Scene {
     this.enemyHpBar = this.add.rectangle(width / 2 - 108, 250, 216, 7, 0x8e554d, 1)
       .setOrigin(0, 0.5);
 
-    // Player side — Adam and room for the rest of the party.
     this.add.circle(width / 2, 402, 42, 0x394654, 1)
       .setStrokeStyle(2, 0xbec6d0, 0.75);
     this.add.text(width / 2, 402, 'АДАМ', {
@@ -68,7 +66,6 @@ export class BattleScene extends Phaser.Scene {
       this.statusText.setText('Умение пока не открыто');
     });
 
-    // Party strip stays small and clear of the action buttons / HP.
     const slots = [82, 158, 234, 310];
     slots.forEach((x, index) => {
       this.add.circle(x, 704, 23, index === 0 ? 0x3d4a59 : 0x181e26, 1)
