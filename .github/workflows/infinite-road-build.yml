@@ -1,0 +1,32 @@
+name: Infinite Road build
+
+on:
+  push:
+    branches: [phaser4-infinite-road]
+    paths:
+      - 'infinite-road/**'
+      - '.github/workflows/infinite-road-build.yml'
+  pull_request:
+    paths:
+      - 'infinite-road/**'
+      - '.github/workflows/infinite-road-build.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infinite-road
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: infinite-road/package.json
+      - name: Install dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
