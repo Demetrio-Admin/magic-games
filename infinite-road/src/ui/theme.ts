@@ -1,0 +1,35 @@
+export const UI = {
+  width: 390,
+  height: 844,
+  safe: 16,
+  spacing: { xs: 4, sm: 8, md: 12, lg: 16, xl: 24, xxl: 32 },
+  colors: {
+    worldDeep: 0x071516,
+    world: 0x0b2522,
+    worldLight: 0x173d32,
+    fog: 0x8fb6aa,
+    surface: 0x101d1d,
+    surfaceRaised: 0x172625,
+    surfacePressed: 0x0a1515,
+    metal: 0x887e6c,
+    metalSoft: 0x5f625a,
+    text: '#f1eadc',
+    textMuted: '#aab6af',
+    textDim: '#72827b',
+    emerald: 0x4fc596,
+    emeraldSoft: 0x2f8065,
+    turquoise: 0x47b3ad,
+    amber: 0xc89558,
+    danger: 0xa76555,
+    hp: 0x4e9b6d,
+    hpBack: 0x233330,
+  },
+  hero: { width: 64, height: 88, gap: 8 },
+  action: { height: 72, quickWidth: 64 },
+  touchMin: 48,
+} as const;
+
+export const FONT = {
+  serif: 'Georgia, "Times New Roman", serif',
+  sans: 'Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+} as const;
