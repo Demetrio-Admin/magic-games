@@ -3,16 +3,61 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#26343b" />
-    <title>Повелитель Тайн — Phaser prototype</title>
+    <meta name="theme-color" content="#071516" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Повелитель Тайн — Stage 6 Phaser</title>
     <style>
-      html, body, #app { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #26343b; }
+      html, body, #app { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #071516; }
       body { font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
       canvas { display: block; margin: 0 auto; }
+      #boot-status {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        box-sizing: border-box;
+        color: #aab6af;
+        background: #071516;
+        font-size: 14px;
+        text-align: center;
+        z-index: 9999;
+      }
+      #boot-status.error { color: #f0b3a3; white-space: pre-wrap; }
     </style>
+    <script>
+      window.addEventListener('error', function (event) {
+        var status = document.getElementById('boot-status');
+        if (!status) return;
+        status.className = 'error';
+        status.textContent = 'Ошибка запуска Phaser:\n' + (event.message || 'неизвестная ошибка');
+      });
+      window.addEventListener('unhandledrejection', function (event) {
+        var status = document.getElementById('boot-status');
+        if (!status) return;
+        status.className = 'error';
+        status.textContent = 'Ошибка запуска Phaser:\n' + String(event.reason || 'неизвестная ошибка');
+      });
+      window.addEventListener('DOMContentLoaded', function () {
+        var app = document.getElementById('app');
+        var status = document.getElementById('boot-status');
+        if (!app || !status) return;
+        var observer = new MutationObserver(function () {
+          if (app.querySelector('canvas')) {
+            status.remove();
+            observer.disconnect();
+          }
+        });
+        observer.observe(app, { childList: true, subtree: true });
+      });
+    </script>
   </head>
   <body>
     <div id="app"></div>
+    <div id="boot-status">Запускаю Phaser 4…</div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
