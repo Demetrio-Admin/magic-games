@@ -6,23 +6,15 @@ export class BootScene extends Phaser.Scene {
   }
 
   create() {
-    this.cameras.main.setBackgroundColor('#090b10');
-
-    const title = this.add.text(195, 360, 'БЕСКОНЕЧНЫЙ ПУТЬ', {
-      fontFamily: 'Georgia, serif',
-      fontSize: '28px',
-      color: '#f2ead7',
-      letterSpacing: 2,
+    this.cameras.main.setBackgroundColor('#26343b');
+    const title = this.add.text(195, 366, 'ПОВЕЛИТЕЛЬ ТАЙН', {
+      fontFamily: 'Georgia, serif', fontSize: '27px', color: '#f0e2c6', fontStyle: 'bold', letterSpacing: 2,
+    }).setOrigin(0.5);
+    const subtitle = this.add.text(195, 410, 'ТИХАЯ ДОЛИНА', {
+      fontFamily: 'system-ui', fontSize: '10px', color: '#e8c98d', fontStyle: 'bold', letterSpacing: 2,
     }).setOrigin(0.5);
 
-    title.setAlpha(0);
-    this.tweens.add({
-      targets: title,
-      alpha: 1,
-      duration: 650,
-      yoyo: true,
-      hold: 350,
-      onComplete: () => this.scene.start('MainMenuScene'),
-    });
+    title.setAlpha(0); subtitle.setAlpha(0);
+    this.tweens.add({ targets: [title, subtitle], alpha: 1, duration: 500, hold: 260, yoyo: true, onComplete: () => this.scene.start('MainMenuScene') });
   }
 }
