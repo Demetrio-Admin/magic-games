@@ -1,10 +1,16 @@
-name: Deploy Infinite Road to GitHub Pages
+name: Deploy Games to GitHub Pages
 
 on:
   push:
     branches: [main]
     paths:
       - 'infinite-road/**'
+      - 'index.html'
+      - 'css/**'
+      - 'js/**'
+      - 'assets/**'
+      - 'service-worker.js'
+      - 'manifest.webmanifest'
       - '.github/workflows/infinite-road-pages.yml'
   workflow_dispatch:
 
@@ -20,9 +26,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: infinite-road
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -32,11 +35,25 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install dependencies
+      - name: Install Infinite Road dependencies
+        working-directory: infinite-road
         run: npm install
 
-      - name: Build
+      - name: Build Infinite Road
+        working-directory: infinite-road
         run: npm run build
+
+      - name: Prepare Pages site
+        run: |
+          mkdir -p pages-root/infinite-road
+          rsync -a \
+            --exclude '.git' \
+            --exclude '.github' \
+            --exclude 'infinite-road' \
+            --exclude 'node_modules' \
+            --exclude 'pages-root' \
+            ./ pages-root/
+          cp -R infinite-road/dist/. pages-root/infinite-road/
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -44,7 +61,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: infinite-road/dist
+          path: pages-root
 
   deploy:
     environment:
