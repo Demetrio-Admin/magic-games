@@ -5,17 +5,21 @@ export class MainMenuScene extends Phaser.Scene {
     super('MainMenuScene');
   }
 
-  preload() {
-    if (!this.textures.exists('road-start')) this.load.image('road-start', 'audit/road-start.webp');
-  }
-
   create() {
     const { width, height } = this.scale;
     this.cameras.main.setBackgroundColor('#26343b');
 
-    this.add.image(width / 2, height / 2, 'road-start').setDisplaySize(width, height);
-    this.add.rectangle(width / 2, height / 2, width, height, 0x172329, 0.62);
-    this.add.rectangle(width / 2, 154, width - 36, 206, 0x26343b, 0.72).setStrokeStyle(1, 0xe8c98d, 0.35);
+    this.add.rectangle(width / 2, height / 2, width, height, 0x1b2a31, 1);
+    this.add.rectangle(width / 2, 420, width - 36, 500, 0x26343b, 1).setStrokeStyle(1, 0x718087, 0.35);
+
+    const g = this.add.graphics();
+    g.fillStyle(0x182329, 1);
+    g.fillTriangle(22, 520, 112, 230, 188, 520);
+    g.fillTriangle(128, 520, 270, 190, 368, 520);
+    g.fillStyle(0x32484c, 1);
+    g.fillTriangle(96, 520, 195, 300, 270, 520);
+    g.fillStyle(0x8f7c58, 0.65);
+    g.fillTriangle(157, 520, 195, 300, 226, 520);
 
     this.add.text(width / 2, 82, 'ПОВЕЛИТЕЛЬ ТАЙН', {
       fontFamily: 'Georgia, serif', fontSize: '30px', color: '#f0e2c6', fontStyle: 'bold', letterSpacing: 1,
@@ -27,7 +31,7 @@ export class MainMenuScene extends Phaser.Scene {
       fontFamily: 'system-ui', fontSize: '13px', color: '#d2d6d4',
     }).setOrigin(0.5);
 
-    this.add.rectangle(width / 2, 638, width - 50, 126, 0x26343b, 0.84).setStrokeStyle(1, 0x7b898f, 0.35);
+    this.add.rectangle(width / 2, 638, width - 50, 126, 0x26343b, 0.96).setStrokeStyle(1, 0x7b898f, 0.35);
     this.add.text(width / 2, 606, 'Адам готов отправиться к воротам Тихой долины.', {
       fontFamily: 'system-ui', fontSize: '12px', color: '#d2d6d4', align: 'center', wordWrap: { width: 300 },
     }).setOrigin(0.5);
