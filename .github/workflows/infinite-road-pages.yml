@@ -1,16 +1,10 @@
-name: Deploy Games to GitHub Pages
+name: Deploy Phaser Game to GitHub Pages
 
 on:
   push:
     branches: [main]
     paths:
       - 'infinite-road/**'
-      - 'index.html'
-      - 'css/**'
-      - 'js/**'
-      - 'assets/**'
-      - 'service-worker.js'
-      - 'manifest.webmanifest'
       - '.github/workflows/infinite-road-pages.yml'
   workflow_dispatch:
 
@@ -35,24 +29,17 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install Infinite Road dependencies
+      - name: Install dependencies
         working-directory: infinite-road
         run: npm install
 
-      - name: Build Infinite Road
+      - name: Build Phaser game
         working-directory: infinite-road
         run: npm run build
 
       - name: Prepare Pages site
         run: |
           mkdir -p pages-root/infinite-road
-          rsync -a \
-            --exclude '.git' \
-            --exclude '.github' \
-            --exclude 'infinite-road' \
-            --exclude 'node_modules' \
-            --exclude 'pages-root' \
-            ./ pages-root/
           cp -R infinite-road/dist/. pages-root/infinite-road/
 
       - name: Setup Pages
