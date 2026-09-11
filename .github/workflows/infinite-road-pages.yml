@@ -1,5 +1,5 @@
 name: Deploy Phaser Game to GitHub Pages
-# Fullscreen preview refresh: layout-regions-v3
+# Fullscreen preview refresh: nested-route-v4
 # fullscreen-preview-rev: 2
 
 on:
@@ -57,9 +57,9 @@ jobs:
       - name: Prepare Pages site
         run: |
           mkdir -p pages-root/infinite-road
-          mkdir -p pages-root/fullscreen-test
+          mkdir -p pages-root/infinite-road/fullscreen-test
           cp -R infinite-road/dist/. pages-root/infinite-road/
-          cp -R fullscreen-preview/infinite-road/dist/. pages-root/fullscreen-test/
+          cp -R fullscreen-preview/infinite-road/dist/. pages-root/infinite-road/fullscreen-test/
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
