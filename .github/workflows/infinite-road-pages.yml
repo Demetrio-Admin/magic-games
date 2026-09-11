@@ -21,26 +21,43 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout stable main
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Install dependencies
+      - name: Install stable dependencies
         working-directory: infinite-road
         run: npm install
 
-      - name: Build Phaser game
+      - name: Build stable Phaser game
         working-directory: infinite-road
+        run: npm run build
+
+      - name: Checkout fullscreen experiment worktree
+        run: |
+          git fetch origin fullscreen-experiment
+          git worktree add fullscreen-preview origin/fullscreen-experiment
+
+      - name: Install fullscreen experiment dependencies
+        working-directory: fullscreen-preview/infinite-road
+        run: npm install
+
+      - name: Build fullscreen experiment
+        working-directory: fullscreen-preview/infinite-road
         run: npm run build
 
       - name: Prepare Pages site
         run: |
           mkdir -p pages-root/infinite-road
+          mkdir -p pages-root/fullscreen-test
           cp -R infinite-road/dist/. pages-root/infinite-road/
+          cp -R fullscreen-preview/infinite-road/dist/. pages-root/fullscreen-test/
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
