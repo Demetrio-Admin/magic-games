@@ -1,5 +1,5 @@
 name: Deploy Phaser Game to GitHub Pages
-# Fullscreen preview refresh: responsive-battle-v5
+# Fullscreen preview refresh: direct-html-v6
 # fullscreen-preview-rev: 2
 
 on:
@@ -57,9 +57,11 @@ jobs:
       - name: Prepare Pages site
         run: |
           mkdir -p pages-root/infinite-road
-          mkdir -p pages-root/infinite-road/fullscreen-test
+          mkdir -p pages-root/infinite-road/fullscreen-assets
           cp -R infinite-road/dist/. pages-root/infinite-road/
-          cp -R fullscreen-preview/infinite-road/dist/. pages-root/infinite-road/fullscreen-test/
+          cp -R fullscreen-preview/infinite-road/dist/assets/. pages-root/infinite-road/fullscreen-assets/
+          cp fullscreen-preview/infinite-road/dist/index.html pages-root/infinite-road/fullscreen.html
+          sed -i 's#\./assets/#./fullscreen-assets/#g' pages-root/infinite-road/fullscreen.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
