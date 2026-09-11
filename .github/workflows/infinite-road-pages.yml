@@ -2,7 +2,7 @@ name: Deploy Phaser Game to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, fullscreen-experiment]
     paths:
       - 'infinite-road/**'
       - '.github/workflows/infinite-road-pages.yml'
