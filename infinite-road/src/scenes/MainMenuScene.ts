@@ -1,4 +1,5 @@
 import * as Phaser from 'phaser';
+import { DESIGN_HEIGHT, DESIGN_WIDTH, useFullscreenDesign } from '../ui/responsive';
 
 export class MainMenuScene extends Phaser.Scene {
   constructor() {
@@ -6,7 +7,9 @@ export class MainMenuScene extends Phaser.Scene {
   }
 
   create() {
-    const { width, height } = this.scale;
+    useFullscreenDesign(this);
+    const width = DESIGN_WIDTH;
+    const height = DESIGN_HEIGHT;
     this.cameras.main.setBackgroundColor('#26343b');
 
     this.add.rectangle(width / 2, height / 2, width, height, 0x1b2a31, 1);
