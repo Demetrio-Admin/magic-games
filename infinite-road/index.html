@@ -7,7 +7,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <title>Повелитель Тайн — Stage 6 Phaser</title>
+    <title>Повелитель Тайн — Phaser 4</title>
     <style>
       html, body, #app { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #071516; }
       body { font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
@@ -18,55 +18,87 @@
       }
       #boot-status.error { color: #f0b3a3; white-space: pre-wrap; }
     </style>
-    <script>
-      (function () {
-        function statusEl() { return document.getElementById('boot-status'); }
-        function hideStatusIfCanvasExists() {
-          var app = document.getElementById('app');
-          var status = statusEl();
-          if (app && status && app.querySelector('canvas')) {
-            status.remove();
-            return true;
-          }
-          return false;
-        }
-
-        window.addEventListener('error', function (event) {
-          var status = statusEl();
-          if (!status) return;
-          status.className = 'error';
-          status.textContent = 'Ошибка запуска Phaser:\n' + (event.message || 'неизвестная ошибка');
-        });
-
-        window.addEventListener('unhandledrejection', function (event) {
-          var status = statusEl();
-          if (!status) return;
-          status.className = 'error';
-          status.textContent = 'Ошибка запуска Phaser:\n' + String(event.reason || 'неизвестная ошибка');
-        });
-
-        window.addEventListener('DOMContentLoaded', function () {
-          if (hideStatusIfCanvasExists()) return;
-
-          var app = document.getElementById('app');
-          if (!app) return;
-
-          var observer = new MutationObserver(function () {
-            if (hideStatusIfCanvasExists()) observer.disconnect();
-          });
-          observer.observe(app, { childList: true, subtree: true });
-
-          // Safety fallback in case Phaser inserted canvas before observer setup.
-          setTimeout(function () {
-            if (hideStatusIfCanvasExists()) observer.disconnect();
-          }, 50);
-        });
-      })();
-    </script>
-    <script type="module" src="/src/main.ts"></script>
   </head>
   <body>
     <div id="app"></div>
-    <div id="boot-status">Запускаю Phaser 4…</div>
+    <div id="boot-status">Проверяю старый кэш…</div>
+
+    <script type="module">
+      const status = document.getElementById('boot-status');
+      const setStatus = (text, error = false) => {
+        if (!status) return;
+        status.textContent = text;
+        status.className = error ? 'error' : '';
+      };
+
+      const hideWhenCanvasExists = () => {
+        const app = document.getElementById('app');
+        if (app?.querySelector('canvas')) {
+          status?.remove();
+          return true;
+        }
+        return false;
+      };
+
+      window.addEventListener('error', (event) => {
+        setStatus('Ошибка запуска Phaser:\n' + (event.message || 'неизвестная ошибка'), true);
+      });
+
+      window.addEventListener('unhandledrejection', (event) => {
+        setStatus('Ошибка запуска Phaser:\n' + String(event.reason || 'неизвестная ошибка'), true);
+      });
+
+      async function clearLegacyPwa() {
+        let hadController = Boolean(navigator.serviceWorker?.controller);
+
+        if ('serviceWorker' in navigator) {
+          const registrations = await navigator.serviceWorker.getRegistrations();
+          await Promise.all(registrations.map((registration) => registration.unregister()));
+        }
+
+        if ('caches' in window) {
+          const keys = await caches.keys();
+          await Promise.all(keys.map((key) => caches.delete(key)));
+        }
+
+        return hadController;
+      }
+
+      async function boot() {
+        try {
+          const hadController = await clearLegacyPwa();
+
+          if (hadController && sessionStorage.getItem('pt-sw-reset') !== '1') {
+            sessionStorage.setItem('pt-sw-reset', '1');
+            setStatus('Удаляю старую версию игры…');
+            location.replace('./?fresh=' + Date.now());
+            return;
+          }
+
+          sessionStorage.removeItem('pt-sw-reset');
+          setStatus('Запускаю Phaser 4…');
+
+          const observer = new MutationObserver(() => {
+            if (hideWhenCanvasExists()) observer.disconnect();
+          });
+          const app = document.getElementById('app');
+          if (app) observer.observe(app, { childList: true, subtree: true });
+
+          await import('./src/main.ts');
+
+          if (!hideWhenCanvasExists()) {
+            setTimeout(() => {
+              if (!hideWhenCanvasExists()) {
+                setStatus('Phaser загрузился, но canvas не появился. Обнови страницу ещё раз.', true);
+              }
+            }, 2500);
+          }
+        } catch (error) {
+          setStatus('Ошибка загрузки игры:\n' + String(error instanceof Error ? error.message : error), true);
+        }
+      }
+
+      boot();
+    </script>
   </body>
 </html>
