@@ -10,8 +10,10 @@ export function useFullscreenDesign(scene: Phaser.Scene) {
     const camera = scene.cameras.main;
 
     camera.setViewport(0, 0, width, height);
-    camera.setZoom(width / DESIGN_WIDTH, height / DESIGN_HEIGHT);
+    camera.setOrigin(0, 0);
     camera.setScroll(0, 0);
+    camera.setZoom(width / DESIGN_WIDTH, height / DESIGN_HEIGHT);
+    camera.setRoundPixels(false);
   };
 
   apply();
