@@ -8,15 +8,13 @@ import { RewardScene } from './scenes/RewardScene';
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.CANVAS,
   parent: 'app',
-  width: 390,
-  height: 844,
+  width: window.innerWidth,
+  height: window.innerHeight,
   backgroundColor: '#071516',
   scene: [RoadScene, BattleScene, RewardScene, MainMenuScene, BootScene],
   scale: {
-    mode: Phaser.Scale.FIT,
+    mode: Phaser.Scale.RESIZE,
     autoCenter: Phaser.Scale.CENTER_BOTH,
-    width: 390,
-    height: 844,
   },
   render: {
     antialias: true,
