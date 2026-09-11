@@ -1,4 +1,5 @@
 name: Deploy Phaser Game to GitHub Pages
+# fullscreen-preview-rev: 2
 
 on:
   push:
