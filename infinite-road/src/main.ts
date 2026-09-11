@@ -5,18 +5,23 @@ import { RoadScene } from './scenes/RoadScene';
 import { BattleScene } from './scenes/BattleScene';
 import { RewardScene } from './scenes/RewardScene';
 
+const viewportWidth = Math.max(1, window.visualViewport?.width ?? window.innerWidth);
+const viewportHeight = Math.max(1, window.visualViewport?.height ?? window.innerHeight);
+const logicalHeight = Math.round(
+  Phaser.Math.Clamp(390 * (viewportHeight / viewportWidth), 620, 900),
+);
+
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.CANVAS,
   parent: 'app',
   width: 390,
-  height: 844,
+  height: logicalHeight,
   backgroundColor: '#071516',
   scene: [RoadScene, BattleScene, RewardScene, MainMenuScene, BootScene],
   scale: {
-    parent: 'app',
-    mode: Phaser.Scale.RESIZE,
-    width: '100%',
-    height: '100%',
+    mode: Phaser.Scale.NONE,
+    width: 390,
+    height: logicalHeight,
   },
   render: {
     antialias: true,
