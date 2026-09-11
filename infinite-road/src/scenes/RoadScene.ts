@@ -118,69 +118,79 @@ export class RoadScene extends Phaser.Scene {
   private drawHeader() {
     const w = this.scale.width;
 
-    this.add.rectangle(w / 2, 66, w, 132, C.surface, 1);
+    this.add.rectangle(w / 2, 58, w, 116, C.surface, 1);
 
-    this.drawRoundIconButton(46, 38, '‹', () => this.scene.start('MainMenuScene'));
+    this.drawRoundIconButton(31, 31, '‹', () => this.scene.start('MainMenuScene'));
+    this.drawRoundIconButton(w - 31, 31, '⌑', () => this.openBag());
 
-    this.add.text(w / 2, 29, 'СТАРАЯ ДОРОГА', {
+    this.add.text(w / 2, 20, 'СТАРАЯ ДОРОГА', {
       fontFamily: 'Georgia, "Times New Roman", serif',
-      fontSize: '20px',
+      fontSize: '18px',
       color: C.ink,
       fontStyle: 'bold',
-      letterSpacing: 0.7,
+      letterSpacing: 0.8,
     }).setOrigin(0.5, 0);
 
-    this.drawRoundIconButton(w - 46, 38, '⌑', () => this.openBag());
-
-    const party = this.add.rectangle(54, 89, 82, 34, C.deep, 1)
-      .setStrokeStyle(1, 0x9d947f, 1);
-    party.setOrigin(0.5);
-
-    this.add.text(54, 89, 'Адам', {
+    this.add.circle(24, 72, 8, C.deep, 1).setStrokeStyle(1, C.gold, 0.65);
+    this.add.text(41, 64, 'Адам', {
       fontFamily: 'Georgia, "Times New Roman", serif',
-      fontSize: '17px',
+      fontSize: '16px',
       color: C.goldCss,
       fontStyle: 'bold',
-    }).setOrigin(0.5);
+    });
+    this.add.text(41, 83, '20 / 20', {
+      fontFamily: 'Inter, system-ui, sans-serif',
+      fontSize: '9px',
+      color: '#aeb8b8',
+      fontStyle: 'bold',
+    });
 
     const herb = Number(this.registry.get('runLootHerb') ?? 0);
-    const bagText = herb > 0 ? `Сумка · ${herb}` : 'Сумка';
-    const bagLabel = this.add.text(w - 20, 89, bagText, {
+    const bagLabel = this.add.text(w - 18, 65, herb > 0 ? `Сумка · ${herb}` : 'Сумка', {
       fontFamily: 'Georgia, "Times New Roman", serif',
-      fontSize: '19px',
+      fontSize: '16px',
       color: C.ink,
       fontStyle: 'bold',
-    }).setOrigin(1, 0.5).setInteractive({ useHandCursor: true });
+    }).setOrigin(1, 0).setInteractive({ useHandCursor: true });
+
+    this.add.text(w - 18, 84, 'Добыча похода', {
+      fontFamily: 'Inter, system-ui, sans-serif',
+      fontSize: '9px',
+      color: '#aeb8b8',
+      fontStyle: 'bold',
+    }).setOrigin(1, 0);
+
     bagLabel.on('pointerdown', () => this.openBag());
 
     const gap = 7;
-    const left = 20;
-    const total = w - 40;
+    const left = 18;
+    const total = w - 36;
     const segW = (total - gap * 3) / 4;
-
     for (let i = 0; i < 4; i++) {
+      const active = i <= this.step;
       this.add.rectangle(
         left + segW / 2 + i * (segW + gap),
-        119,
+        107,
         segW,
-        5,
-        i <= this.step ? C.gold : C.line,
-        1,
+        4,
+        active ? C.gold : C.line,
+        active ? 1 : 0.65,
       );
     }
+
+    this.add.rectangle(w / 2, 115, w, 2, 0x718087, 0.22);
   }
 
   private drawRoundIconButton(x: number, y: number, glyph: string, callback: () => void) {
-    const outer = this.add.circle(x, y, 26, C.deep, 1)
-      .setStrokeStyle(1, 0xa99c82, 1)
+    const outer = this.add.circle(x, y, 22, C.deep, 1)
+      .setStrokeStyle(1, 0xa99c82, 0.85)
       .setInteractive({ useHandCursor: true });
 
-    this.add.circle(x, y, 22, 0x4e5c62, 0.5).setStrokeStyle(1, 0x56656b, 1);
-    this.add.circle(x, y, 19, C.deep, 1);
+    this.add.circle(x, y, 18, 0x29383e, 0.95).setStrokeStyle(2, 0x536269, 0.9);
 
     this.add.text(x, y - 1, glyph, {
       fontFamily: 'Georgia, "Times New Roman", serif',
-      fontSize: glyph === '‹' ? '30px' : '20px',
+      fontSize: glyph === '‹' ? '27px' : '17px',
       color: C.goldCss,
       fontStyle: 'bold',
     }).setOrigin(0.5);
