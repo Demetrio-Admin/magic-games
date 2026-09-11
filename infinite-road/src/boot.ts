@@ -1,15 +1,17 @@
-const status = document.getElementById('boot-status');
+export {};
+
+const statusEl = document.getElementById('boot-status');
 
 function setStatus(text: string, error = false) {
-  if (!status) return;
-  status.textContent = text;
-  status.className = error ? 'error' : '';
+  if (!statusEl) return;
+  statusEl.textContent = text;
+  statusEl.className = error ? 'error' : '';
 }
 
 function hideWhenCanvasExists() {
   const app = document.getElementById('app');
   if (app?.querySelector('canvas')) {
-    status?.remove();
+    statusEl?.remove();
     return true;
   }
   return false;
