@@ -1,4 +1,5 @@
 import * as Phaser from 'phaser';
+import { createScreenLayout, type ScreenLayout } from '../ui/layout';
 
 const C = {
   surface: 0x46545a,
@@ -19,33 +20,19 @@ type RoadView = {
 
 export class RoadScene extends Phaser.Scene {
   private sheet?: Phaser.GameObjects.Container;
+  private layout!: ScreenLayout;
 
   constructor() {
     super('RoadScene');
   }
 
   create() {
+    this.layout = createScreenLayout(this);
     this.ensureState();
     this.cameras.main.setBackgroundColor(C.surface);
     this.drawHeader();
     this.drawRoadScene();
     this.drawCopy();
-  }
-
-  private get logicalHeight() {
-    return this.scale.height;
-  }
-
-  private get headerHeight() {
-    return 96;
-  }
-
-  private get copyHeight() {
-    return Phaser.Math.Clamp(this.logicalHeight * 0.25, 176, 203);
-  }
-
-  private get copyTop() {
-    return this.logicalHeight - this.copyHeight;
   }
 
   private ensureState() {
@@ -122,15 +109,16 @@ export class RoadScene extends Phaser.Scene {
   }
 
   private drawHeader() {
-    const w = 390;
-    const h = this.headerHeight;
+    const w = this.layout.width;
+    const h = this.layout.header.height;
+    const safeTop = this.layout.safeTop;
 
     this.add.rectangle(w / 2, h / 2, w, h, C.surface, 1);
 
-    this.drawRoundIconButton(29, 28, '‹', () => this.scene.start('MainMenuScene'));
-    this.drawRoundIconButton(w - 29, 28, '⌑', () => this.openBag());
+    this.drawRoundIconButton(29, safeTop + 28, '‹', () => this.scene.start('MainMenuScene'));
+    this.drawRoundIconButton(w - 29, safeTop + 28, '⌑', () => this.openBag());
 
-    this.add.text(w / 2, 16, 'СТАРАЯ ДОРОГА', {
+    this.add.text(w / 2, safeTop + 16, 'СТАРАЯ ДОРОГА', {
       fontFamily: 'Georgia, "Times New Roman", serif',
       fontSize: '18px',
       color: C.ink,
@@ -138,14 +126,14 @@ export class RoadScene extends Phaser.Scene {
       letterSpacing: 0.8,
     }).setOrigin(0.5, 0);
 
-    this.add.circle(22, 60, 7, C.deep, 1).setStrokeStyle(1, C.gold, 0.65);
-    this.add.text(38, 53, 'Адам', {
+    this.add.circle(22, safeTop + 60, 7, C.deep, 1).setStrokeStyle(1, C.gold, 0.65);
+    this.add.text(38, safeTop + 53, 'Адам', {
       fontFamily: 'Georgia, "Times New Roman", serif',
       fontSize: '15px',
       color: C.goldCss,
       fontStyle: 'bold',
     });
-    this.add.text(38, 71, '20 / 20', {
+    this.add.text(38, safeTop + 71, '20 / 20', {
       fontFamily: 'Inter, system-ui, sans-serif',
       fontSize: '9px',
       color: '#aeb8b8',
@@ -153,14 +141,14 @@ export class RoadScene extends Phaser.Scene {
     });
 
     const herb = Number(this.registry.get('runLootHerb') ?? 0);
-    const bagLabel = this.add.text(w - 16, 54, herb > 0 ? `Сумка · ${herb}` : 'Сумка', {
+    const bagLabel = this.add.text(w - 16, safeTop + 54, herb > 0 ? `Сумка · ${herb}` : 'Сумка', {
       fontFamily: 'Georgia, "Times New Roman", serif',
       fontSize: '15px',
       color: C.ink,
       fontStyle: 'bold',
     }).setOrigin(1, 0).setInteractive({ useHandCursor: true });
 
-    this.add.text(w - 16, 72, 'Добыча похода', {
+    this.add.text(w - 16, safeTop + 72, 'Добыча похода', {
       fontFamily: 'Inter, system-ui, sans-serif',
       fontSize: '9px',
       color: '#aeb8b8',
@@ -177,7 +165,7 @@ export class RoadScene extends Phaser.Scene {
     for (let i = 0; i < 4; i++) {
       this.add.rectangle(
         left + segW / 2 + i * (segW + gap),
-        88,
+        safeTop + 88,
         segW,
         4,
         i <= this.step ? C.gold : C.line,
@@ -207,9 +195,9 @@ export class RoadScene extends Phaser.Scene {
 
   private drawRoadScene() {
     const view = this.getView();
-    const top = this.headerHeight;
-    const h = Math.max(280, this.copyTop - top);
-    const bottom = top + h;
+    const top = this.layout.world.y;
+    const h = Math.max(280, this.layout.world.height);
+    const bottom = this.layout.world.bottom;
     const sy = h / 525;
     const sizeScale = Phaser.Math.Clamp(0.76 + sy * 0.24, 0.84, 1.02);
     const yy = (offset: number) => top + offset * sy;
@@ -431,8 +419,8 @@ export class RoadScene extends Phaser.Scene {
 
   private drawCopy() {
     const view = this.getView();
-    const top = this.copyTop;
-    const h = this.copyHeight;
+    const top = this.layout.footer.y;
+    const h = this.layout.footer.height;
 
     this.add.rectangle(195, top + h / 2, 390, h, C.surface, 1);
     this.add.rectangle(195, top, 390, 1, 0x899296, 0.22);
@@ -452,7 +440,7 @@ export class RoadScene extends Phaser.Scene {
       lineSpacing: 4,
     });
 
-    const buttonY = this.logicalHeight - 34;
+    const buttonY = this.layout.contentBottom - 34;
     const button = this.add.rectangle(195, buttonY, 350, 60, C.deep, 1)
       .setStrokeStyle(1, 0xaa9b7d, 0.95)
       .setInteractive({ useHandCursor: true });
@@ -519,10 +507,10 @@ export class RoadScene extends Phaser.Scene {
     if (this.sheet) return;
 
     const herb = Number(this.registry.get('runLootHerb') ?? 0);
-    const panelH = Math.min(244, this.logicalHeight - 34);
-    const panelY = this.logicalHeight - panelH / 2 - 12;
+    const panelH = Math.min(244, this.layout.contentBottom - this.layout.safeTop - 24);
+    const panelY = this.layout.contentBottom - panelH / 2 - 12;
 
-    const overlay = this.add.rectangle(195, this.logicalHeight / 2, 390, this.logicalHeight, 0x000000, 0.46)
+    const overlay = this.add.rectangle(195, this.layout.height / 2, 390, this.layout.height, 0x000000, 0.46)
       .setInteractive()
       .setDepth(100);
 
