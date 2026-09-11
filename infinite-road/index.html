@@ -9,97 +9,44 @@
     <meta http-equiv="Expires" content="0" />
     <title>Повелитель Тайн — Phaser 4</title>
     <style>
-      html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #071516; }
-      #app { position: fixed; inset: 0; width: 100vw; height: 100dvh; overflow: hidden; background: #071516; }
-      body { font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-      canvas { display: block; width: 100% !important; height: 100% !important; margin: 0; touch-action: none; }
-      #boot-status {
-        position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center;
-        box-sizing: border-box; padding: 24px; background: #071516; color: #aab6af; text-align: center; font-size: 14px;
+      :root {
+        --safe-top: env(safe-area-inset-top, 0px);
+        --safe-bottom: env(safe-area-inset-bottom, 0px);
       }
-      #boot-status.error { color: #f0b3a3; white-space: pre-wrap; }
+
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background: #071516;
+      }
+
+      body {
+        font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        overscroll-behavior: none;
+      }
+
+      #app {
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100dvh;
+        overflow: hidden;
+        background: #071516;
+      }
+
+      canvas {
+        display: block;
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0;
+        touch-action: none;
+      }
     </style>
   </head>
   <body>
     <div id="app"></div>
-    <div id="boot-status">Проверяю старый кэш…</div>
-
-    <script type="module">
-      const status = document.getElementById('boot-status');
-      const setStatus = (text, error = false) => {
-        if (!status) return;
-        status.textContent = text;
-        status.className = error ? 'error' : '';
-      };
-
-      const hideWhenCanvasExists = () => {
-        const app = document.getElementById('app');
-        if (app?.querySelector('canvas')) {
-          status?.remove();
-          return true;
-        }
-        return false;
-      };
-
-      window.addEventListener('error', (event) => {
-        setStatus('Ошибка запуска Phaser:\n' + (event.message || 'неизвестная ошибка'), true);
-      });
-
-      window.addEventListener('unhandledrejection', (event) => {
-        setStatus('Ошибка запуска Phaser:\n' + String(event.reason || 'неизвестная ошибка'), true);
-      });
-
-      async function clearLegacyPwa() {
-        let hadController = Boolean(navigator.serviceWorker?.controller);
-
-        if ('serviceWorker' in navigator) {
-          const registrations = await navigator.serviceWorker.getRegistrations();
-          await Promise.all(registrations.map((registration) => registration.unregister()));
-        }
-
-        if ('caches' in window) {
-          const keys = await caches.keys();
-          await Promise.all(keys.map((key) => caches.delete(key)));
-        }
-
-        return hadController;
-      }
-
-      async function boot() {
-        try {
-          const hadController = await clearLegacyPwa();
-
-          if (hadController && sessionStorage.getItem('pt-sw-reset') !== '1') {
-            sessionStorage.setItem('pt-sw-reset', '1');
-            setStatus('Удаляю старую версию игры…');
-            location.replace('./?fresh=' + Date.now());
-            return;
-          }
-
-          sessionStorage.removeItem('pt-sw-reset');
-          setStatus('Запускаю Phaser 4…');
-
-          const observer = new MutationObserver(() => {
-            if (hideWhenCanvasExists()) observer.disconnect();
-          });
-          const app = document.getElementById('app');
-          if (app) observer.observe(app, { childList: true, subtree: true });
-
-          await import('./src/main.ts');
-
-          if (!hideWhenCanvasExists()) {
-            setTimeout(() => {
-              if (!hideWhenCanvasExists()) {
-                setStatus('Phaser загрузился, но canvas не появился. Обнови страницу ещё раз.', true);
-              }
-            }, 2500);
-          }
-        } catch (error) {
-          setStatus('Ошибка загрузки игры:\n' + String(error instanceof Error ? error.message : error), true);
-        }
-      }
-
-      boot();
-    </script>
+    <script type="module" src="./src/main.ts"></script>
   </body>
 </html>
