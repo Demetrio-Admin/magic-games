@@ -37,31 +37,10 @@
         margin: 0;
         touch-action: none;
       }
-
-      #boot-status {
-        position: fixed;
-        inset: 0;
-        z-index: 9999;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-sizing: border-box;
-        padding: 24px;
-        background: #071516;
-        color: #aab6af;
-        text-align: center;
-        font-size: 14px;
-      }
-
-      #boot-status.error {
-        color: #f0b3a3;
-        white-space: pre-wrap;
-      }
     </style>
   </head>
   <body>
     <div id="app"></div>
-    <div id="boot-status">Запускаю Phaser 4…</div>
-    <script type="module" src="/src/boot.ts"></script>
+    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
