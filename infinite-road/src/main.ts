@@ -13,8 +13,7 @@ const config: Phaser.Types.Core.GameConfig = {
   backgroundColor: '#071516',
   scene: [RoadScene, BattleScene, RewardScene, MainMenuScene, BootScene],
   scale: {
-    mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
+    mode: Phaser.Scale.NONE,
     width: 390,
     height: 844,
   },
