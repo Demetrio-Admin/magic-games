@@ -1,5 +1,5 @@
 name: Deploy Phaser Game to GitHub Pages
-# Fullscreen preview refresh: responsive-v2
+# Fullscreen preview refresh: layout-regions-v3
 # fullscreen-preview-rev: 2
 
 on:
