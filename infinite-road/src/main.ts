@@ -13,14 +13,15 @@ const config: Phaser.Types.Core.GameConfig = {
   backgroundColor: '#071516',
   scene: [RoadScene, BattleScene, RewardScene, MainMenuScene, BootScene],
   scale: {
-    mode: Phaser.Scale.NONE,
-    width: 390,
-    height: 844,
+    parent: 'app',
+    mode: Phaser.Scale.RESIZE,
+    width: '100%',
+    height: '100%',
   },
   render: {
     antialias: true,
     pixelArt: false,
-    roundPixels: true,
+    roundPixels: false,
   },
 };
 
