@@ -28,18 +28,50 @@ type RoadView = {
 
 export class RoadScene extends Phaser.Scene {
   private sheet?: Phaser.GameObjects.Container;
+  private logicalHeight = 844;
+  private sceneScaleY = 1;
+  private copyTop = 641;
 
   constructor() {
     super('RoadScene');
   }
 
   create() {
+    this.configureResponsiveView();
     this.ensureState();
     this.cameras.main.setBackgroundColor(C.surface);
 
     this.drawHeader();
     this.drawRoadScene();
     this.drawCopy();
+
+    this.scale.on(Phaser.Scale.Events.RESIZE, this.handleResize, this);
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      this.scale.off(Phaser.Scale.Events.RESIZE, this.handleResize, this);
+    });
+  }
+
+  private configureResponsiveView() {
+    const viewportWidth = Math.max(1, this.scale.width);
+    const viewportHeight = Math.max(1, this.scale.height);
+    const zoom = viewportWidth / 390;
+
+    this.logicalHeight = viewportHeight / zoom;
+    this.copyTop = Math.max(470, this.logicalHeight - 203);
+    this.sceneScaleY = Math.max(0.62, Math.min(1, (this.copyTop - 116) / 525));
+
+    const camera = this.cameras.main;
+    camera.setViewport(0, 0, viewportWidth, viewportHeight);
+    camera.setOrigin(0, 0);
+    camera.setScroll(0, 0);
+    camera.setZoom(zoom);
+    camera.setRoundPixels(false);
+  }
+
+  private handleResize() {
+    if (this.scene.isActive()) {
+      this.scene.restart();
+    }
   }
 
   private ensureState() {
@@ -116,7 +148,7 @@ export class RoadScene extends Phaser.Scene {
   }
 
   private drawHeader() {
-    const w = this.scale.width;
+    const w = 390;
 
     this.add.rectangle(w / 2, 58, w, 116, C.surface, 1);
 
@@ -199,6 +231,7 @@ export class RoadScene extends Phaser.Scene {
   }
 
   private drawRoadScene() {
+    const beforeWorld = new Set(this.children.list);
     const view = this.getView();
     const top = 116;
     const h = 525;
@@ -336,6 +369,11 @@ export class RoadScene extends Phaser.Scene {
     if (view.visual === 'tracks') this.drawTracks(top);
     if (view.visual === 'wolves') this.drawWolves(top);
     if (view.visual === 'cleared') this.drawCleared(top);
+
+    const worldObjects = this.children.list.filter((child) => !beforeWorld.has(child));
+    const world = this.add.container(0, 116 * (1 - this.sceneScaleY));
+    world.add(worldObjects);
+    world.setScale(1, this.sceneScaleY);
   }
 
   private drawHerb(top: number) {
@@ -450,8 +488,8 @@ export class RoadScene extends Phaser.Scene {
 
   private drawCopy() {
     const view = this.getView();
-    const top = 641;
-    const h = 203;
+    const top = this.copyTop;
+    const h = this.logicalHeight - top;
 
     this.add.rectangle(195, top + h / 2, 390, h, C.surface, 1);
     this.add.rectangle(195, top, 390, 1, 0x899296, 0.22);
@@ -471,7 +509,7 @@ export class RoadScene extends Phaser.Scene {
       lineSpacing: 4,
     });
 
-    const buttonY = 806;
+    const buttonY = top + 165;
     const button = this.add.rectangle(195, buttonY, 350, 60, C.deep, 1)
       .setStrokeStyle(1, 0xaa9b7d, 0.95)
       .setInteractive({ useHandCursor: true });
@@ -538,47 +576,48 @@ export class RoadScene extends Phaser.Scene {
     if (this.sheet) return;
 
     const herb = Number(this.registry.get('runLootHerb') ?? 0);
-    const overlay = this.add.rectangle(195, 422, 390, 844, 0x000000, 0.46)
+    const overlay = this.add.rectangle(195, this.logicalHeight / 2, 390, this.logicalHeight, 0x000000, 0.46)
       .setInteractive()
       .setDepth(100);
 
-    const panel = this.add.rectangle(195, 704, 354, 244, C.deep, 1)
+    const panelY = this.logicalHeight - 140;
+    const panel = this.add.rectangle(195, panelY, 354, 244, C.deep, 1)
       .setStrokeStyle(1, 0x8f856f, 1)
       .setDepth(101);
 
-    const title = this.add.text(38, 610, 'Добыча похода', {
+    const title = this.add.text(38, panelY - 94, 'Добыча похода', {
       fontFamily: 'Georgia, "Times New Roman", serif',
       fontSize: '24px',
       color: C.goldCss,
       fontStyle: 'bold',
     }).setDepth(102);
 
-    const label = this.add.text(38, 662, 'Лечебная трава', {
+    const label = this.add.text(38, panelY - 42, 'Лечебная трава', {
       fontFamily: 'Inter, system-ui, sans-serif',
       fontSize: '15px',
       color: C.ink,
     }).setDepth(102);
 
-    const value = this.add.text(344, 662, `×${herb}`, {
+    const value = this.add.text(344, panelY - 42, `×${herb}`, {
       fontFamily: 'Georgia, "Times New Roman", serif',
       fontSize: '18px',
       color: C.goldCss,
       fontStyle: 'bold',
     }).setOrigin(1, 0).setDepth(102);
 
-    const note = this.add.text(38, 696, 'Перенесётся в инвентарь после завершения пути.', {
+    const note = this.add.text(38, panelY - 8, 'Перенесётся в инвентарь после завершения пути.', {
       fontFamily: 'Inter, system-ui, sans-serif',
       fontSize: '12px',
       color: C.muted,
       wordWrap: { width: 310 },
     }).setDepth(102);
 
-    const close = this.add.rectangle(195, 786, 310, 48, C.surface, 1)
+    const close = this.add.rectangle(195, panelY + 82, 310, 48, C.surface, 1)
       .setStrokeStyle(1, 0xaa9b7d, 1)
       .setInteractive({ useHandCursor: true })
       .setDepth(102);
 
-    const closeText = this.add.text(195, 786, 'Закрыть', {
+    const closeText = this.add.text(195, panelY + 82, 'Закрыть', {
       fontFamily: 'Georgia, "Times New Roman", serif',
       fontSize: '17px',
       color: C.goldCss,
