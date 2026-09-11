@@ -1,5 +1,4 @@
 import * as Phaser from 'phaser';
-import { DESIGN_HEIGHT, DESIGN_WIDTH, useFullscreenDesign } from '../ui/responsive';
 
 const C = {
   surface: 0x46545a,
@@ -35,7 +34,6 @@ export class RoadScene extends Phaser.Scene {
   }
 
   create() {
-    useFullscreenDesign(this);
     this.ensureState();
     this.cameras.main.setBackgroundColor(C.surface);
 
@@ -118,7 +116,7 @@ export class RoadScene extends Phaser.Scene {
   }
 
   private drawHeader() {
-    const w = DESIGN_WIDTH;
+    const w = this.scale.width;
 
     this.add.rectangle(w / 2, 58, w, 116, C.surface, 1);
 

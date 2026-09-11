@@ -1,5 +1,4 @@
 import * as Phaser from 'phaser';
-import { DESIGN_HEIGHT, DESIGN_WIDTH, useFullscreenDesign } from '../ui/responsive';
 import { FONT, UI } from '../ui/theme';
 
 type Action = 'strike' | 'push' | 'guard';
@@ -19,7 +18,6 @@ export class BattleScene extends Phaser.Scene {
   }
 
   create() {
-    useFullscreenDesign(this);
     const stage = Number(this.registry.get('battleStage') ?? 0);
     this.selectedAction = null;
     this.selectedTarget = stage === 0 ? 'wolf' : 'leader';
