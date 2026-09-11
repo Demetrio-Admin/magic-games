@@ -206,29 +206,28 @@ export class RoadScene extends Phaser.Scene {
 
     const g = this.add.graphics();
 
+    const fillPoly = (points: Array<[number, number]>, color: number, alpha = 1) => {
+      if (points.length < 3) return;
+      g.fillStyle(color, alpha);
+      g.beginPath();
+      g.moveTo(points[0][0], points[0][1]);
+      for (let i = 1; i < points.length; i++) g.lineTo(points[i][0], points[i][1]);
+      g.closePath();
+      g.fillPath();
+    };
+
     // Muted atmospheric sky.
     g.fillStyle(0xaebbb8, 1).fillRect(0, top, 390, h);
     g.fillStyle(0xc5ccc7, 0.38).fillRect(0, top, 390, 112);
     g.fillStyle(0x8fa09d, 0.28).fillRect(0, top + 112, 390, 122);
 
     // Irregular distant ridge instead of clean triangles.
-    g.fillStyle(0x728785, 0.42);
-    g.fillPoints([
-      new Phaser.Geom.Point(0, top + 206),
-      new Phaser.Geom.Point(28, top + 168),
-      new Phaser.Geom.Point(58, top + 190),
-      new Phaser.Geom.Point(91, top + 128),
-      new Phaser.Geom.Point(121, top + 175),
-      new Phaser.Geom.Point(154, top + 151),
-      new Phaser.Geom.Point(194, top + 201),
-      new Phaser.Geom.Point(228, top + 144),
-      new Phaser.Geom.Point(270, top + 78),
-      new Phaser.Geom.Point(302, top + 130),
-      new Phaser.Geom.Point(336, top + 174),
-      new Phaser.Geom.Point(390, top + 143),
-      new Phaser.Geom.Point(390, top + 270),
-      new Phaser.Geom.Point(0, top + 270),
-    ], true);
+    fillPoly([
+      [0, top + 206], [28, top + 168], [58, top + 190], [91, top + 128],
+      [121, top + 175], [154, top + 151], [194, top + 201], [228, top + 144],
+      [270, top + 78], [302, top + 130], [336, top + 174], [390, top + 143],
+      [390, top + 270], [0, top + 270],
+    ], 0x728785, 0.42);
 
     // Distant forest is built from overlapping vertical masses.
     const farTrees = [
@@ -273,47 +272,23 @@ export class RoadScene extends Phaser.Scene {
     right.forEach(([x, b, th, tw], i) => drawForestTree(x, b, th, tw, i % 2 !== 0));
 
     // Curving, uneven road.
-    g.fillStyle(0x747468, 1);
-    g.fillPoints([
-      new Phaser.Geom.Point(190, top + 224),
-      new Phaser.Geom.Point(202, top + 229),
-      new Phaser.Geom.Point(218, top + 292),
-      new Phaser.Geom.Point(244, top + 365),
-      new Phaser.Geom.Point(282, top + 446),
-      new Phaser.Geom.Point(322, bottom),
-      new Phaser.Geom.Point(72, bottom),
-      new Phaser.Geom.Point(108, top + 454),
-      new Phaser.Geom.Point(140, top + 382),
-      new Phaser.Geom.Point(164, top + 310),
-    ], true);
+    fillPoly([
+      [190, top + 224], [202, top + 229], [218, top + 292], [244, top + 365],
+      [282, top + 446], [322, bottom], [72, bottom], [108, top + 454],
+      [140, top + 382], [164, top + 310],
+    ], 0x747468, 1);
 
-    g.fillStyle(0x8d8b7b, 0.98);
-    g.fillPoints([
-      new Phaser.Geom.Point(194, top + 237),
-      new Phaser.Geom.Point(200, top + 239),
-      new Phaser.Geom.Point(211, top + 298),
-      new Phaser.Geom.Point(231, top + 369),
-      new Phaser.Geom.Point(260, top + 448),
-      new Phaser.Geom.Point(287, bottom),
-      new Phaser.Geom.Point(108, bottom),
-      new Phaser.Geom.Point(136, top + 456),
-      new Phaser.Geom.Point(158, top + 387),
-      new Phaser.Geom.Point(176, top + 317),
-    ], true);
+    fillPoly([
+      [194, top + 237], [200, top + 239], [211, top + 298], [231, top + 369],
+      [260, top + 448], [287, bottom], [108, bottom], [136, top + 456],
+      [158, top + 387], [176, top + 317],
+    ], 0x8d8b7b, 0.98);
 
-    g.fillStyle(0xa49f8b, 0.25);
-    g.fillPoints([
-      new Phaser.Geom.Point(196, top + 251),
-      new Phaser.Geom.Point(200, top + 253),
-      new Phaser.Geom.Point(207, top + 308),
-      new Phaser.Geom.Point(220, top + 379),
-      new Phaser.Geom.Point(238, top + 454),
-      new Phaser.Geom.Point(251, bottom),
-      new Phaser.Geom.Point(157, bottom),
-      new Phaser.Geom.Point(169, top + 458),
-      new Phaser.Geom.Point(179, top + 390),
-      new Phaser.Geom.Point(188, top + 319),
-    ], true);
+    fillPoly([
+      [196, top + 251], [200, top + 253], [207, top + 308], [220, top + 379],
+      [238, top + 454], [251, bottom], [157, bottom], [169, top + 458],
+      [179, top + 390], [188, top + 319],
+    ], 0xa49f8b, 0.25);
 
     // Vegetation and erosion breaking the perfect road edge.
     const edgeMarks = [
