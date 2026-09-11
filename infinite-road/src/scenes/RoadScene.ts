@@ -200,70 +200,162 @@ export class RoadScene extends Phaser.Scene {
 
   private drawRoadScene() {
     const view = this.getView();
-    const top = 132;
-    const h = 507;
+    const top = 116;
+    const h = 525;
     const bottom = top + h;
 
     const g = this.add.graphics();
 
-    // Atmospheric background.
-    g.fillStyle(C.scene, 1).fillRect(0, top, 390, h);
-    g.fillStyle(0xb9c2bd, 0.72).fillRect(0, top, 390, 135);
-    g.fillStyle(0x91a3a0, 0.52).fillRect(0, top + 110, 390, 125);
+    // Muted atmospheric sky.
+    g.fillStyle(0xaebbb8, 1).fillRect(0, top, 390, h);
+    g.fillStyle(0xc5ccc7, 0.38).fillRect(0, top, 390, 112);
+    g.fillStyle(0x8fa09d, 0.28).fillRect(0, top + 112, 390, 122);
 
-    // Distant ridges.
-    g.fillStyle(C.sceneMid, 0.72);
-    g.fillTriangle(-40, top + 250, 90, top + 86, 220, top + 250);
-    g.fillTriangle(126, top + 250, 268, top + 65, 440, top + 250);
+    // Irregular distant ridge instead of clean triangles.
+    g.fillStyle(0x728785, 0.42);
+    g.fillPoints([
+      new Phaser.Geom.Point(0, top + 206),
+      new Phaser.Geom.Point(28, top + 168),
+      new Phaser.Geom.Point(58, top + 190),
+      new Phaser.Geom.Point(91, top + 128),
+      new Phaser.Geom.Point(121, top + 175),
+      new Phaser.Geom.Point(154, top + 151),
+      new Phaser.Geom.Point(194, top + 201),
+      new Phaser.Geom.Point(228, top + 144),
+      new Phaser.Geom.Point(270, top + 78),
+      new Phaser.Geom.Point(302, top + 130),
+      new Phaser.Geom.Point(336, top + 174),
+      new Phaser.Geom.Point(390, top + 143),
+      new Phaser.Geom.Point(390, top + 270),
+      new Phaser.Geom.Point(0, top + 270),
+    ], true);
 
-    g.fillStyle(C.sceneDark, 0.74);
-    g.fillTriangle(-55, top + 305, 72, top + 155, 200, top + 305);
-    g.fillTriangle(170, top + 305, 318, top + 145, 455, top + 305);
+    // Distant forest is built from overlapping vertical masses.
+    const farTrees = [
+      [4, 272, 92, 29], [31, 278, 118, 34], [62, 274, 83, 28], [91, 280, 128, 36],
+      [123, 276, 98, 31], [154, 282, 120, 34], [188, 278, 88, 29], [221, 279, 114, 34],
+      [253, 276, 95, 30], [286, 281, 126, 36], [321, 278, 102, 31], [354, 280, 116, 34],
+      [384, 276, 91, 28],
+    ] as const;
 
-    // Forest walls: broad silhouettes, not detailed art yet.
-    for (let i = 0; i < 7; i++) {
-      const lx = -12 + i * 27;
-      const rx = 402 - i * 27;
-      const peak = top + 120 + (i % 3) * 24;
-
-      g.fillStyle(i % 2 ? C.forestDark : C.forest, 0.92);
-      g.fillTriangle(lx - 52, bottom - 70, lx + 16, peak, lx + 82, bottom - 70);
-      g.fillTriangle(rx - 82, bottom - 70, rx - 16, peak + 8, rx + 52, bottom - 70);
-    }
+    farTrees.forEach(([x, baseOffset, treeH, treeW], i) => {
+      const baseY = top + baseOffset;
+      this.add.rectangle(x, baseY - treeH * 0.33, 4, treeH * 0.42, 0x4c6262, 0.42);
+      this.add.ellipse(x, baseY - treeH * 0.64, treeW, treeH * 0.72, 0x5d7371, 0.48);
+      this.add.ellipse(x - 3, baseY - treeH * 0.42, treeW * 1.18, treeH * 0.54, 0x536967, 0.38);
+      if (i % 3 === 0) this.add.ellipse(x + 4, baseY - treeH * 0.79, treeW * 0.7, treeH * 0.35, 0x667b78, 0.32);
+    });
 
     // Ground.
-    g.fillStyle(0x6c786c, 1).fillRect(0, top + 285, 390, h - 285);
+    g.fillStyle(0x6c7869, 1).fillRect(0, top + 274, 390, h - 274);
+    g.fillStyle(0x5d695e, 0.36).fillRect(0, top + 365, 390, h - 365);
 
-    // Perspective road.
-    g.fillStyle(C.roadDark, 1);
-    g.fillTriangle(72, bottom, 195, top + 205, 318, bottom);
-    g.fillStyle(C.road, 0.96);
-    g.fillTriangle(102, bottom, 195, top + 224, 287, bottom);
+    // Foreground forest walls: broad overlapping silhouettes, less icon-like.
+    const left = [
+      [5, 345, 188, 54], [29, 358, 151, 47], [57, 347, 211, 58],
+      [91, 360, 169, 51], [119, 350, 196, 56], [146, 363, 144, 46],
+    ] as const;
+    const right = [
+      [386, 347, 196, 56], [359, 360, 153, 47], [330, 349, 214, 58],
+      [298, 360, 171, 51], [270, 351, 198, 55], [245, 363, 145, 45],
+    ] as const;
 
-    // Soft center highlight gives the road the old mockup's readable path.
-    g.fillStyle(0xb2ad98, 0.22);
-    g.fillTriangle(142, bottom, 195, top + 250, 248, bottom);
+    const drawForestTree = (x: number, baseOffset: number, treeH: number, treeW: number, dark: boolean) => {
+      const baseY = top + baseOffset;
+      const color = dark ? 0x314548 : 0x43585a;
+      this.add.rectangle(x, baseY - treeH * 0.28, 6, treeH * 0.36, 0x2d3c3e, 0.88);
+      this.add.ellipse(x, baseY - treeH * 0.67, treeW * 0.72, treeH * 0.62, color, 0.95);
+      this.add.ellipse(x - 4, baseY - treeH * 0.46, treeW, treeH * 0.58, color, 0.95);
+      this.add.ellipse(x + 3, baseY - treeH * 0.27, treeW * 1.12, treeH * 0.42, color, 0.94);
+    };
 
-    // Roadside stones / moss.
-    for (let i = 0; i < 12; i++) {
-      const yy = top + 315 + i * 15;
-      const spread = 61 + i * 7;
-      this.add.ellipse(195 - spread, yy, 22 + (i % 3) * 7, 11, C.moss, 0.72);
-      this.add.ellipse(195 + spread, yy + 6, 20 + (i % 4) * 6, 10, 0x516558, 0.72);
-    }
+    left.forEach(([x, b, th, tw], i) => drawForestTree(x, b, th, tw, i % 2 === 0));
+    right.forEach(([x, b, th, tw], i) => drawForestTree(x, b, th, tw, i % 2 !== 0));
 
-    // Pale fog strips.
-    for (let i = 0; i < 4; i++) {
-      const fog = this.add.ellipse(36 + i * 105, top + 170 + (i % 2) * 42, 170, 34, 0xe2e3da, 0.08);
+    // Curving, uneven road.
+    g.fillStyle(0x747468, 1);
+    g.fillPoints([
+      new Phaser.Geom.Point(190, top + 224),
+      new Phaser.Geom.Point(202, top + 229),
+      new Phaser.Geom.Point(218, top + 292),
+      new Phaser.Geom.Point(244, top + 365),
+      new Phaser.Geom.Point(282, top + 446),
+      new Phaser.Geom.Point(322, bottom),
+      new Phaser.Geom.Point(72, bottom),
+      new Phaser.Geom.Point(108, top + 454),
+      new Phaser.Geom.Point(140, top + 382),
+      new Phaser.Geom.Point(164, top + 310),
+    ], true);
+
+    g.fillStyle(0x8d8b7b, 0.98);
+    g.fillPoints([
+      new Phaser.Geom.Point(194, top + 237),
+      new Phaser.Geom.Point(200, top + 239),
+      new Phaser.Geom.Point(211, top + 298),
+      new Phaser.Geom.Point(231, top + 369),
+      new Phaser.Geom.Point(260, top + 448),
+      new Phaser.Geom.Point(287, bottom),
+      new Phaser.Geom.Point(108, bottom),
+      new Phaser.Geom.Point(136, top + 456),
+      new Phaser.Geom.Point(158, top + 387),
+      new Phaser.Geom.Point(176, top + 317),
+    ], true);
+
+    g.fillStyle(0xa49f8b, 0.25);
+    g.fillPoints([
+      new Phaser.Geom.Point(196, top + 251),
+      new Phaser.Geom.Point(200, top + 253),
+      new Phaser.Geom.Point(207, top + 308),
+      new Phaser.Geom.Point(220, top + 379),
+      new Phaser.Geom.Point(238, top + 454),
+      new Phaser.Geom.Point(251, bottom),
+      new Phaser.Geom.Point(157, bottom),
+      new Phaser.Geom.Point(169, top + 458),
+      new Phaser.Geom.Point(179, top + 390),
+      new Phaser.Geom.Point(188, top + 319),
+    ], true);
+
+    // Vegetation and erosion breaking the perfect road edge.
+    const edgeMarks = [
+      [126, top + 357, 30, 11], [112, top + 396, 38, 12], [96, top + 445, 46, 13], [79, top + 494, 55, 15],
+      [265, top + 362, 29, 11], [280, top + 402, 38, 12], [297, top + 447, 47, 14], [315, top + 494, 55, 16],
+    ] as const;
+    edgeMarks.forEach(([x, y, ww, hh], i) => {
+      this.add.ellipse(x, y, ww, hh, i % 2 ? 0x566b59 : 0x607461, 0.54);
+    });
+
+    // Tiny stones/puddles give the road material variation.
+    [
+      [148, top + 383, 11, 5], [242, top + 419, 9, 4], [132, top + 468, 13, 6],
+      [264, top + 493, 16, 5], [176, top + 507, 9, 4],
+    ].forEach(([x, y, ww, hh]) => this.add.ellipse(x, y, ww, hh, 0x555a50, 0.43));
+
+    this.add.ellipse(212, top + 452, 48, 10, 0xc6c4b6, 0.06);
+    this.add.ellipse(190, top + 499, 66, 12, 0xc6c4b6, 0.05);
+
+    // Slow, subtle fog.
+    for (let i = 0; i < 5; i++) {
+      const fog = this.add.ellipse(
+        25 + i * 92,
+        top + 188 + (i % 3) * 39,
+        154 + (i % 2) * 40,
+        24 + (i % 2) * 7,
+        0xe4e5dc,
+        0.045 + i * 0.006,
+      );
       this.tweens.add({
         targets: fog,
-        x: fog.x + 14,
-        duration: 3800 + i * 450,
+        x: fog.x + (i % 2 ? -12 : 15),
+        duration: 4200 + i * 520,
         yoyo: true,
         repeat: -1,
         ease: 'Sine.InOut',
       });
     }
+
+    // Near foliage vignette.
+    this.add.ellipse(-43, top + 350, 160, 430, 0x25393b, 0.16);
+    this.add.ellipse(433, top + 365, 170, 445, 0x25393b, 0.16);
 
     if (view.visual === 'herb') this.drawHerb(top);
     if (view.visual === 'tracks') this.drawTracks(top);
@@ -383,45 +475,45 @@ export class RoadScene extends Phaser.Scene {
 
   private drawCopy() {
     const view = this.getView();
-    const top = 639;
-    const h = 205;
+    const top = 641;
+    const h = 203;
 
     this.add.rectangle(195, top + h / 2, 390, h, C.surface, 1);
+    this.add.rectangle(195, top, 390, 1, 0x899296, 0.22);
 
-    this.add.text(20, top + 14, view.title, {
+    this.add.text(20, top + 13, view.title, {
       fontFamily: 'Georgia, "Times New Roman", serif',
-      fontSize: '29px',
+      fontSize: '27px',
       color: C.ink,
       fontStyle: 'bold',
-      lineSpacing: 0,
     });
 
-    this.add.text(20, top + 56, view.text, {
+    this.add.text(20, top + 51, view.text, {
       fontFamily: 'Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-      fontSize: '16px',
+      fontSize: '14px',
       color: C.muted,
       wordWrap: { width: 350 },
       lineSpacing: 4,
     });
 
-    const buttonY = 804;
-    const button = this.add.rectangle(195, buttonY, 350, 64, C.deep, 1)
-      .setStrokeStyle(1, 0xaa9b7d, 1)
+    const buttonY = 806;
+    const button = this.add.rectangle(195, buttonY, 350, 60, C.deep, 1)
+      .setStrokeStyle(1, 0xaa9b7d, 0.95)
       .setInteractive({ useHandCursor: true });
 
-    this.add.rectangle(195, buttonY, 344, 58, 0x4a5960, 0)
-      .setStrokeStyle(3, 0x4a5960, 1);
+    this.add.rectangle(195, buttonY, 342, 52, 0x4a5960, 0)
+      .setStrokeStyle(2, 0x526168, 0.95);
 
     this.add.text(38, buttonY, view.button, {
       fontFamily: 'Georgia, "Times New Roman", serif',
-      fontSize: '20px',
+      fontSize: '19px',
       color: C.goldCss,
       fontStyle: 'bold',
     }).setOrigin(0, 0.5);
 
     this.add.text(349, buttonY - 1, '›', {
       fontFamily: 'Georgia, "Times New Roman", serif',
-      fontSize: '31px',
+      fontSize: '29px',
       color: C.goldCss,
       fontStyle: 'bold',
     }).setOrigin(0.5);
