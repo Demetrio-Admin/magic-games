@@ -1,4 +1,5 @@
 import * as Phaser from 'phaser';
+import { DESIGN_HEIGHT, DESIGN_WIDTH, useFullscreenDesign } from '../ui/responsive';
 
 export class RewardScene extends Phaser.Scene {
   constructor() {
@@ -6,7 +7,8 @@ export class RewardScene extends Phaser.Scene {
   }
 
   create() {
-    const { width } = this.scale;
+    useFullscreenDesign(this);
+    const width = DESIGN_WIDTH;
     const herb = Boolean(this.registry.get('herbCollected'));
     this.cameras.main.setBackgroundColor('#26343b');
 
