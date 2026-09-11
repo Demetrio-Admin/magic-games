@@ -1,464 +1,520 @@
 import * as Phaser from 'phaser';
-import { FONT, UI } from '../ui/theme';
 
-type ModalKind = 'map' | 'bag';
-
-type TravelBeat = {
-  title: string;
-  text: string;
-  action: string;
-  hint: string;
+const C = {
+  surface: 0x46545a,
+  deep: 0x34434b,
+  ink: '#f0e2c6',
+  muted: '#d2d6d4',
+  gold: 0xe8c98d,
+  goldCss: '#e8c98d',
+  line: 0x879196,
+  scene: 0xaab6b4,
+  sceneDark: 0x54686b,
+  sceneMid: 0x7f9392,
+  forest: 0x44585a,
+  forestDark: 0x344749,
+  road: 0x8c8b7e,
+  roadDark: 0x6e7169,
+  moss: 0x596c5d,
+  danger: 0x704746,
 };
 
-const BEATS: TravelBeat[] = [
-  {
-    title: 'Шепчущий лес',
-    text: 'Старая дорога ныряет под кроны. Влажный воздух пахнет мхом и дождём.',
-    action: 'Идти дальше',
-    hint: 'Следы ведут к воротам долины',
-  },
-  {
-    title: 'Свежие следы',
-    text: 'На размокшей земле — крупные отпечатки лап. Они совсем свежие.',
-    action: 'Осмотреть следы',
-    hint: 'Угроза впереди',
-  },
-  {
-    title: 'Волки у ворот',
-    text: 'Из тумана выходят два зверя. Один остаётся в тени и наблюдает.',
-    action: 'Вступить в бой',
-    hint: 'Высокий риск',
-  },
-];
+type RoadView = {
+  title: string;
+  text: string;
+  button: string;
+  visual: 'start' | 'herb' | 'afterHerb' | 'tracks' | 'wolves' | 'cleared';
+};
 
 export class RoadScene extends Phaser.Scene {
-  private selectedHero = 0;
-  private beat = 0;
-  private modal?: Phaser.GameObjects.Container;
-  private actionLabel?: Phaser.GameObjects.Text;
-  private actionHint?: Phaser.GameObjects.Text;
-  private primarySurface?: Phaser.GameObjects.Rectangle;
+  private sheet?: Phaser.GameObjects.Container;
 
   constructor() {
     super('RoadScene');
   }
 
   create() {
-    this.beat = Phaser.Math.Clamp(Number(this.registry.get('travelBeat') ?? 0), 0, BEATS.length - 1);
-    this.selectedHero = Number(this.registry.get('selectedHero') ?? 0);
+    this.ensureState();
+    this.cameras.main.setBackgroundColor(C.surface);
 
-    this.cameras.main.setBackgroundColor(UI.colors.worldDeep);
-    this.drawWorld();
-    this.drawTopChrome();
-    this.drawNarrative();
-    this.drawParty();
-    this.drawActionSurface();
+    this.drawHeader();
+    this.drawRoadScene();
+    this.drawCopy();
   }
 
-  private drawWorld() {
-    const g = this.add.graphics();
-
-    // Sky / atmospheric depth.
-    g.fillStyle(0x102d2c, 1).fillRect(0, 0, UI.width, 250);
-    g.fillStyle(0x163b36, 1).fillRect(0, 120, UI.width, 150);
-    g.fillStyle(0x244b40, 1).fillRect(0, 210, UI.width, 120);
-
-    // Distant hills.
-    g.fillStyle(0x17352f, 1);
-    g.fillTriangle(0, 310, 94, 164, 205, 310);
-    g.fillTriangle(128, 310, 263, 143, 390, 310);
-    g.fillStyle(0x102a27, 1);
-    g.fillTriangle(-30, 336, 110, 210, 250, 336);
-    g.fillTriangle(172, 336, 315, 198, 430, 336);
-
-    // Forest walls.
-    g.fillStyle(0x0b201f, 1);
-    for (let i = 0; i < 8; i++) {
-      const lx = i * 34 - 18;
-      const rx = UI.width - i * 31 + 8;
-      g.fillTriangle(lx, 505, lx + 30, 220 + (i % 3) * 18, lx + 62, 505);
-      g.fillTriangle(rx - 55, 500, rx - 28, 205 + (i % 2) * 22, rx + 5, 500);
-    }
-
-    // Ground and road.
-    g.fillStyle(0x102622, 1).fillRect(0, 330, UI.width, 320);
-    g.fillStyle(0x273228, 1);
-    g.fillTriangle(145, 650, 198, 290, 252, 650);
-    g.fillStyle(0x384333, 0.78);
-    g.fillTriangle(166, 650, 198, 315, 230, 650);
-
-    // Mossy roadside shapes.
-    for (let i = 0; i < 14; i++) {
-      const y = 360 + i * 21;
-      const spread = 54 + i * 7;
-      this.add.circle(195 - spread, y, 10 + (i % 3) * 5, 0x1a3e31, 0.9);
-      this.add.circle(195 + spread, y + 8, 9 + (i % 4) * 4, 0x18372e, 0.92);
-    }
-
-    // Quiet magical light — local, not neon.
-    const moonGlow = this.add.circle(300, 126, 60, UI.colors.turquoise, 0.07);
-    this.add.circle(300, 126, 29, 0xb4d7cb, 0.11);
-    this.tweens.add({
-      targets: moonGlow,
-      alpha: { from: 0.045, to: 0.10 },
-      scale: { from: 0.96, to: 1.08 },
-      duration: 2200,
-      yoyo: true,
-      repeat: -1,
-      ease: 'Sine.InOut',
-    });
-
-    // Fog layers.
-    for (let i = 0; i < 5; i++) {
-      const fog = this.add.ellipse(46 + i * 88, 300 + (i % 2) * 28, 160, 34, UI.colors.fog, 0.035);
-      this.tweens.add({ targets: fog, x: fog.x + 18, duration: 4200 + i * 450, yoyo: true, repeat: -1, ease: 'Sine.InOut' });
-    }
-
-    // Firefly-like magic specks.
-    for (let i = 0; i < 10; i++) {
-      const p = this.add.circle(48 + ((i * 67) % 300), 180 + ((i * 83) % 300), i % 3 === 0 ? 2.2 : 1.5, UI.colors.emerald, 0.18 + (i % 4) * 0.05);
-      this.tweens.add({ targets: p, alpha: { from: 0.10, to: 0.48 }, y: p.y - 8, duration: 1500 + i * 120, yoyo: true, repeat: -1, ease: 'Sine.InOut' });
-    }
-
-    if (this.beat >= 1) this.drawTracks();
-    if (this.beat >= 2) this.drawEncounterSilhouettes();
+  private ensureState() {
+    if (this.registry.get('roadStep') === undefined) this.registry.set('roadStep', 0);
+    if (this.registry.get('herbCollected') === undefined) this.registry.set('herbCollected', false);
+    if (this.registry.get('encounterFound') === undefined) this.registry.set('encounterFound', false);
+    if (this.registry.get('runLootHerb') === undefined) this.registry.set('runLootHerb', 0);
   }
 
-  private drawTopChrome() {
-    const panel = this.add.rectangle(UI.width / 2, 44, UI.width - UI.safe * 2, 56, UI.colors.surface, 0.76)
-      .setStrokeStyle(1, UI.colors.metal, 0.34);
-    panel.setDepth(20);
+  private get step() {
+    return Number(this.registry.get('roadStep') ?? 0);
+  }
 
-    this.add.text(28, 27, 'ТИХАЯ ДОЛИНА', {
-      fontFamily: FONT.sans,
-      fontSize: '9px',
-      color: UI.colors.textMuted,
+  private get herbCollected() {
+    return Boolean(this.registry.get('herbCollected'));
+  }
+
+  private get encounterFound() {
+    return Boolean(this.registry.get('encounterFound'));
+  }
+
+  private getView(): RoadView {
+    if (this.step === 0) {
+      return {
+        title: 'У старого тракта',
+        text: 'Дорога заросла, но следы ещё свежие.',
+        button: 'Идти дальше',
+        visual: 'start',
+      };
+    }
+
+    if (this.step === 1 && !this.herbCollected) {
+      return {
+        title: 'Что-то у обочины',
+        text: 'Адам замечает лечебную траву. Без неё путь не продолжить.',
+        button: 'Собрать траву',
+        visual: 'herb',
+      };
+    }
+
+    if (this.step === 1) {
+      return {
+        title: 'Трава собрана',
+        text: 'Находка лежит во временной добыче похода.',
+        button: 'Продолжить',
+        visual: 'afterHerb',
+      };
+    }
+
+    if (this.step === 2 && !this.encounterFound) {
+      return {
+        title: 'Следы на дороге',
+        text: 'Впереди слышится рычание. Угроза совсем близко.',
+        button: 'Осмотреть угрозу',
+        visual: 'tracks',
+      };
+    }
+
+    if (this.step === 2) {
+      return {
+        title: 'Волки у ворот',
+        text: 'Серый волк и вожак стаи перекрыли дорогу.',
+        button: 'Вступить в бой',
+        visual: 'wolves',
+      };
+    }
+
+    return {
+      title: 'Дорога свободна',
+      text: 'Жители снова смогут пройти к Тихой долине.',
+      button: 'Завершить путь',
+      visual: 'cleared',
+    };
+  }
+
+  private drawHeader() {
+    const w = this.scale.width;
+
+    this.add.rectangle(w / 2, 66, w, 132, C.surface, 1);
+
+    this.drawRoundIconButton(46, 38, '‹', () => this.scene.start('MainMenuScene'));
+
+    this.add.text(w / 2, 29, 'СТАРАЯ ДОРОГА', {
+      fontFamily: 'Georgia, "Times New Roman", serif',
+      fontSize: '20px',
+      color: C.ink,
       fontStyle: 'bold',
-      letterSpacing: 1.4,
-    }).setDepth(21);
+      letterSpacing: 0.7,
+    }).setOrigin(0.5, 0);
 
-    this.add.text(28, 42, 'Старая дорога', {
-      fontFamily: FONT.serif,
+    this.drawRoundIconButton(w - 46, 38, '⌑', () => this.openBag());
+
+    const party = this.add.rectangle(54, 89, 82, 34, C.deep, 1)
+      .setStrokeStyle(1, 0x9d947f, 1);
+    party.setOrigin(0.5);
+
+    this.add.text(54, 89, 'Адам', {
+      fontFamily: 'Georgia, "Times New Roman", serif',
       fontSize: '17px',
-      color: UI.colors.text,
+      color: C.goldCss,
       fontStyle: 'bold',
-    }).setDepth(21);
+    }).setOrigin(0.5);
 
-    const rune = this.add.circle(347, 44, 17, UI.colors.surfaceRaised, 1)
-      .setStrokeStyle(1, UI.colors.metal, 0.42)
-      .setDepth(21);
-    this.add.text(rune.x, rune.y - 1, '◇', {
-      fontFamily: FONT.serif,
-      fontSize: '18px',
-      color: '#74d1aa',
-    }).setOrigin(0.5).setDepth(22);
-  }
-
-  private drawNarrative() {
-    const beat = BEATS[this.beat];
-
-    this.add.rectangle(UI.width / 2, 570, 358, 126, UI.colors.surface, 0.74)
-      .setStrokeStyle(1, UI.colors.metal, 0.28)
-      .setDepth(15);
-
-    this.add.text(28, 522, beat.title, {
-      fontFamily: FONT.serif,
-      fontSize: '21px',
-      color: UI.colors.text,
+    const herb = Number(this.registry.get('runLootHerb') ?? 0);
+    const bagText = herb > 0 ? `Сумка · ${herb}` : 'Сумка';
+    const bagLabel = this.add.text(w - 20, 89, bagText, {
+      fontFamily: 'Georgia, "Times New Roman", serif',
+      fontSize: '19px',
+      color: C.ink,
       fontStyle: 'bold',
-    }).setDepth(16);
+    }).setOrigin(1, 0.5).setInteractive({ useHandCursor: true });
+    bagLabel.on('pointerdown', () => this.openBag());
 
-    this.add.text(28, 555, beat.text, {
-      fontFamily: FONT.sans,
-      fontSize: '12px',
-      color: UI.colors.textMuted,
-      wordWrap: { width: 334 },
-      lineSpacing: 4,
-    }).setDepth(16);
-  }
-
-  private drawParty() {
-    const totalWidth = UI.hero.width * 4 + UI.hero.gap * 3;
-    const startX = (UI.width - totalWidth) / 2 + UI.hero.width / 2;
-    const y = 700;
+    const gap = 7;
+    const left = 20;
+    const total = w - 40;
+    const segW = (total - gap * 3) / 4;
 
     for (let i = 0; i < 4; i++) {
-      const x = startX + i * (UI.hero.width + UI.hero.gap);
-      this.drawHeroCard(x, y, i);
+      this.add.rectangle(
+        left + segW / 2 + i * (segW + gap),
+        119,
+        segW,
+        5,
+        i <= this.step ? C.gold : C.line,
+        1,
+      );
     }
   }
 
-  private drawHeroCard(x: number, y: number, index: number) {
-    const selected = index === this.selectedHero;
-    const unlocked = index === 0;
-    const card = this.add.rectangle(x, y, UI.hero.width, UI.hero.height, UI.colors.surface, 0.93)
-      .setStrokeStyle(selected ? 2 : 1, selected ? UI.colors.emerald : UI.colors.metalSoft, selected ? 0.95 : 0.42)
-      .setInteractive({ useHandCursor: true })
-      .setDepth(30);
+  private drawRoundIconButton(x: number, y: number, glyph: string, callback: () => void) {
+    const outer = this.add.circle(x, y, 26, C.deep, 1)
+      .setStrokeStyle(1, 0xa99c82, 1)
+      .setInteractive({ useHandCursor: true });
 
-    const portraitY = y - 16;
-    this.add.circle(x, portraitY - 6, 20, unlocked ? 0x435a50 : 0x263432, 1).setDepth(31);
-    this.add.circle(x, portraitY - 11, 7, unlocked ? 0xc9bda7 : 0x52605b, 1).setDepth(32);
-    if (unlocked) {
-      this.add.rectangle(x, portraitY + 8, 24, 18, 0x394b45, 1).setDepth(32);
-      this.add.text(x, portraitY + 28, 'АДАМ', { fontFamily: FONT.sans, fontSize: '8px', color: UI.colors.text, fontStyle: 'bold' }).setOrigin(0.5).setDepth(32);
-    } else {
-      this.add.text(x, portraitY + 4, '+', { fontFamily: FONT.sans, fontSize: '18px', color: UI.colors.textDim }).setOrigin(0.5).setDepth(32);
+    this.add.circle(x, y, 22, 0x4e5c62, 0.5).setStrokeStyle(1, 0x56656b, 1);
+    this.add.circle(x, y, 19, C.deep, 1);
+
+    this.add.text(x, y - 1, glyph, {
+      fontFamily: 'Georgia, "Times New Roman", serif',
+      fontSize: glyph === '‹' ? '30px' : '20px',
+      color: C.goldCss,
+      fontStyle: 'bold',
+    }).setOrigin(0.5);
+
+    outer.on('pointerdown', callback);
+  }
+
+  private drawRoadScene() {
+    const view = this.getView();
+    const top = 132;
+    const h = 507;
+    const bottom = top + h;
+
+    const g = this.add.graphics();
+
+    // Atmospheric background.
+    g.fillStyle(C.scene, 1).fillRect(0, top, 390, h);
+    g.fillStyle(0xb9c2bd, 0.72).fillRect(0, top, 390, 135);
+    g.fillStyle(0x91a3a0, 0.52).fillRect(0, top + 110, 390, 125);
+
+    // Distant ridges.
+    g.fillStyle(C.sceneMid, 0.72);
+    g.fillTriangle(-40, top + 250, 90, top + 86, 220, top + 250);
+    g.fillTriangle(126, top + 250, 268, top + 65, 440, top + 250);
+
+    g.fillStyle(C.sceneDark, 0.74);
+    g.fillTriangle(-55, top + 305, 72, top + 155, 200, top + 305);
+    g.fillTriangle(170, top + 305, 318, top + 145, 455, top + 305);
+
+    // Forest walls: broad silhouettes, not detailed art yet.
+    for (let i = 0; i < 7; i++) {
+      const lx = -12 + i * 27;
+      const rx = 402 - i * 27;
+      const peak = top + 120 + (i % 3) * 24;
+
+      g.fillStyle(i % 2 ? C.forestDark : C.forest, 0.92);
+      g.fillTriangle(lx - 52, bottom - 70, lx + 16, peak, lx + 82, bottom - 70);
+      g.fillTriangle(rx - 82, bottom - 70, rx - 16, peak + 8, rx + 52, bottom - 70);
     }
 
-    this.add.text(x - 22, y - 35, unlocked ? '✦' : '·', {
-      fontFamily: FONT.serif,
-      fontSize: '11px',
-      color: unlocked ? '#72d3aa' : UI.colors.textDim,
-    }).setDepth(33);
+    // Ground.
+    g.fillStyle(0x6c786c, 1).fillRect(0, top + 285, 390, h - 285);
 
-    this.add.rectangle(x, y + 33, 48, 4, UI.colors.hpBack, 1).setDepth(31);
-    this.add.rectangle(x - 24, y + 33, unlocked ? 44 : 0, 3, UI.colors.hp, unlocked ? 1 : 0).setOrigin(0, 0.5).setDepth(32);
+    // Perspective road.
+    g.fillStyle(C.roadDark, 1);
+    g.fillTriangle(72, bottom, 195, top + 205, 318, bottom);
+    g.fillStyle(C.road, 0.96);
+    g.fillTriangle(102, bottom, 195, top + 224, 287, bottom);
 
-    card.on('pointerdown', () => {
-      if (!unlocked) {
-        this.showToast('Свободный слот отряда');
-        return;
-      }
-      this.registry.set('selectedHero', index);
-      this.selectedHero = index;
-      this.scene.restart();
-    });
+    // Soft center highlight gives the road the old mockup's readable path.
+    g.fillStyle(0xb2ad98, 0.22);
+    g.fillTriangle(142, bottom, 195, top + 250, 248, bottom);
+
+    // Roadside stones / moss.
+    for (let i = 0; i < 12; i++) {
+      const yy = top + 315 + i * 15;
+      const spread = 61 + i * 7;
+      this.add.ellipse(195 - spread, yy, 22 + (i % 3) * 7, 11, C.moss, 0.72);
+      this.add.ellipse(195 + spread, yy + 6, 20 + (i % 4) * 6, 10, 0x516558, 0.72);
+    }
+
+    // Pale fog strips.
+    for (let i = 0; i < 4; i++) {
+      const fog = this.add.ellipse(36 + i * 105, top + 170 + (i % 2) * 42, 170, 34, 0xe2e3da, 0.08);
+      this.tweens.add({
+        targets: fog,
+        x: fog.x + 14,
+        duration: 3800 + i * 450,
+        yoyo: true,
+        repeat: -1,
+        ease: 'Sine.InOut',
+      });
+    }
+
+    if (view.visual === 'herb') this.drawHerb(top);
+    if (view.visual === 'tracks') this.drawTracks(top);
+    if (view.visual === 'wolves') this.drawWolves(top);
+    if (view.visual === 'cleared') this.drawCleared(top);
   }
 
-  private drawActionSurface() {
-    const y = UI.height - UI.safe - UI.action.height / 2;
-    const width = UI.width - UI.safe * 2;
-    const centerWidth = width - UI.action.quickWidth * 2;
+  private drawHerb(top: number) {
+    const x = 287;
+    const y = top + 366;
 
-    this.add.rectangle(UI.width / 2, y, width, UI.action.height, UI.colors.surface, 0.97)
-      .setStrokeStyle(1, UI.colors.metal, 0.52)
-      .setDepth(40);
+    const glow = this.add.circle(x, y, 28, C.gold, 0.12)
+      .setStrokeStyle(1, C.gold, 0.55);
 
-    this.drawQuickAction(UI.safe + UI.action.quickWidth / 2, y, '⌁', 'Карта', () => this.openModal('map'));
-    this.drawQuickAction(UI.width - UI.safe - UI.action.quickWidth / 2, y, '◇', 'Сумка', () => this.openModal('bag'));
-
-    this.add.line(UI.safe + UI.action.quickWidth, y - 25, 0, 0, 0, 50, UI.colors.metal, 0.22).setDepth(41);
-    this.add.line(UI.width - UI.safe - UI.action.quickWidth, y - 25, 0, 0, 0, 50, UI.colors.metal, 0.22).setDepth(41);
-
-    this.primarySurface = this.add.rectangle(UI.width / 2, y, centerWidth, UI.action.height - 8, UI.colors.surfaceRaised, 0.94)
-      .setInteractive({ useHandCursor: true })
-      .setDepth(41);
-
-    this.add.text(UI.width / 2, y - 22, '⌇', {
-      fontFamily: FONT.serif,
-      fontSize: '13px',
-      color: '#6fd2a7',
-    }).setOrigin(0.5).setDepth(42);
-
-    const beat = BEATS[this.beat];
-    this.actionLabel = this.add.text(UI.width / 2, y - 5, beat.action, {
-      fontFamily: FONT.sans,
-      fontSize: '13px',
-      color: UI.colors.text,
-      fontStyle: 'bold',
-    }).setOrigin(0.5).setDepth(42);
-
-    this.actionHint = this.add.text(UI.width / 2, y + 17, beat.hint, {
-      fontFamily: FONT.sans,
-      fontSize: '9px',
-      color: this.beat === 2 ? '#caa06d' : UI.colors.textMuted,
-    }).setOrigin(0.5).setDepth(42);
-
-    this.primarySurface.on('pointerdown', () => this.pressPrimary());
-  }
-
-  private drawQuickAction(x: number, y: number, icon: string, label: string, callback: () => void) {
-    const zone = this.add.rectangle(x, y, UI.action.quickWidth, UI.action.height, UI.colors.surface, 0.01)
-      .setInteractive({ useHandCursor: true })
-      .setDepth(43);
-
-    this.add.text(x, y - 13, icon, {
-      fontFamily: FONT.serif,
-      fontSize: '16px',
-      color: '#6ebf9d',
-    }).setOrigin(0.5).setDepth(44);
-    this.add.text(x, y + 14, label, {
-      fontFamily: FONT.sans,
-      fontSize: '9px',
-      color: UI.colors.textMuted,
-      fontStyle: 'bold',
-    }).setOrigin(0.5).setDepth(44);
-
-    zone.on('pointerdown', () => {
-      this.tweens.add({ targets: zone, scaleX: 0.94, scaleY: 0.94, duration: 70, yoyo: true, onComplete: callback });
-    });
-  }
-
-  private pressPrimary() {
-    if (!this.primarySurface || !this.actionLabel || !this.actionHint) return;
-
-    this.primarySurface.setFillStyle(UI.colors.surfacePressed, 1);
-    this.primarySurface.setStrokeStyle(1, UI.colors.metal, 0.36);
-    this.actionHint.setText('Путь откликается…').setColor('#7ccaaa');
-
-    const line = this.add.rectangle(UI.width / 2, UI.height - UI.safe - 3, 0, 2, UI.colors.emerald, 0.8).setDepth(45);
     this.tweens.add({
-      targets: line,
-      width: 188,
-      duration: 260,
-      ease: 'Sine.Out',
-      onComplete: () => {
-        line.destroy();
-        if (this.beat < BEATS.length - 1) {
-          this.registry.set('travelBeat', this.beat + 1);
-          this.scene.restart();
-        } else {
-          this.registry.set('battleStage', 0);
-          this.registry.set('heroHp', 20);
-          this.registry.set('wolfHp', 12);
-          this.registry.set('leaderHp', 18);
-          this.scene.start('BattleScene');
-        }
-      },
+      targets: glow,
+      alpha: { from: 0.10, to: 0.25 },
+      scale: { from: 0.92, to: 1.12 },
+      duration: 1000,
+      yoyo: true,
+      repeat: -1,
+    });
+
+    const g = this.add.graphics();
+    g.lineStyle(3, 0x46624f, 1);
+    g.beginPath();
+    g.moveTo(x, y + 15);
+    g.lineTo(x, y - 12);
+    g.strokePath();
+
+    g.fillStyle(0x617b61, 1);
+    g.fillEllipse(x - 8, y - 4, 14, 7);
+    g.fillEllipse(x + 8, y - 9, 14, 7);
+    g.fillEllipse(x - 6, y - 15, 11, 6);
+
+    this.add.text(x + 31, y - 26, 'Лечебная трава', {
+      fontFamily: 'Georgia, "Times New Roman", serif',
+      fontSize: '13px',
+      color: C.ink,
+      backgroundColor: '#34434bcc',
+      padding: { x: 8, y: 5 },
+    }).setOrigin(1, 0.5);
+  }
+
+  private drawTracks(top: number) {
+    const prints = [
+      [214, top + 305, -0.25],
+      [185, top + 350, 0.22],
+      [223, top + 397, -0.18],
+      [190, top + 445, 0.16],
+    ] as const;
+
+    prints.forEach(([x, y, rot]) => {
+      this.add.ellipse(x, y, 16, 21, 0x3c403c, 0.6).setRotation(rot);
+      this.add.circle(x - 7, y - 11, 3, 0x3c403c, 0.55);
+      this.add.circle(x, y - 14, 3, 0x3c403c, 0.55);
+      this.add.circle(x + 7, y - 10, 3, 0x3c403c, 0.55);
     });
   }
 
-  private openModal(kind: ModalKind) {
-    if (this.modal) return;
+  private drawWolves(top: number) {
+    this.drawWolfSilhouette(164, top + 248, 0.88);
+    this.drawWolfSilhouette(235, top + 233, 1.08);
 
-    const overlay = this.add.rectangle(UI.width / 2, UI.height / 2, UI.width, UI.height, 0x020807, 0.58)
+    this.add.rectangle(195, top + 310, 172, 31, C.deep, 0.78)
+      .setStrokeStyle(1, C.gold, 0.45);
+    this.add.text(195, top + 310, 'ПУТЬ ПЕРЕКРЫТ', {
+      fontFamily: 'Georgia, "Times New Roman", serif',
+      fontSize: '12px',
+      color: C.goldCss,
+      fontStyle: 'bold',
+      letterSpacing: 1,
+    }).setOrigin(0.5);
+  }
+
+  private drawWolfSilhouette(x: number, y: number, scale: number) {
+    const body = this.add.ellipse(x, y, 58 * scale, 33 * scale, 0x313b3d, 0.93);
+    const head = this.add.circle(x + 24 * scale, y - 14 * scale, 15 * scale, 0x313b3d, 0.93);
+    const tail = this.add.triangle(
+      x - 32 * scale,
+      y - 4 * scale,
+      0,
+      10,
+      32,
+      0,
+      7,
+      18,
+      0x313b3d,
+      0.93,
+    );
+    const earA = this.add.triangle(x + 17 * scale, y - 34 * scale, 0, 15, 8, 0, 15, 15, 0x313b3d, 0.95);
+    const earB = this.add.triangle(x + 29 * scale, y - 33 * scale, 0, 15, 8, 0, 15, 15, 0x313b3d, 0.95);
+    [body, head, tail, earA, earB].forEach(o => o.setDepth(3));
+    this.add.circle(x + 29 * scale, y - 15 * scale, 2.2, C.gold, 0.9).setDepth(4);
+  }
+
+  private drawCleared(top: number) {
+    const light = this.add.ellipse(195, top + 205, 126, 56, 0xefe0b6, 0.10);
+    this.tweens.add({
+      targets: light,
+      alpha: { from: 0.06, to: 0.18 },
+      scaleX: { from: 0.95, to: 1.08 },
+      duration: 1800,
+      yoyo: true,
+      repeat: -1,
+    });
+
+    this.add.rectangle(195, top + 320, 154, 34, C.deep, 0.78)
+      .setStrokeStyle(1, C.gold, 0.5);
+    this.add.text(195, top + 320, 'ДОРОГА СВОБОДНА', {
+      fontFamily: 'Georgia, "Times New Roman", serif',
+      fontSize: '12px',
+      color: C.goldCss,
+      fontStyle: 'bold',
+    }).setOrigin(0.5);
+  }
+
+  private drawCopy() {
+    const view = this.getView();
+    const top = 639;
+    const h = 205;
+
+    this.add.rectangle(195, top + h / 2, 390, h, C.surface, 1);
+
+    this.add.text(20, top + 14, view.title, {
+      fontFamily: 'Georgia, "Times New Roman", serif',
+      fontSize: '29px',
+      color: C.ink,
+      fontStyle: 'bold',
+      lineSpacing: 0,
+    });
+
+    this.add.text(20, top + 56, view.text, {
+      fontFamily: 'Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+      fontSize: '16px',
+      color: C.muted,
+      wordWrap: { width: 350 },
+      lineSpacing: 4,
+    });
+
+    const buttonY = 804;
+    const button = this.add.rectangle(195, buttonY, 350, 64, C.deep, 1)
+      .setStrokeStyle(1, 0xaa9b7d, 1)
+      .setInteractive({ useHandCursor: true });
+
+    this.add.rectangle(195, buttonY, 344, 58, 0x4a5960, 0)
+      .setStrokeStyle(3, 0x4a5960, 1);
+
+    this.add.text(38, buttonY, view.button, {
+      fontFamily: 'Georgia, "Times New Roman", serif',
+      fontSize: '20px',
+      color: C.goldCss,
+      fontStyle: 'bold',
+    }).setOrigin(0, 0.5);
+
+    this.add.text(349, buttonY - 1, '›', {
+      fontFamily: 'Georgia, "Times New Roman", serif',
+      fontSize: '31px',
+      color: C.goldCss,
+      fontStyle: 'bold',
+    }).setOrigin(0.5);
+
+    button.on('pointerdown', () => this.advance());
+  }
+
+  private advance() {
+    if (this.step === 0) {
+      this.registry.set('roadStep', 1);
+      this.scene.restart();
+      return;
+    }
+
+    if (this.step === 1 && !this.herbCollected) {
+      this.registry.set('herbCollected', true);
+      this.registry.set('runLootHerb', 1);
+      this.scene.restart();
+      return;
+    }
+
+    if (this.step === 1) {
+      this.registry.set('roadStep', 2);
+      this.scene.restart();
+      return;
+    }
+
+    if (this.step === 2 && !this.encounterFound) {
+      this.registry.set('encounterFound', true);
+      this.scene.restart();
+      return;
+    }
+
+    if (this.step === 2) {
+      this.registry.set('battleStage', 0);
+      this.registry.set('heroHp', 20);
+      this.registry.set('wolfHp', 12);
+      this.registry.set('leaderHp', 18);
+      this.scene.start('BattleScene');
+      return;
+    }
+
+    this.scene.start('RewardScene');
+  }
+
+  private openBag() {
+    if (this.sheet) return;
+
+    const herb = Number(this.registry.get('runLootHerb') ?? 0);
+    const overlay = this.add.rectangle(195, 422, 390, 844, 0x000000, 0.46)
       .setInteractive()
       .setDepth(100);
 
-    const panel = this.add.rectangle(UI.width / 2, 372, 330, 458, UI.colors.surface, 0.985)
-      .setStrokeStyle(1, UI.colors.metal, 0.58)
+    const panel = this.add.rectangle(195, 704, 354, 244, C.deep, 1)
+      .setStrokeStyle(1, 0x8f856f, 1)
       .setDepth(101);
 
-    const title = this.add.text(48, 168, kind === 'map' ? 'Карта' : 'Сумка', {
-      fontFamily: FONT.serif,
-      fontSize: '25px',
-      color: UI.colors.text,
+    const title = this.add.text(38, 610, 'Добыча похода', {
+      fontFamily: 'Georgia, "Times New Roman", serif',
+      fontSize: '24px',
+      color: C.goldCss,
       fontStyle: 'bold',
     }).setDepth(102);
 
-    const close = this.add.circle(329, 179, 22, UI.colors.surfaceRaised, 1)
-      .setStrokeStyle(1, UI.colors.metal, 0.45)
+    const label = this.add.text(38, 662, 'Лечебная трава', {
+      fontFamily: 'Inter, system-ui, sans-serif',
+      fontSize: '15px',
+      color: C.ink,
+    }).setDepth(102);
+
+    const value = this.add.text(344, 662, `×${herb}`, {
+      fontFamily: 'Georgia, "Times New Roman", serif',
+      fontSize: '18px',
+      color: C.goldCss,
+      fontStyle: 'bold',
+    }).setOrigin(1, 0).setDepth(102);
+
+    const note = this.add.text(38, 696, 'Перенесётся в инвентарь после завершения пути.', {
+      fontFamily: 'Inter, system-ui, sans-serif',
+      fontSize: '12px',
+      color: C.muted,
+      wordWrap: { width: 310 },
+    }).setDepth(102);
+
+    const close = this.add.rectangle(195, 786, 310, 48, C.surface, 1)
+      .setStrokeStyle(1, 0xaa9b7d, 1)
       .setInteractive({ useHandCursor: true })
       .setDepth(102);
-    const closeText = this.add.text(329, 178, '×', { fontFamily: FONT.sans, fontSize: '20px', color: UI.colors.textMuted }).setOrigin(0.5).setDepth(103);
 
-    const items: Phaser.GameObjects.GameObject[] = [overlay, panel, title, close, closeText];
+    const closeText = this.add.text(195, 786, 'Закрыть', {
+      fontFamily: 'Georgia, "Times New Roman", serif',
+      fontSize: '17px',
+      color: C.goldCss,
+      fontStyle: 'bold',
+    }).setOrigin(0.5).setDepth(103);
 
-    if (kind === 'map') {
-      items.push(...this.buildMapModal());
-    } else {
-      items.push(...this.buildBagModal());
-    }
-
-    this.modal = this.add.container(0, 0, items).setDepth(100);
-    close.on('pointerdown', () => this.closeModal());
-    overlay.on('pointerdown', () => this.closeModal());
+    this.sheet = this.add.container(0, 0, [overlay, panel, title, label, value, note, close, closeText]).setDepth(100);
+    close.on('pointerdown', () => this.closeBag());
+    overlay.on('pointerdown', () => this.closeBag());
   }
 
-  private buildMapModal(): Phaser.GameObjects.GameObject[] {
-    const items: Phaser.GameObjects.GameObject[] = [];
-    const line = this.add.graphics().setDepth(103);
-    line.lineStyle(2, UI.colors.metalSoft, 0.5);
-    line.beginPath();
-    line.moveTo(105, 520);
-    line.lineTo(147, 450);
-    line.lineTo(205, 398);
-    line.lineTo(258, 325);
-    line.lineTo(290, 254);
-    line.strokePath();
-    items.push(line);
-
-    const nodes = [
-      { x: 105, y: 520, label: 'Башня', active: true },
-      { x: 147, y: 450, label: 'Тракт', active: true },
-      { x: 205, y: 398, label: 'Лес', active: true },
-      { x: 258, y: 325, label: 'Ворота', active: this.beat >= 2 },
-      { x: 290, y: 254, label: 'Долина', active: false },
-    ];
-
-    nodes.forEach((n) => {
-      const c = this.add.circle(n.x, n.y, n.active ? 10 : 7, n.active ? UI.colors.emeraldSoft : UI.colors.surfaceRaised, 1)
-        .setStrokeStyle(1, n.active ? UI.colors.emerald : UI.colors.metalSoft, n.active ? 0.9 : 0.45)
-        .setDepth(104);
-      const t = this.add.text(n.x + 16, n.y - 7, n.label, {
-        fontFamily: FONT.sans,
-        fontSize: '10px',
-        color: n.active ? UI.colors.text : UI.colors.textDim,
-      }).setDepth(104);
-      items.push(c, t);
-    });
-
-    const copy = this.add.text(48, 566, 'Текущий путь отмечен живой руной. Остальные районы откроются позже.', {
-      fontFamily: FONT.sans,
-      fontSize: '10px',
-      color: UI.colors.textMuted,
-      wordWrap: { width: 288 },
-      lineSpacing: 3,
-    }).setDepth(104);
-    items.push(copy);
-    return items;
-  }
-
-  private buildBagModal(): Phaser.GameObjects.GameObject[] {
-    const items: Phaser.GameObjects.GameObject[] = [];
-    const rows = [
-      ['Лечебная трава', '×1', 'Восстанавливает силы между боями'],
-      ['Сухой корень', '×3', 'Алхимический материал'],
-      ['Пустой флакон', '×2', 'Для будущих настоев'],
-    ];
-
-    rows.forEach((row, i) => {
-      const y = 250 + i * 92;
-      const icon = this.add.circle(72, y, 18, UI.colors.surfaceRaised, 1).setStrokeStyle(1, UI.colors.metal, 0.34).setDepth(103);
-      const rune = this.add.text(72, y, i === 0 ? '❧' : i === 1 ? '⌁' : '◇', { fontFamily: FONT.serif, fontSize: '15px', color: i === 0 ? '#6fd2a7' : UI.colors.textMuted }).setOrigin(0.5).setDepth(104);
-      const name = this.add.text(105, y - 16, row[0], { fontFamily: FONT.serif, fontSize: '14px', color: UI.colors.text, fontStyle: 'bold' }).setDepth(103);
-      const amount = this.add.text(310, y - 16, row[1], { fontFamily: FONT.sans, fontSize: '10px', color: UI.colors.textMuted }).setOrigin(1, 0).setDepth(103);
-      const desc = this.add.text(105, y + 8, row[2], { fontFamily: FONT.sans, fontSize: '9px', color: UI.colors.textDim, wordWrap: { width: 190 } }).setDepth(103);
-      const divider = this.add.rectangle(195, y + 42, 246, 1, UI.colors.metalSoft, i < rows.length - 1 ? 0.22 : 0).setDepth(103);
-      items.push(icon, rune, name, amount, desc, divider);
-    });
-
-    return items;
-  }
-
-  private closeModal() {
-    this.modal?.destroy(true);
-    this.modal = undefined;
-  }
-
-  private showToast(message: string) {
-    const bg = this.add.rectangle(UI.width / 2, 620, 210, 36, UI.colors.surfaceRaised, 0.97)
-      .setStrokeStyle(1, UI.colors.metal, 0.35)
-      .setDepth(90);
-    const text = this.add.text(UI.width / 2, 620, message, { fontFamily: FONT.sans, fontSize: '10px', color: UI.colors.textMuted }).setOrigin(0.5).setDepth(91);
-    this.tweens.add({ targets: [bg, text], alpha: 0, y: '-=8', delay: 900, duration: 260, onComplete: () => { bg.destroy(); text.destroy(); } });
-  }
-
-  private drawTracks() {
-    const points = [[210, 402], [226, 434], [205, 465], [230, 495]];
-    points.forEach(([x, y], i) => {
-      const paw = this.add.ellipse(x, y, 8, 12, 0x0b1413, 0.62).setRotation(i % 2 ? -0.22 : 0.24);
-      paw.setDepth(4);
-      this.add.circle(x - 4, y - 7, 1.5, 0x0b1413, 0.55).setDepth(4);
-      this.add.circle(x + 1, y - 9, 1.4, 0x0b1413, 0.55).setDepth(4);
-      this.add.circle(x + 5, y - 6, 1.4, 0x0b1413, 0.55).setDepth(4);
-    });
-  }
-
-  private drawEncounterSilhouettes() {
-    this.drawWolf(146, 375, 0.86);
-    this.drawWolf(266, 354, 1.06);
-  }
-
-  private drawWolf(x: number, y: number, scale: number) {
-    const g = this.add.graphics().setDepth(5);
-    g.fillStyle(0x07100f, 0.94);
-    g.fillEllipse(x, y, 76 * scale, 42 * scale);
-    g.fillTriangle(x + 25 * scale, y - 8 * scale, x + 45 * scale, y - 32 * scale, x + 49 * scale, y - 1 * scale);
-    g.fillTriangle(x + 31 * scale, y - 26 * scale, x + 38 * scale, y - 46 * scale, x + 46 * scale, y - 21 * scale);
-    g.fillTriangle(x + 46 * scale, y - 25 * scale, x + 55 * scale, y - 45 * scale, x + 59 * scale, y - 18 * scale);
-    g.fillTriangle(x - 40 * scale, y, x - 68 * scale, y - 10 * scale, x - 37 * scale, y + 11 * scale);
-    this.add.circle(x + 41 * scale, y - 15 * scale, 1.8, UI.colors.amber, 0.8).setDepth(6);
+  private closeBag() {
+    this.sheet?.destroy(true);
+    this.sheet = undefined;
   }
 }
